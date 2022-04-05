@@ -121,6 +121,8 @@ return new class extends Migration
             $table->text('ifpedia_requirements')->nullable();
 
             $table->text('remarks')->nullable();
+
+            $table->ip('ipadd');
         });
     }
 
