@@ -10,7 +10,11 @@ class PatientController extends Controller
         return view('register');
     }
 
-    public function register_store() {
+    public function register_store(Request $request) {
+        $request->validate([
+
+        ]);
+
         
     }
 }
