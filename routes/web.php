@@ -24,8 +24,15 @@ Auth::routes(['verify' => true]);
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::group(['middleware' => ['guest']], function() {
+    Route::get('/patient_login', [PatientController::class, 'patient_login'])->name('patient_login');
     Route::get('/vaccination/register', [PatientController::class, 'register'])->name('vaccination.register');
     Route::post('/vaccination/register', [PatientController::class, 'register_store'])->name('vaccination_register_store');
+});
+
+Route::group(['middleware' => ['isAdmin', 'isEncoder']], function() {
+    Route::get('/patient_list', [PatientController::class, 'pending_list'])->name('patient_pending_list');
+    Route::get('/patient_list/view/{id}', [PatientController::class, 'patient_view'])->name('patient_view');
+    Route::post('/patient_list/view/{id}', [PatientController::class, 'patient_action'])->name('patient_action');
 });
 
 Route::group(['middleware' => ['isAdmin']], function() {
@@ -33,5 +40,5 @@ Route::group(['middleware' => ['isAdmin']], function() {
 });
 
 Route::get('/', function () {
-    return view('auth.login');
+    return view('login_select');
 })->name('main');

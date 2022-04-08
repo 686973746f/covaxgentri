@@ -57,4 +57,34 @@ class PatientController extends Controller
             'password' => Hash::make($request->password),
         ]);
     }
+
+    public function patient_login() {
+        return view('patient_login');
+    }
+
+    public function patient_auth() {
+        
+    }
+
+    public function pending_list() {
+        $list = Patient::where('is_approved', 0)
+        ->orderBy('created_at', 'asc')
+        ->paginate(10);
+
+        return view('patient_index', [
+            'list' => $list,
+        ]);
+    }
+
+    public function patient_view($id) {
+        $data = Patient::findOrFail($id);
+
+        return view('patient_view', [
+            'data' => $data,
+        ]);
+    }
+
+    public function patient_action() {
+        
+    }
 }

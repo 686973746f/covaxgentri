@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Patient extends Model
 {
@@ -106,4 +107,30 @@ class Patient extends Model
         'remarks',
         'ipadd',
     ];
+
+    public function getName() {
+        return $this->lname.", ".$this->fname.' '.$this->suffix." ".$this->mname;
+    }
+
+    public function getAddress() {
+        return $this->address_houseno.', '.$this->address_street.', BRGY. '.$this->address_brgy_text.', '.$this->address_citymun_text.', '.$this->address_province_text;
+    }
+
+    public function getAge() {
+        if(Carbon::parse($this->attributes['bdate'])->age > 0) {
+            return Carbon::parse($this->attributes['bdate'])->age;
+        }
+        else {
+            if (Carbon::parse($this->attributes['bdate'])->diff(\Carbon\Carbon::now())->format('%m') == 0) {
+                return Carbon::parse($this->attributes['bdate'])->diff(\Carbon\Carbon::now())->format('%d DAYS');
+            }
+            else {
+                return Carbon::parse($this->attributes['bdate'])->diff(\Carbon\Carbon::now())->format('%m MOS');
+            }
+        }
+    }
+
+    public function getAgeInt() {
+        return Carbon::parse($this->attributes['bdate'])->age;
+    }
 }
