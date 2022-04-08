@@ -2,10 +2,20 @@
 
 @section('content')
     <form action="{{route('vaccination_register_store')}}" method="POST" autocapitalize="characters" autocomplete="off">
-        <div class="container">
+        @csrf
+        <div class="container" style="font-family: Arial, Helvetica, sans-serif;">
             <div class="card border-success">
                 <div class="card-header bg-success text-white"><strong>Register</strong></div>
                 <div class="card-body">
+                    @if($errors->any())
+                    <div class="alert alert-danger" role="alert">
+                        <p>{{Str::plural('Error', $errors->count())}} detected while creating the CIF of the Patient:</p>
+                        <hr>
+                        @foreach ($errors->all() as $error)
+                            <li>{{$error}}</li>
+                        @endforeach
+                    </div>
+                    @endif
                     <div class="alert alert-info" role="alert">
                         <strong>Note:</strong> All Fields marked with an asterisk (<span class="text-danger"><strong>*</strong></span>) are required. We enjoin you to provide only true and accurate information to avoid the penalties as provided in the law.
                     </div>
@@ -69,13 +79,13 @@
                                     <div class="col-md-3">
                                         <div class="mb-3">
                                             <label for="mname" class="form-label">Middle Name <i><small>(If Applicable)</small></i></label>
-                                            <input type="text" class="form-control" name="mname" id="mname" value="{{old('mname')}}" maxlength="50" required>
+                                            <input type="text" class="form-control" name="mname" id="mname" value="{{old('mname')}}" maxlength="50">
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="mb-3">
                                             <label for="suffix" class="form-label">Suffix <i><small>(If Applicable)</small></i></label>
-                                            <input type="text" class="form-control" name="suffix" id="suffix" value="{{old('suffix')}}" maxlength="3" placeholder="e.g JR, SR, III, IV" required>
+                                            <input type="text" class="form-control" name="suffix" id="suffix" value="{{old('suffix')}}" maxlength="3" placeholder="e.g JR, SR, III, IV">
                                         </div>
                                     </div>
                                 </div>
@@ -83,7 +93,7 @@
                                     <div class="col-md-3">
                                         <div class="mb-3">
                                           <label for="bdate" class="form-label"><span class="text-danger font-weight-bold">*</span>Birthdate</label>
-                                          <input type="date" class="form-control" name="bdate" id="bdate" min="1900-01-01" max="{{date('Y-m-d', strtotime('yesterday'))}}" required>
+                                          <input type="date" class="form-control" name="bdate" id="bdate" value="{{old('bdate')}}" min="1900-01-01" max="{{date('Y-m-d', strtotime('yesterday'))}}" required>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
@@ -186,7 +196,7 @@
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <label for="address_province_code" class="form-label"><span class="text-danger font-weight-bold">*</span>Province</label>
-                                            <select class="form-select" name="address_province_code	" id="address_province_code" required>
+                                            <select class="form-select" name="address_province_code" id="address_province_code" required>
                                             </select>
                                         </div>
                                     </div>
@@ -241,8 +251,8 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="mb-3">
-                                            <label for="password1" class="form-label"><span class="text-danger font-weight-bold">*</span>Repeat Password</label>
-                                            <input type="password" class="form-control" name="password1" id="password1" maxlength="30">
+                                            <label for="password_confirmation" class="form-label"><span class="text-danger font-weight-bold">*</span>Repeat Password</label>
+                                            <input type="password" class="form-control" name="password_confirmation" id="password_confirmation" maxlength="30">
                                         </div>
                                     </div>
                                 </div>

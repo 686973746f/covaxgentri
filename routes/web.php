@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\PatientController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PatientController;
+use App\Http\Controllers\VaccinatorNameController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,10 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::group(['middleware' => ['guest']], function() {
     Route::get('/vaccination/register', [PatientController::class, 'register'])->name('vaccination.register');
     Route::post('/vaccination/register', [PatientController::class, 'register_store'])->name('vaccination_register_store');
+});
+
+Route::group(['middleware' => ['isAdmin']], function() {
+    Route::get('/admin/vaccinators', [VaccinatorNameController::class, 'index'])->name('vaccinators_index');
 });
 
 Route::get('/', function () {
