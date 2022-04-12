@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Http\Middleware\IsAdmin;
+use App\Http\Middleware\IfPatient;
 use App\Http\Middleware\IsEncoder;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -67,5 +68,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'isAdmin' => IsAdmin::class,
         'isEncoder' => IsEncoder::class,
+        'isPatient' => IfPatient::class,
     ];
 }

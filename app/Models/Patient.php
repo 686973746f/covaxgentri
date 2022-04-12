@@ -3,12 +3,13 @@
 namespace App\Models;
 
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Patient extends Model
+class Patient extends Authenticatable
 {
-    use HasFactory;
+    use Notifiable;
 
     protected $fillable = [
         'is_approved',

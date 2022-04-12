@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PatientController;
+use App\Http\Controllers\PatientLoginController;
 use App\Http\Controllers\VaccinatorNameController;
 
 /*
@@ -21,15 +22,17 @@ use App\Http\Controllers\VaccinatorNameController;
 
 Auth::routes(['verify' => true]);
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/patient/home', [PatientController::class, 'patient_home'])->name('patient_home');
 
 Route::group(['middleware' => ['guest']], function() {
-    Route::get('/patient_login', [PatientController::class, 'patient_login'])->name('patient_login');
-    Route::get('/vaccination/register', [PatientController::class, 'register'])->name('vaccination.register');
-    Route::post('/vaccination/register', [PatientController::class, 'register_store'])->name('vaccination_register_store');
+    Route::get('/patient_login', [PatientLoginController::class, 'patient_login'])->name('patient_login');
+    Route::post('/patient_login', [PatientLoginController::class, 'authenticate'])->name('patient_authenticate');
+    Route::get('/vaccination/register', [PatientRegistrationController::class, 'register'])->name('vaccination.register');
+    Route::post('/vaccination/register', [PatientRegistrationController::class, 'register_store'])->name('vaccination_register_store');
 });
 
 Route::group(['middleware' => ['isAdmin', 'isEncoder']], function() {
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/patient_list', [PatientController::class, 'pending_list'])->name('patient_pending_list');
     Route::get('/patient_list/view/{id}', [PatientController::class, 'patient_view'])->name('patient_view');
     Route::post('/patient_list/view/{id}', [PatientController::class, 'patient_action'])->name('patient_action');
