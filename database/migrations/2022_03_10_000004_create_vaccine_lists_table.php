@@ -20,6 +20,9 @@ return new class extends Migration
             $table->string('default_batchno');
             $table->string('default_lotno');
             $table->date('expiration_date')->nullable();
+
+            $table->foreignId('created_by')->nullable()->constrained('users')->onDelete('cascade');
+            $table->foreignId('updated_by')->nullable()->constrained('users')->onDelete('cascade');
         });
     }
 

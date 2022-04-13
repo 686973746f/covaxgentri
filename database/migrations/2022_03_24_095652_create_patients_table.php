@@ -123,7 +123,7 @@ return new class extends Migration
 
             $table->text('remarks')->nullable();
 
-            $table->ip('ipadd');
+            $table->ipAddress('ipadd');
         });
     }
 

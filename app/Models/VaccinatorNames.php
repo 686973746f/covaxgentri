@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class VaccinatorNames extends Model
 {
@@ -15,4 +16,12 @@ class VaccinatorNames extends Model
         'mname',
         'suffix',
     ];
+
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
+
+    public function getName() {
+        return $this->lname.", ".$this->fname.' '.$this->suffix." ".$this->mname;
+    }
 }

@@ -11,6 +11,10 @@ class Patient extends Authenticatable
 {
     use Notifiable;
 
+    public function username() {
+        return 'username';
+    }
+
     protected $fillable = [
         'is_approved',
         'qr_id',

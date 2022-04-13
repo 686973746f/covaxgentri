@@ -30,6 +30,9 @@ return new class extends Migration
             $table->time('time_end');
             $table->tinyInteger('is_mobile_vaccination');
             $table->text('notes');
+
+            $table->foreignId('created_by')->constrained('users')->onDelete('cascade');
+            $table->foreignId('updated_by')->nullable()->constrained('users')->onDelete('cascade');
         });
     }
 

@@ -4,8 +4,12 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PatientController;
+use App\Http\Controllers\VaccineListController;
 use App\Http\Controllers\PatientLoginController;
 use App\Http\Controllers\VaccinatorNameController;
+use App\Http\Controllers\VaccinationCenterController;
+use App\Http\Controllers\PatientRegistrationController;
+use App\Http\Controllers\VaccinationScheduleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,8 +21,6 @@ use App\Http\Controllers\VaccinatorNameController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-
 
 Auth::routes(['verify' => true]);
 
@@ -40,6 +42,10 @@ Route::group(['middleware' => ['isAdmin', 'isEncoder']], function() {
 
 Route::group(['middleware' => ['isAdmin']], function() {
     Route::get('/admin/vaccinators', [VaccinatorNameController::class, 'index'])->name('vaccinators_index');
+    Route::post('/admin/vaccinators', [VaccinatorNameController::class, 'store'])->name('vaccinators_store');
+    Route::get('/admin/vaccination_centers', [VaccinationCenterController::class, 'index'])->name('vaccinationcenters_index');
+    Route::get('/admin/vaccine_list', [VaccineListController::class, 'index'])->name('vaccinelist_index');
+    Route::get('/admin/vaccination_schedule', [VaccinationScheduleController::class, 'index'])->name('vaccinationschedule_index');
 });
 
 Route::get('/', function () {

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Patient;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class PatientRegistrationController extends Controller
 {
@@ -53,6 +55,8 @@ class PatientRegistrationController extends Controller
 
             'username' => $request->username,
             'password' => Hash::make($request->password),
+
+            'ipadd' => request()->ip(),
         ]);
     }
 }

@@ -22,12 +22,20 @@ class PatientLoginController extends Controller
     public function patient_login() {
         return view('patient_login');
     }
+
+    public function username() {
+        return 'username';
+    }
     
     public function authenticate(Request $request) {
         $credentials = $request->only('username', 'password');
         
         if (Auth::guard('patient')->attempt($credentials)) {
-            return redirect()->route('patient_home');
+            $user = Patient::where('username', $request->username)->first();
+
+            Auth::guard('patient')->login($user);
+
+            return redirect()->intended(route('patient_home'));
         }
         else {
             $un = Patient::where('username', $request->username)->first();

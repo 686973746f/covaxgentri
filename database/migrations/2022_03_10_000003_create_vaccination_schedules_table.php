@@ -25,6 +25,9 @@ return new class extends Migration
             $table->integer('max_slots');
             //$table->foreignId('vaccine_id')->constrained('vaccine_lists')->onDelete('cascade');
             $table->foreignId('vaccination_center_id')->constrained('vaccination_centers')->onDelete('cascade');
+
+            $table->foreignId('created_by')->constrained('users')->onDelete('cascade');
+            $table->foreignId('updated_by')->nullable()->constrained('users')->onDelete('cascade');
         });
     }
 
