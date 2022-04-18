@@ -18,6 +18,7 @@ class VaccineListController extends Controller
 
     public function store(Request $request) {
         $request->validate([
+            'vaccine_name' => 'required',
         ]);
 
         $request->user()->vaccinelist()->create([

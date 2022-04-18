@@ -62,7 +62,7 @@
                     <div class="card card-body">
                         <div class="d-grid gap-2">
                             <a href="" class="btn btn-lg btn-primary">Manage Vaccination Schedules</a>
-                            <a href="" class="btn btn-lg btn-primary">Manage Vaccination Centers</a>
+                            <a href="{{route('vaccinationcenters_index')}}" class="btn btn-lg btn-primary">Manage Vaccination Centers</a>
                             <a href="{{route('vaccinelist_index')}}" class="btn btn-lg btn-primary">List of Vaccines</a>
                             <a href="{{route('vaccinators_index')}}" class="btn btn-lg btn-primary">List of Vaccinators</a>
                             <hr>

@@ -24,12 +24,31 @@
                 {{session('msg')}}
             </div>
             @endif
-            
+            <table class="table table-striped table-bordered">
+                <thead class="text-center">
+                    <tr>
+                        <th>#</th>
+                        <th>Vaccine Name</th>
+                        <th>Batch #</th>
+                        <th>Lot #</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($list as $item)
+                    <tr>
+                        <td scope="row">{{$loop->iteration}}</td>
+                        <td><a href="">{{$item->vaccine_name}}</a></td>
+                        <td>{{$item->default_batchno}}</td>
+                        <td>{{}}</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
 
-<form action="{{route('vaccinators_store')}}" method="POST">
+<form action="{{route('vaccinelist_store')}}" method="POST">
     @csrf
     <div class="modal fade" id="addmodal" tabindex="-1">
         <div class="modal-dialog">
@@ -53,7 +72,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="expiration_date" class="form-label">Expiration Date</label>
-                    <input type="date" class="form-control" name="expiration_date" id="expiration_date" value="{{old('expiration_date')}}" min="{{date('Y-m-d', strtotime('+1 Day'))}}" max="{{date('Y-12-31', strtotime('+1 Year'))}}" required>
+                    <input type="date" class="form-control" name="expiration_date" id="expiration_date" value="{{old('expiration_date')}}" min="{{date('Y-m-d', strtotime('+1 Day'))}}" max="{{date('Y-12-31', strtotime('+1 Year'))}}">
                 </div>
             </div>
             <div class="modal-footer">

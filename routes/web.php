@@ -43,8 +43,13 @@ Route::group(['middleware' => ['isAdmin', 'isEncoder']], function() {
 Route::group(['middleware' => ['isAdmin']], function() {
     Route::get('/admin/vaccinators', [VaccinatorNameController::class, 'index'])->name('vaccinators_index');
     Route::post('/admin/vaccinators', [VaccinatorNameController::class, 'store'])->name('vaccinators_store');
+
     Route::get('/admin/vaccination_centers', [VaccinationCenterController::class, 'index'])->name('vaccinationcenters_index');
+    Route::post('/admin/vaccination_centers', [VaccinationCenterController::class, 'store'])->name('vaccinationcenters_store');
+
     Route::get('/admin/vaccine_list', [VaccineListController::class, 'index'])->name('vaccinelist_index');
+    Route::post('/admin/vaccine_list', [VaccineListController::class, 'store'])->name('vaccinelist_store');
+
     Route::get('/admin/vaccination_schedule', [VaccinationScheduleController::class, 'index'])->name('vaccinationschedule_index');
 });
 

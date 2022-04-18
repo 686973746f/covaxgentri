@@ -24,8 +24,8 @@ return new class extends Migration
             $table->string('vaccinationsite_region_code');
             $table->string('vaccinationsite_province');
             $table->string('vaccinationsite_province_code');
-            $table->string('site_province');
-            $table->string('site_province_code');
+            $table->string('vaccinationsite_citymun');
+            $table->string('vaccinationsite_citymun_code');
             $table->time('time_start');
             $table->time('time_end');
             $table->tinyInteger('is_mobile_vaccination');
