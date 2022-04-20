@@ -26,10 +26,12 @@ return new class extends Migration
             $table->string('vaccinationsite_province_code');
             $table->string('vaccinationsite_citymun');
             $table->string('vaccinationsite_citymun_code');
+            $table->string('vaccinationsite_brgy');
+            $table->string('vaccinationsite_brgy_code');
             $table->time('time_start');
             $table->time('time_end');
             $table->tinyInteger('is_mobile_vaccination');
-            $table->text('notes');
+            $table->text('notes')->nullable();
 
             $table->foreignId('created_by')->constrained('users')->onDelete('cascade');
             $table->foreignId('updated_by')->nullable()->constrained('users')->onDelete('cascade');

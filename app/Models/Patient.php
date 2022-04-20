@@ -138,4 +138,19 @@ class Patient extends Authenticatable
     public function getAgeInt() {
         return Carbon::parse($this->attributes['bdate'])->age;
     }
+
+    public function getCurrentDose() {
+        if($this->booster_is_attended == 1) {
+            return 3;
+        }
+        else if($this->seconddose_is_attended == 1) {
+            return 2;
+        }
+        else if($this->firstdose_is_attended == 1) {
+            return 1;
+        }
+        else {
+            return 0;
+        }
+    }
 }

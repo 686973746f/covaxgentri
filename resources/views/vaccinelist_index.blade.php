@@ -39,7 +39,7 @@
                         <td scope="row">{{$loop->iteration}}</td>
                         <td><a href="">{{$item->vaccine_name}}</a></td>
                         <td>{{$item->default_batchno}}</td>
-                        <td>{{}}</td>
+                        <td>{{$item->default_lotno}}</td>
                     </tr>
                     @endforeach
                 </tbody>

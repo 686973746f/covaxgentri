@@ -28,6 +28,10 @@
                                         <div class="form-group">
                                           <label for="vaccination_center_id" class="form-label">Select Vaccination Center</label>
                                           <select class="form-select" name="vaccination_center_id" id="vaccination_center_id">
+                                            <option value="" disabled {{(is_null(old('vaccination_center_id'))) ? 'selected' : ''}}>Choose...</option>
+                                            @foreach($vcenter_list as $vc)
+                                            <option value="{{$vc->id}}">{{$vc->name}}</option>
+                                            @endforeach
                                           </select>
                                         </div>
                                     </div>
@@ -35,7 +39,11 @@
                                 <div class="form-group mb-3">
                                   <label for="select_vaccine" class="form-label">Select Vaccine</label>
                                   <select class="form-select" name="select_vaccine" id="select_vaccine">
-                                        <option value=""></option>
+                                      <option value="" disabled {{(is_null(old('select_vaccine'))) ? 'selected' : ''}}>Choose</option>
+                                      @foreach($vaccine_list as $vl)
+                                      <option value="{{$vl->id}}" {{(old('select_vaccine') == $vl->id) ? 'selected' : ''}}>{{$vl->vaccine_name}}</option>
+                                      @endforeach
+                                      <option value="All" {{(old('select_vaccine') == 'All') ? 'selected' : ''}}>All</option>
                                   </select>
                                 </div>
                             </div>
@@ -61,20 +69,18 @@
                 <div class="collapse" id="apcol">
                     <div class="card card-body">
                         <div class="d-grid gap-2">
-                            <a href="" class="btn btn-lg btn-primary">Manage Vaccination Schedules</a>
-                            <a href="{{route('vaccinationcenters_index')}}" class="btn btn-lg btn-primary">Manage Vaccination Centers</a>
-                            <a href="{{route('vaccinelist_index')}}" class="btn btn-lg btn-primary">List of Vaccines</a>
-                            <a href="{{route('vaccinators_index')}}" class="btn btn-lg btn-primary">List of Vaccinators</a>
+                            <a href="{{route('vaccinationschedule_index')}}" class="btn btn-primary">Manage Vaccination Schedules</a>
+                            <a href="{{route('vaccinationcenters_index')}}" class="btn btn-primary">Manage Vaccination Centers</a>
+                            <a href="{{route('vaccinelist_index')}}" class="btn btn-primary">List of Vaccines</a>
+                            <a href="{{route('vaccinators_index')}}" class="btn btn-primary">List of Vaccinators</a>
                             <hr>
-                            <a href="" class="btn btn-lg btn-primary">List of System Users</a>
+                            <a href="" class="btn btn-primary">List of System Users</a>
                         </div>
                     </div>
                 </div>
             </div>
-            
-            
-            
         </div>
     </div>
 </div>
+
 @endsection

@@ -63,7 +63,7 @@ return new class extends Migration
             $table->tinyInteger('firstdose_is_deferred')->nullable();
             $table->text('firstdose_deferred_reason')->nullable();
             $table->date('firstdose_deferred_date')->nullable();
-            $table->tinyInteger('firstdose_is_attended')->nullable();
+            $table->tinyInteger('firstdose_is_attended')->default(0);
             $table->date('firstdose_original_date')->nullable();
             $table->date('firstdose_date')->nullable();
             $table->tinyInteger('firstdose_is_local')->default(1);
@@ -80,7 +80,7 @@ return new class extends Migration
             $table->tinyInteger('seconddose_is_deferred')->nullable();
             $table->text('seconddose_deferred_reason')->nullable();
             $table->date('seconddose_deferred_date')->nullable();
-            $table->tinyInteger('seconddose_is_attended')->nullable();
+            $table->tinyInteger('seconddose_is_attended')->default(0);
             $table->date('seconddose_original_date')->nullable();
             $table->date('seconddose_date')->nullable();
             $table->tinyInteger('seconddose_is_local')->default(1);
@@ -97,7 +97,7 @@ return new class extends Migration
             $table->tinyInteger('booster_is_deferred')->nullable();
             $table->text('booster_deferred_reason')->nullable();
             $table->date('booster_deferred_date')->nullable();
-            $table->tinyInteger('booster_is_attended')->nullable();
+            $table->tinyInteger('booster_is_attended')->default(0);
             $table->date('booster_original_date')->nullable();
             $table->tinyInteger('booster_is_local')->default(1);
             $table->date('booster_date')->nullable();

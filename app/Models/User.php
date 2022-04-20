@@ -4,7 +4,9 @@ namespace App\Models;
 
 use App\Models\VaccineList;
 use App\Models\VaccinatorNames;
+use App\Models\VaccinationCenter;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\VaccinationSchedule;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -50,5 +52,13 @@ class User extends Authenticatable
 
     public function vaccinelist() {
         return $this->hasMany(VaccineList::class, 'created_by');
+    }
+
+    public function vaccinationcenter() {
+        return $this->hasMany(VaccinationCenter::class, 'created_by');
+    }
+
+    public function vaccinationschedule() {
+        return $this->hasMany(VaccinationSchedule::class, 'created_by');
     }
 }

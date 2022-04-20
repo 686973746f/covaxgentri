@@ -24,7 +24,11 @@ use App\Http\Controllers\VaccinationScheduleController;
 
 Auth::routes(['verify' => true]);
 
-Route::get('/patient/home', [PatientController::class, 'patient_home'])->name('patient_home');
+Route::group(['middleware' => ['isPatient']], function() {
+    Route::get('/patient/home', [PatientController::class, 'patient_home'])->name('patient_home');
+    Route::get('/patient/find_schedule', [PatientController::class, 'findschedule_index'])->name('findschedule_index');
+    Route::get('/patient/find_schedule/verify/{vaccination_schedule_id}', [PatientController::class, 'findschedule_verify'])->name('findschedule_verify');
+});
 
 Route::group(['middleware' => ['guest']], function() {
     Route::get('/patient_login', [PatientLoginController::class, 'patient_login'])->name('patient_login');
@@ -51,6 +55,7 @@ Route::group(['middleware' => ['isAdmin']], function() {
     Route::post('/admin/vaccine_list', [VaccineListController::class, 'store'])->name('vaccinelist_store');
 
     Route::get('/admin/vaccination_schedule', [VaccinationScheduleController::class, 'index'])->name('vaccinationschedule_index');
+    Route::post('/admin/vaccination_schedule', [VaccinationScheduleController::class, 'createsched'])->name('vaccinationschedule_createsched');
 });
 
 Route::get('/', function () {
