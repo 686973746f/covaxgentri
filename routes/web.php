@@ -28,6 +28,7 @@ Route::group(['middleware' => ['isPatient']], function() {
     Route::get('/patient/home', [PatientController::class, 'patient_home'])->name('patient_home');
     Route::get('/patient/find_schedule', [PatientController::class, 'findschedule_index'])->name('findschedule_index');
     Route::get('/patient/find_schedule/verify/{vaccination_schedule_id}', [PatientController::class, 'findschedule_verify'])->name('findschedule_verify');
+    Route::post('/patient/find_schedule/verify/{vaccination_schedule_id}', [PatientController::class, 'findschedule_accept'])->name('findschedule_accept');
 });
 
 Route::group(['middleware' => ['guest']], function() {

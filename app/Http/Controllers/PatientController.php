@@ -50,4 +50,8 @@ class PatientController extends Controller
             'data' => $data,
         ]);
     }
+
+    public function findschedule_accept($id) {
+        
+    }
 }

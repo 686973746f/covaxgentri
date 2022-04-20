@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <form action="" method="POST">
+    <form action="{{route('findschedule_accept')}}" method="POST">
         @csrf
         <div class="card">
             <div class="card-header">Confirm</div>
@@ -10,7 +10,7 @@
                 
             </div>
             <div class="card-footer">
-                
+                <button type="submit" class="btn btn-primary">Submit</button>
             </div>
         </div>
     </form>
