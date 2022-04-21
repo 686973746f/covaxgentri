@@ -11,7 +11,7 @@
             </div>
             @endif
             <div class="d-grid gap-2">
-                <a href="{{route('patient_pending_list')}}" class="btn btn-lg btn-primary">Patient Registration</a>
+                <a href="{{route('patient_view_index')}}" class="btn btn-lg btn-primary">Patient Registration</a>
                 <a class="btn btn-lg btn-primary" data-bs-toggle="collapse" href="#ecol" role="button">Encode Vaccination</a>
                 <div class="collapse" id="ecol">
                     <form action="" method="GET">

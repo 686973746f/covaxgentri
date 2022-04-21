@@ -17,6 +17,7 @@ class Patient extends Authenticatable
 
     protected $fillable = [
         'is_approved',
+        'date_processed',
         'qr_id',
         'unique_person_id',
         'username',
@@ -151,6 +152,27 @@ class Patient extends Authenticatable
         }
         else {
             return 0;
+        }
+    }
+
+    public function getNextBakuna() {
+        if($this->booster_is_attended == 1) {
+            return 'FINISHED';
+        }
+        else if($this->seconddose_is_attended == 1) {
+            return 'BOOSTER';
+        }
+        else if($this->firstdose_is_attended == 1) {
+            return '2ND DOSE';
+        }
+        else {
+            return '1ST DOSE';
+        }
+    }
+
+    public function getPendingSchedule() {
+        if(is_null(auth()->user()->firstdose_schedule_id)) {
+            
         }
     }
 }

@@ -21,6 +21,7 @@ return new class extends Migration
             $table->foreignId('updated_by')->nullable()->constrained('users')->onDelete('cascade');
 
             $table->tinyInteger('is_approved');
+            $table->timestamp('date_processed')->nullable();
             $table->text('action_remarks')->nullable();
             $table->text('qr_id')->nullable();
             $table->text('unique_person_id')->nullable();
