@@ -45,11 +45,11 @@ class AdminController extends Controller
             ->with('msgtype', 'success');
         }
         else {
-            $patient->
+            $patient->action_remarks = $request->action_remarks;
             $patient->save();
 
             return redirect()->route('patient_view_index')
-            ->with('msg', 'Patient '.$patient->getName().' (ID #'.$patient->id.') has been successfully approved.')
+            ->with('msg', 'Patient '.$patient->getName().' (ID #'.$patient->id.') has been successfully rejected.')
             ->with('msgtype', 'success');
         }
     }

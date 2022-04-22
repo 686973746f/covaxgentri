@@ -14,36 +14,36 @@
                 <a href="{{route('patient_view_index')}}" class="btn btn-lg btn-primary">Patient Registration</a>
                 <a class="btn btn-lg btn-primary" data-bs-toggle="collapse" href="#ecol" role="button">Encode Vaccination</a>
                 <div class="collapse" id="ecol">
-                    <form action="" method="GET">
+                    <form action="{{route('encodevaccination_index')}}" method="GET">
                         <div class="card">
                             <div class="card-body">
                                 <div class="row mb-3">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                          <label for="scheddate" class="form-label">Schedule Date</label>
-                                          <input type="date" class="form-control" name="scheddate" id="scheddate" value="{{old('scheddate', date('Y-m-d'))}}">
+                                          <label for="for_date" class="form-label">Schedule Date</label>
+                                          <input type="date" class="form-control" name="for_date" id="for_date" value="{{old('for_date', date('Y-m-d'))}}" required>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                           <label for="vaccination_center_id" class="form-label">Select Vaccination Center</label>
-                                          <select class="form-select" name="vaccination_center_id" id="vaccination_center_id">
+                                          <select class="form-select" name="vaccination_center_id" id="vaccination_center_id" required>
                                             <option value="" disabled {{(is_null(old('vaccination_center_id'))) ? 'selected' : ''}}>Choose...</option>
                                             @foreach($vcenter_list as $vc)
-                                            <option value="{{$vc->id}}">{{$vc->name}}</option>
+                                            <option value="{{$vc->id}}" {{(old('vaccination_center_id') == $vc->id) ? 'selected' : ''}}>{{$vc->name}}</option>
                                             @endforeach
                                           </select>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group mb-3">
-                                  <label for="select_vaccine" class="form-label">Select Vaccine</label>
-                                  <select class="form-select" name="select_vaccine" id="select_vaccine">
-                                      <option value="" disabled {{(is_null(old('select_vaccine'))) ? 'selected' : ''}}>Choose</option>
+                                  <label for="vaccinelist_id" class="form-label">Select Vaccine</label>
+                                  <select class="form-select" name="vaccinelist_id" id="vaccinelist_id" required>
+                                      <option value="" disabled {{(is_null(old('vaccinelist_id'))) ? 'selected' : ''}}>Choose</option>
                                       @foreach($vaccine_list as $vl)
-                                      <option value="{{$vl->id}}" {{(old('select_vaccine') == $vl->id) ? 'selected' : ''}}>{{$vl->vaccine_name}}</option>
+                                      <option value="{{$vl->id}}" {{(old('vaccinelist_id') == $vl->id) ? 'selected' : ''}}>{{$vl->vaccine_name}}</option>
                                       @endforeach
-                                      <option value="All" {{(old('select_vaccine') == 'All') ? 'selected' : ''}}>All</option>
+                                      <option value="All" {{(old('vaccinelist_id') == 'All') ? 'selected' : ''}}>All</option>
                                   </select>
                                 </div>
                             </div>

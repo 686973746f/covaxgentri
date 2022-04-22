@@ -44,6 +44,10 @@ Route::group(['middleware' => ['isAdmin', 'isEncoder']], function() {
     Route::get('/patient_list', [AdminController::class, 'pending_list'])->name('patient_view_index');
     Route::get('/patient_list/view/{id}', [AdminController::class, 'patient_view'])->name('patient_view');
     Route::post('/patient_list/view/{id}', [AdminController::class, 'patient_action'])->name('patient_action');
+
+    Route::get('/encode_vaccination', [HomeController::class, 'encodevaccination_index'])->name('encodevaccination_index');
+    Route::get('/encode_vaccination/view/{patient_id}/{get_date}', [HomeController::class, 'encodevaccination_viewpatient'])->name('encodevaccination_viewpatient');
+    Route::post('/encode_vaccination/view/{patient_id}/{vaccinationschedule_id}', [HomeController::class, 'encodevaccination_actions'])->name('encodevaccination_actions');
 });
 
 Route::group(['middleware' => ['isAdmin']], function() {

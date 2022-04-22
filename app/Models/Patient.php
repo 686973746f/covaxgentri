@@ -170,9 +170,18 @@ class Patient extends Authenticatable
         }
     }
 
-    public function getPendingSchedule() {
-        if(is_null(auth()->user()->firstdose_schedule_id)) {
-            
+    public function getCurrentSchedId() {
+        if(!is_null($this->firstdose_schedule_id) && is_null($this->firstdose_date)) {
+            return $this->firstdose_schedule_id;
+        }
+        else if(!is_null($this->seconddose_schedule_id) && is_null($this->seconddose_date)) {
+            return $this->seconddose_schedule_id;
+        }
+        else if(!is_null($this->booster_schedule_id) && is_null($this->booster_date)) {
+            return $this->booster_schedule_id;
+        }
+        else {
+            return NULL;
         }
     }
 }

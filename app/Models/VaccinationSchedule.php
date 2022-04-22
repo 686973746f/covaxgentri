@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\User;
 use App\Models\VaccineList;
+use App\Models\VaccinationCenter;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -30,5 +31,9 @@ class VaccinationSchedule extends Model
 
     public function vaccinelist() {
         return $this->belongsTo(VaccineList::class, 'vaccinelist_id');
+    }
+
+    public function vaccinationcenter() {
+        return $this->belongsTo(VaccinationCenter::class, 'vaccination_center_id');
     }
 }
