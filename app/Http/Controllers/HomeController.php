@@ -52,6 +52,12 @@ class HomeController extends Controller
             ->pluck('id')->toArray();
         }
 
+        session([
+            'session_vaccinelist_id' => request()->input('vaccinelist_id'),
+            'session_for_date' => request()->input('for_date'),
+            'session_vaccination_center_id' => request()->input('vaccination_center_id')
+        ]);
+
         //Should be also filtered by Vaccine Type soon
         $pending_list = Patient::where(function ($q) use ($sched_list) {
             $q->where(function ($r) use ($sched_list) {
@@ -103,13 +109,14 @@ class HomeController extends Controller
         $vschedule = VaccinationSchedule::findOrFail($vaccinationschedule_id);
 
         if($request->submit == 'accept') {
-            if($patient->getNextBakuna == $vschedule->sched_type) {
+            if($patient->getNextBakuna() == $vschedule->sched_type) {
                 if($vschedule->sched_type == '1ST DOSE') {
                     $patient->firstdose_is_deferred = 0;
                     $patient->firstdose_is_attended = 1;
-                    $patient->firstdose_date = $patient->firstdose_original_date;
+                    $patient->firstdose_date = date('Y-m-d H:i:s');
                     $patient->firstdose_location = $vschedule->vaccinationcenter->name;
                     $patient->firstdose_site_injection = $request->site_injection;
+                    $patient->firstdose_vaccine_id = $vschedule->vaccinelist_id;
                     $patient->firstdose_name = $vschedule->vaccinelist->vaccine_name;
                     $patient->firstdose_batchno = (!is_null($request->batchno)) ? $request->batchno : $vschedule->vaccinelist->default_batchno;
                     $patient->firstdose_lotno = (!is_null($request->lotno)) ? $request->lotno : $vschedule->vaccinelist->default_lotno;
@@ -119,9 +126,10 @@ class HomeController extends Controller
                 else if($vschedule->sched_type == '2ND DOSE') {
                     $patient->seconddose_is_deferred = 0;
                     $patient->seconddose_is_attended = 1;
-                    $patient->seconddose_date = $patient->seconddose_original_date;
+                    $patient->seconddose_date = date('Y-m-d H:i:s');
                     $patient->seconddose_location = $vschedule->vaccinationcenter->name;
                     $patient->seconddose_site_injection = $request->site_injection;
+                    $patient->seconddose_vaccine_id = $vschedule->vaccinelist_id;
                     $patient->seconddose_name = $vschedule->vaccinelist->vaccine_name;
                     $patient->seconddose_batchno = (!is_null($request->batchno)) ? $request->batchno : $vschedule->vaccinelist->default_batchno;
                     $patient->seconddose_lotno = (!is_null($request->lotno)) ? $request->lotno : $vschedule->vaccinelist->default_lotno;
@@ -131,26 +139,80 @@ class HomeController extends Controller
                 else if($vschedule->sched_type == 'BOOSTER') {
                     $patient->booster_is_deferred = 0;
                     $patient->booster_is_attended = 1;
-                    $patient->booster_date = $patient->booster_original_date;
+                    $patient->booster_date = date('Y-m-d H:i:s');
                     $patient->booster_location = $vschedule->vaccinationcenter->name;
                     $patient->booster_site_injection = $request->site_injection;
+                    $patient->booster_vaccine_id = $vschedule->vaccinelist_id;
                     $patient->booster_name = $vschedule->vaccinelist->vaccine_name;
                     $patient->booster_batchno = (!is_null($request->batchno)) ? $request->batchno : $vschedule->vaccinelist->default_batchno;
                     $patient->booster_lotno = (!is_null($request->lotno)) ? $request->lotno : $vschedule->vaccinelist->default_lotno;
                     $patient->booster_adverse_events = $request->adverse_events;
                     $patient->booster_vaccinator_name = $request->vaccinator_name;
                 }
+                else if($vschedule->sched_type == 'BOOSTER2') {
+                    $patient->boostertwo_is_deferred = 0;
+                    $patient->boostertwo_is_attended = 1;
+                    $patient->boostertwo_date = date('Y-m-d H:i:s');
+                    $patient->boostertwo_location = $vschedule->vaccinationcenter->name;
+                    $patient->boostertwo_site_injection = $request->site_injection;
+                    $patient->boostertwo_schedule_id = $vschedule->vaccinelist_id;
+                    $patient->boostertwo_name = $vschedule->vaccinelist->vaccine_name;
+                    $patient->boostertwo_batchno = (!is_null($request->batchno)) ? $request->batchno : $vschedule->vaccinelist->default_batchno;
+                    $patient->boostertwo_lotno = (!is_null($request->lotno)) ? $request->lotno : $vschedule->vaccinelist->default_lotno;
+                    $patient->boostertwo_adverse_events = $request->adverse_events;
+                    $patient->boostertwo_vaccinator_name = $request->vaccinator_name;
+                }
 
                 $patient->save();
                 
-                return redirect()->route('')
+                return redirect()->route('encodevaccination_index', [
+                    'for_date' => session('session_for_date'),
+                    'vaccination_center_id' => session('session_vaccination_center_id'),
+                    'vaccinelist_id' => session('vaccinelist_id'),
+                ])
+                ->with('msg', 'Patient has been accepted successfully.')
+                ->with('msgtype', 'success');
             }
             else {
-
+                return abort(401);
             }
         }
         else {
+            if($patient->getNextBakuna() == $vschedule->sched_type) {
+                if($vschedule->sched_type == '1ST DOSE') {
+                    $patient->firstdose_is_deferred = 1;
+                    $patient->firstdose_deferred_reason = $request->deferred_reason;
+                    $patient->firstdose_deferred_date = date('Y-m-d H:i:s');
+                }
+                else if($vschedule->sched_type == '2ND DOSE') {
+                    $patient->seconddose_is_deferred = 1;
+                    $patient->seconddose_deferred_reason = $request->deferred_reason;
+                    $patient->seconddose_deferred_date = date('Y-m-d H:i:s');
+                }
+                else if($vschedule->sched_type == 'BOOSTER') {
+                    $patient->booster_is_deferred = 1;
+                    $patient->booster_deferred_reason = $request->deferred_reason;
+                    $patient->booster_deferred_date = date('Y-m-d H:i:s');
+                }
+                else if($vschedule->sched_type == 'BOOSTER2') {
+                    $patient->boostertwo_is_deferred = 1;
+                    $patient->boostertwo_deferred_reason = $request->deferred_reason;
+                    $patient->boostertwo_deferred_date = date('Y-m-d H:i:s');
+                }
 
+                $patient->save();
+
+                return redirect()->route('encodevaccination_index', [
+                    'for_date' => session('session_for_date'),
+                    'vaccination_center_id' => session('session_vaccination_center_id'),
+                    'vaccinelist_id' => session('vaccinelist_id'),
+                ])
+                ->with('msg', 'Patient was rejected.')
+                ->with('msgtype', 'success');
+            }
+            else {
+                return abort(401);
+            }
         }
     }
 

@@ -3,8 +3,26 @@
 @section('content')
 <div class="container">
     <div class="card">
-        <div class="card-header">Encode Vaccination</div>
+        <div class="card-header">
+            <p><strong>Encode Vaccination for {{date('m/d/Y - D', strtotime(session('session_for_date')))}}</strong></p>
+            <hr>
+            <div class="row">
+                <div class="col-md-6"><p>Selected Vaccination Site:</p></div>
+                <div class="col-md-6"><p>Selected Vaccine:</p></div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-6"><p>Pending Patients Count:</p></div>
+                <div class="col-md-6"><p>Completed Patients Count:</p></div>
+            </div>
+            <p>Total: </p>
+        </div>
         <div class="card-body">
+            @if(session('msg'))
+            <div class="alert alert-{{session('msgtype')}}" role="alert">
+                {{session('msg')}}
+            </div>
+            @endif
             <table class="table table-bordered table-striped">
                 <thead class="bg-light text-center">
                     <tr>

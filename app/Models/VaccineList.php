@@ -13,6 +13,8 @@ class VaccineList extends Model
         'vaccine_name',
         'default_batchno',
         'default_lotno',
-        'expiration_date',   
+        'expiration_date',
+        'if_firstdose_nextdosedays',
+        'is_singledose',
     ];
 }

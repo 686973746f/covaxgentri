@@ -54,7 +54,7 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Add Vaccinator</h5>
+                <h5 class="modal-title">Add Vaccine</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -63,12 +63,24 @@
                     <input type="text" class="form-control" name="vaccine_name" id="vaccine_name" value="{{old('vaccine_name')}}" required>
                 </div>
                 <div class="mb-3">
+                    <label for="short_name" class="form-label">Vaccine Short Name</label>
+                    <input type="text" class="form-control" name="short_name" id="short_name" value="{{old('short_name')}}">
+                </div>
+                <div class="mb-3">
                     <label for="default_batchno" class="form-label"><span class="text-danger font-weight-bold">*</span>Default Batch Number</label>
                     <input type="text" class="form-control" name="default_batchno" id="default_batchno" value="{{old('default_batchno')}}" required>
                 </div>
                 <div class="mb-3">
                     <label for="default_lotno" class="form-label"><span class="text-danger font-weight-bold">*</span>Default Lot Number</label>
                     <input type="text" class="form-control" name="default_lotno" id="default_lotno" value="{{old('default_lotno')}}" required>
+                </div>
+                <div class="mb-3">
+                    <label for="seconddose_nextdosedays" class="form-label"><span class="text-danger font-weight-bold">*</span>For 2nd Dose Duration (In Days)</label>
+                    <input type="number" class="form-control" name="seconddose_nextdosedays" id="seconddose_nextdosedays" value="{{old('seconddose_nextdosedays')}}" min="1" max="365" required>
+                </div>
+                <div class="mb-3">
+                    <label for="booster_nextdosedays" class="form-label"><span class="text-danger font-weight-bold">*</span>For Booster Duration (In Days)</label>
+                    <input type="number" class="form-control" name="booster_nextdosedays" id="seconddose_nextdosedays" value="{{old('booster_nextdosedays')}}" min="1" max="365" required>
                 </div>
                 <div class="mb-3">
                     <label for="expiration_date" class="form-label">Expiration Date</label>

@@ -23,9 +23,12 @@ class VaccineListController extends Controller
 
         $request->user()->vaccinelist()->create([
             'vaccine_name' => mb_strtoupper($request->vaccine_name),
+            'short_name' => mb_strtoupper($request->short_name),
             'default_batchno' => mb_strtoupper($request->default_batchno),
             'default_lotno' => mb_strtoupper($request->default_lotno),
             'expiration_date' => $request->expiration_date,
+            'seconddose_nextdosedays' => $request->seconddose_nextdosedays,
+            'booster_nextdosedays' => $request->booster_nextdosedays,
         ]);
 
         return redirect()->route('vaccinelist_index')
@@ -34,7 +37,7 @@ class VaccineListController extends Controller
     }
 
     public function edit() {
-
+        
     }
 
     public function update() {

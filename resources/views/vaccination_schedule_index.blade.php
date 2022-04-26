@@ -69,6 +69,7 @@
                         <option value="1ST DOSE" {{(old('sched_type') == '1ST DOSE') ? 'selected' : ''}}>1st Dose</option>
                         <option value="2ND DOSE" {{(old('sched_type') == '2ND DOSE') ? 'selected' : ''}}>2nd Dose</option>
                         <option value="BOOSTER" {{(old('sched_type') == 'BOOSTER') ? 'selected' : ''}}>Booster</option>
+                        <option value="BOOSTER2" {{(old('sched_type') == 'BOOSTER2') ? 'selected' : ''}}>Booster 2</option>
                     </select>
                 </div>
                 <div class="mb-3">

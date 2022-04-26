@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use App\Models\VaccineList;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -49,6 +50,8 @@ class Patient extends Authenticatable
         'email',
         'is_pwd',
         'is_indigenous',
+        'is_singledose',
+
         'firstdose_schedule_id',
         'firstdose_schedule_date_by_user',
         'firstdose_is_deferred',
@@ -60,6 +63,7 @@ class Patient extends Authenticatable
         'firstdose_is_local',
         'firstdose_location',
         'firstdose_site_injection',
+        'firstdose_vaccine_id',
         'firstdose_name',
         'firstdose_batchno',
         'firstdose_lotno',
@@ -77,6 +81,7 @@ class Patient extends Authenticatable
         'seconddose_is_local',
         'seconddose_location',
         'seconddose_site_injection',
+        'seconddose_vaccine_id',
         'seconddose_name',
         'seconddose_batchno',
         'seconddose_lotno',
@@ -94,11 +99,30 @@ class Patient extends Authenticatable
         'booster_date',
         'booster_location',
         'booster_site_injection',
+        'booster_vaccine_id',
         'booster_name',
         'booster_batchno',
         'booster_lotno',
         'booster_adverse_events',
         'booster_vaccinator_name',
+
+        'boostertwo_schedule_id',
+        'boostertwo_schedule_date_by_user',
+        'boostertwo_is_deferred',
+        'boostertwo_deferred_reason',
+        'boostertwo_deferred_date',
+        'boostertwo_is_attended',
+        'boostertwo_original_date',
+        'boostertwo_is_local',
+        'boostertwo_date',
+        'boostertwo_location',
+        'boostertwo_site_injection',
+        'boostertwo_vaccine_id',
+        'boostertwo_name',
+        'boostertwo_batchno',
+        'boostertwo_lotno',
+        'boostertwo_adverse_events',
+        'boostertwo_vaccinator_name',
 
         'comorbid_list',
         'allergy_list',
@@ -163,10 +187,69 @@ class Patient extends Authenticatable
             return 'BOOSTER';
         }
         else if($this->firstdose_is_attended == 1) {
-            return '2ND DOSE';
+            if ($this->is_singledose == 1) {
+                return 'BOOSTER';
+            }
+            else {
+                return '2ND DOSE';
+            }
         }
         else {
             return '1ST DOSE';
+        }
+    }
+
+    public function ifNextDoseReady() {
+        if($this->getNextBakuna() == '1ST DOSE') {
+            return true;
+        }
+        else if($this->getNextBakuna() == '2ND DOSE') {
+            $vdata = VaccineList::findOrFail($this->firstdose_vaccine_id);
+
+            $sdate = date('Y-m-d', strtotime($this->firstdose_date));
+
+            $diffInDays = Carbon::parse($sdate)->diffInDays(Carbon::now());
+            $daysToCompare = $vdata->seconddose_nextdosedays;
+        }
+        else if($this->getNextBakuna() == 'BOOSTER') {
+            if($this->is_singledose == 1) {
+                $sdate = date('Y-m-d', strtotime($this->firstdose_date));
+            }
+            else {
+                $sdate = date('Y-m-d', strtotime($this->seconddose_date));
+            }
+    
+            $diffInDays = Carbon::parse($sdate)->diffInDays(Carbon::now());
+    
+            $daysToCompare = 90; //3 Months
+        }
+        else if($this->getNextBakuna() == 'FINISHED') {
+            return false;
+        }
+        
+        if($diffInDays >= $daysToCompare) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public function ifBoosterReady() {
+        if($this->is_singledose == 1) {
+            $sdate = date('Y-m-d', strtotime($this->firstdose_date));
+        }
+        else {
+            $sdate = date('Y-m-d', strtotime($this->seconddose_date));
+        }
+
+        $diffInDays = Carbon::parse($sdate)->diffInDays(Carbon::now());
+
+        if($diffInDays >= 90) {
+            return true;
+        }
+        else {
+            return false;
         }
     }
 

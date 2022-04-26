@@ -17,7 +17,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Modal title</h5>
+                    <h5 class="modal-title">Accept Vaccination</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -36,11 +36,11 @@
                         <input type="text" class="form-control" value="{{$vschedule->vaccinelist->vaccine_name}}" readonly>
                     </div>
                     <div class="mb-3">
-                        <label for="batchno" class="form-label">Batch No.</label>
+                        <label for="batchno" class="form-label">Batch No. <small><i>(Optional, Will use Default Values if Left Blank)</i></small></label>
                         <input type="text" class="form-control" name="batchno" id="batchno" value="{{old('batchno')}}">
                     </div>
                     <div class="mb-3">
-                        <label for="lotno" class="form-label">Lot No.</label>
+                        <label for="lotno" class="form-label">Lot No. <small><i>(Optional, Will use Default Values if Left Blank)</i></small></label>
                         <input type="text" class="form-control" name="lotno" id="lotno" value="{{old('lotno')}}">
                     </div>
                     <div class="mb-3">
@@ -58,7 +58,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" name="submit" value="accept" class="btn btn-primary">Save</button>
+                    <button type="submit" name="submit" value="accept" class="btn btn-success">Submit</button>
                 </div>
             </div>
         </div>
@@ -70,16 +70,19 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Modal title</h5>
+                    <h5 class="modal-title">Defer Patient</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                 </div>
                 <div class="modal-body">
-                    Body
+                    <div class="form-group">
+                      <label for="deferred_reason" class="form-lable">Defer Reason</label>
+                      <input type="text" class="form-control" name="deferred_reason" id="deferred_reason" required>
+                    </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" name="submit" value="defer" class="btn btn-primary">Save</button>
+                    <button type="submit" name="submit" value="defer" class="btn btn-danger">Proceed</button>
                 </div>
             </div>
         </div>
