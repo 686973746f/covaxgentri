@@ -86,6 +86,13 @@
                     <label for="expiration_date" class="form-label">Expiration Date</label>
                     <input type="date" class="form-control" name="expiration_date" id="expiration_date" value="{{old('expiration_date')}}" min="{{date('Y-m-d', strtotime('+1 Day'))}}" max="{{date('Y-12-31', strtotime('+1 Year'))}}">
                 </div>
+                <div class="">
+                  <label for="is_singledose" class="form-label"><span class="text-danger font-weight-bold">*</span>Is Single Dose</label>
+                  <select class="form-select" name="is_singledose" id="is_singledose" required>
+                        <option value="0" {{(old('is_singledose') == 0) ? 'selected' : ''}}>No</option>
+                        <option value="1" {{(old('is_singledose') == 1) ? 'selected' : ''}}>Yes</option>
+                  </select>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-primary">Save</button>

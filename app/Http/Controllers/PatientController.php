@@ -30,6 +30,13 @@ class PatientController extends Controller
     }
 
     public function findschedule_index() {
+        //Second Dose Validation
+        if(auth()->guard('patient')->user()->getNextBakuna() == '2ND DOSE') {
+            if(request()->input('pref_vaccine') != auth()->guard('patient')->user()->getFirstBakunaDetails()->id) {
+                return abort(401);
+            }
+        }
+
         if(request()->input('pref_vaccine') == 'Any') {
             $sched_list = VaccinationSchedule::whereDate('for_date', '>=', date('Y-m-d'))
             ->where('vaccination_center_id', request()->input('pref_vcenter'))
@@ -59,6 +66,13 @@ class PatientController extends Controller
 
     public function findschedule_verify($id) {
         $data = VaccinationSchedule::findOrFail($id);
+
+        //Second Dose Validation
+        if(auth()->guard('patient')->user()->getNextBakuna() == '2ND DOSE') {
+            if($data->vaccinelist_id != auth()->guard('patient')->user()->getFirstBakunaDetails()->id) {
+                return abort(401);
+            }
+        }
 
         $yournextbakuna = auth()->guard('patient')->user()->getNextBakuna();
 
@@ -90,6 +104,13 @@ class PatientController extends Controller
     public function findschedule_accept($id) {
         $patient = Patient::findOrFail(auth()->guard('patient')->user()->id);
         $data = VaccinationSchedule::findOrFail($id);
+
+        //Second Dose Validation
+        if(auth()->guard('patient')->user()->getNextBakuna() == '2ND DOSE') {
+            if($data->vaccinelist_id != auth()->guard('patient')->user()->getFirstBakunaDetails()->id) {
+                return abort(401);
+            }
+        }
 
         $yournextbakuna = auth()->guard('patient')->user()->getNextBakuna();
 

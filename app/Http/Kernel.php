@@ -5,6 +5,7 @@ namespace App\Http;
 use App\Http\Middleware\IsAdmin;
 use App\Http\Middleware\IfPatient;
 use App\Http\Middleware\IsEncoder;
+use App\Http\Middleware\ifNextDoseReady;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -69,5 +70,6 @@ class Kernel extends HttpKernel
         'isAdmin' => IsAdmin::class,
         'isEncoder' => IsEncoder::class,
         'isPatient' => IfPatient::class,
+        'ifNextDoseReady' => ifNextDoseReady::class,
     ];
 }

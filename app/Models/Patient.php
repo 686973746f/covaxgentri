@@ -165,7 +165,10 @@ class Patient extends Authenticatable
     }
 
     public function getCurrentDose() {
-        if($this->booster_is_attended == 1) {
+        if($this->boostertwo_is_attended == 1) {
+            return 4;
+        }
+        else if($this->booster_is_attended == 1) {
             return 3;
         }
         else if($this->seconddose_is_attended == 1) {
@@ -179,9 +182,35 @@ class Patient extends Authenticatable
         }
     }
 
+    public function getCurrentDoseDate() {
+        if($this->boostertwo_is_attended == 1) {
+            return $this->boostertwo_date;
+        }
+        else if($this->booster_is_attended == 1) {
+            return $this->booster_date;
+        }
+        else if($this->seconddose_is_attended == 1) {
+            return $this->seconddose_date;
+        }
+        else if($this->firstdose_is_attended == 1) {
+            return $this->firstdose_date;
+        }
+        else {
+            return NULL;
+        }
+    }
+
+    public function getFirstBakunaDetails() {
+        $data = VaccineList::findOrFail($this->firstdose_vaccine_id);
+        return $data;
+    }
+
     public function getNextBakuna() {
-        if($this->booster_is_attended == 1) {
+        if($this->boostertwo_is_attended == 1) {
             return 'FINISHED';
+        }
+        else if($this->booster_is_attended == 1) {
+            return 'BOOSTER2';
         }
         else if($this->seconddose_is_attended == 1) {
             return 'BOOSTER';
@@ -196,6 +225,29 @@ class Patient extends Authenticatable
         }
         else {
             return '1ST DOSE';
+        }
+    }
+
+    public function ifHasPendingSchedule() {
+        if($this->getNextBakuna() == '1ST DOSE') {
+            if(!is_null($this->firstdose_schedule_id) && is_null($this->firstdose_date)) {
+                return true;
+            }
+        }
+        else if($this->getNextBakuna() == '2ND DOSE') {
+            if(!is_null($this->seconddose_schedule_id) && is_null($this->seconddose_date)) {
+                return true;
+            }
+        }
+        else if($this->getNextBakuna() == 'BOOSTER') {
+            if(!is_null($this->booster_schedule_id) && is_null($this->booster_date)) {
+                return true;
+            }
+        }
+        else if($this->getNextBakuna() == 'BOOSTER2') {
+            if(!is_null($this->boostertwo_vaccine_id) && is_null($this->boostertwo_date)) {
+                return true;
+            }
         }
     }
 
@@ -219,6 +271,12 @@ class Patient extends Authenticatable
                 $sdate = date('Y-m-d', strtotime($this->seconddose_date));
             }
     
+            $diffInDays = Carbon::parse($sdate)->diffInDays(Carbon::now());
+    
+            $daysToCompare = 90; //3 Months
+        }
+        else if($this->getNextBakuna() == 'BOOSTER2') {
+            $sdate = date('Y-m-d', strtotime($this->booster_date));
             $diffInDays = Carbon::parse($sdate)->diffInDays(Carbon::now());
     
             $daysToCompare = 90; //3 Months

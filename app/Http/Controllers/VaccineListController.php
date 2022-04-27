@@ -29,6 +29,7 @@ class VaccineListController extends Controller
             'expiration_date' => $request->expiration_date,
             'seconddose_nextdosedays' => $request->seconddose_nextdosedays,
             'booster_nextdosedays' => $request->booster_nextdosedays,
+            'is_singledose' => $request->is_singledose,
         ]);
 
         return redirect()->route('vaccinelist_index')

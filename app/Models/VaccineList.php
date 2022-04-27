@@ -14,7 +14,8 @@ class VaccineList extends Model
         'default_batchno',
         'default_lotno',
         'expiration_date',
-        'if_firstdose_nextdosedays',
+        'seconddose_nextdosedays',
+        'booster_nextdosedays',
         'is_singledose',
     ];
 }
