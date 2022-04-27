@@ -16,13 +16,13 @@ class ifNextDoseReady
      */
     public function handle(Request $request, Closure $next)
     {
-        if($request->user()->ifHasPendingSchedule()) {
+        if(auth()->guard('patient')->user()->ifHasPendingSchedule()) {
             return abort(401);
         }
-        else if($request->user()->getNextBakuna() == 'FINISHED') {
+        else if(auth()->guard('patient')->user()->getNextBakuna() == 'FINISHED') {
             return abort(401);
         }
-        else if($request->ifNextDoseReady()) {
+        else if(auth()->guard('patient')->user()->ifNextDoseReady()) {
             return $next($request);
         }
         else {

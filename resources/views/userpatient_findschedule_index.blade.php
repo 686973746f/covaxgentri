@@ -9,15 +9,20 @@
 </style>
 <div class="container" style="font-family: Arial, Helvetica, sans-serif">
     <div class="card">
-        <div class="card-header">Schedule Lookup</div>
+        <div class="card-header"><strong>Schedule Lookup</strong></div>
         <div class="card-body">
             @if(session('msg'))
             <div class="alert alert-{{session('msgtype')}}" role="alert">
                 {{session('msg')}}
             </div>
             @endif
-            <h3>Select Vaccination Schedule on <u>{{$vcenter->name}}</u></h3>
-            <h3>For Vaccine: <u>{{$for_vaccine}}</u></h3>
+            <div class="alert alert-info" role="alert">
+                <p class="h4">Showing Vaccination Schedule on</p>
+                <p class="h5">Vaccination Site: <u><strong>{{$vcenter->name}}</strong></u></p>
+                <p class="h5">Vaccine: <u><strong>{{$for_vaccine}}</strong></u></p>
+                <hr>
+                <p><strong class="text-danger">Note:</strong> Pumili ng schedule na naaayon sa araw na siguradong makakapunta ka.</p>
+            </div>
             <div id='calendar'></div>
         </div>
     </div>

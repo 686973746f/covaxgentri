@@ -151,6 +151,7 @@
                                         <div class="mb-3">
                                             <label for="contactno" class="form-label"><span class="text-danger font-weight-bold">*</span>Contact Number (Mobile)</label>
                                             <input type="text" class="form-control" id="contactno" name="contactno" value="{{old('contactno', '09')}}" pattern="[0-9]{11}" placeholder="09xxxxxxxxx" required>
+                                            <small class="text-muted">Paki-lagay ang iyong kasalukuyang aktibong mobile number upang ma-kontak ka ng aming mga staff.</small>
                                         </div>
                                     </div>
                                     <div class="col-md-4">

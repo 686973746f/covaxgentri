@@ -32,7 +32,16 @@ class AdminController extends Controller
         $patient->date_processed = date('Y-m-d H:i:s');
 
         if($request->action == 'accept') {
-            $for_qr = Str::random(20);
+            $foundunique = false;
+
+            while(!$foundunique) {
+                $for_qr = Str::random(20);
+                
+                $search = Patient::where('qr_id', $for_qr)->first();
+                if($search->count() == 0) {
+                    $foundunique = true;
+                }
+            }
             
             $patient->is_approved = 1;
             $patient->qr_id = $for_qr;
