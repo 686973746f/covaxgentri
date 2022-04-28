@@ -55,7 +55,7 @@
                                 <form action="{{route('currentsched_cancel')}}" method="POST">
                                     @csrf
                                     <div class="d-grid gap-2">
-                                        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to Cancel your Schedule? Click OK to Confirm.')">Cancel your Schedule</button>
+                                        <button type="submit" class="btn btn-danger" onclick="return confirm('Ikaw ay tatanggalin sa napiling schedule, Pindutin ang OK upang kumpirmahin ang iyong aksyon.')">I-Cancel ang iyong Schedule</button>
                                     </div>
                                 </form>
                             </div>

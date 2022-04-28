@@ -146,6 +146,7 @@ class PatientController extends Controller
     
                     return view('userpatient_findschedule_success', [
                         'data' => $data,
+                        'patient' => $patient,
                     ]);
                 }
                 else {
