@@ -119,18 +119,23 @@ class PatientController extends Controller
                 if($data->current_slots != $data->max_slots) {
                     if($data->sched_type == '1ST DOSE') {
                         $patient->firstdose_schedule_id = $data->id;
-                        $patient->firstdose_schedule_date_by_user = date('Y-m-d');
+                        $patient->firstdose_schedule_date_by_user = date('Y-m-d H:i:s');
                         $patient->firstdose_original_date = $data->for_date;
                     }
                     else if($data->sched_type == '2ND DOSE') {
                         $patient->seconddose_schedule_id = $data->id;
-                        $patient->seconddose_schedule_date_by_user = date('Y-m-d');
+                        $patient->seconddose_schedule_date_by_user = date('Y-m-d H:i:s');
                         $patient->seconddose_original_date = $data->for_date;
                     }
                     else if($data->sched_type == 'BOOSTER') {
                         $patient->booster_schedule_id  = $data->id;
-                        $patient->booster_schedule_date_by_user = date('Y-m-d');
+                        $patient->booster_schedule_date_by_user = date('Y-m-d H:i:s');
                         $patient->booster_original_date = $data->for_date;
+                    }
+                    else if($data->sched_type == 'BOOSTER2') {
+                        $patient->boostertwo_schedule_id  = $data->id;
+                        $patient->boostertwo_schedule_date_by_user = date('Y-m-d H:i:s');
+                        $patient->boostertwo_original_date = $data->for_date;
                     }
     
                     $data->current_slots = $data->current_slots + 1;
@@ -166,6 +171,51 @@ class PatientController extends Controller
     }
 
     public function currentsched_cancel() {
+        $patient = Patient::findOrFail(auth()->guard('patient')->user()->id);
+
         //Vaccination Schedule should not be cancelled on the stated date
+        if($patient->getNextBakuna() == '1ST DOSE') {
+            $getsched_id = $patient->firstdose_schedule_id;
+
+            $patient->firstdose_schedule_id = NULL;
+            $patient->firstdose_schedule_date_by_user = NULL;
+            $patient->firstdose_original_date = NULL;
+        }
+        else if($patient->getNextBakuna() == '2ND DOSE') {
+            $getsched_id = $patient->seconddose_schedule_id;
+
+            $patient->seconddose_schedule_id = NULL;
+            $patient->seconddose_schedule_date_by_user = NULL;
+            $patient->seconddose_original_date = NULL;
+        }
+        else if($patient->getNextBakuna() == 'BOOSTER') {
+            $getsched_id = $patient->booster_schedule_id;
+
+            $patient->booster_schedule_id = NULL;
+            $patient->booster_schedule_date_by_user = NULL;
+            $patient->booster_original_date = NULL;
+        }
+        else if($patient->getNextBakuna() == 'BOOSTER2') {
+            $getsched_id = $patient->boostertwo_schedule_id;
+
+            $patient->boostertwo_schedule_id  = NULL;
+            $patient->boostertwo_schedule_date_by_user = NULL;
+            $patient->boostertwo_original_date = NULL;
+        }
+        else {
+            return abort(401);
+        }
+
+        $vschedule = VaccinationSchedule::findOrFail($getsched_id);
+
+        $vschedule->current_slots = $vschedule->current_slots - 1;
+
+        $vschedule->save();
+
+        $patient->save();
+
+        return redirect()->route('patient_home')
+        ->with('msg', 'Your schedule has been successfully cancelled. You may pick another new schedule.')
+        ->with('msgtype', 'success');
     }
 }

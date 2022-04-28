@@ -75,9 +75,27 @@ class HomeController extends Controller
         })
         ->where('is_approved', 1)
         ->get();
+        
+        $completed_list = Patient::where(function ($q) use ($sched_list) {
+            $q->where(function ($r) use ($sched_list) {
+                $r->whereIn('firstdose_schedule_id', $sched_list)
+                ->where('firstdose_is_attended', 1);
+            })
+            ->orWhere(function ($r) use ($sched_list) {
+                $r->whereIn('seconddose_schedule_id', $sched_list)
+                ->where('seconddose_is_attended', 1);
+            })
+            ->orWhere(function ($r) use ($sched_list) {
+                $r->whereIn('booster_schedule_id', $sched_list)
+                ->where('booster_is_attended', 1);
+            });
+        })
+        ->where('is_approved', 1)
+        ->get();
 
         return view('encodevaccination_index', [
             'pending_list' => $pending_list,
+            'completed_list' => $completed_list,
         ]);
     }
 

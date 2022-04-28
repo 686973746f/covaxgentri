@@ -40,10 +40,10 @@
                                   <label for="vaccinelist_id" class="form-label">Select Vaccine</label>
                                   <select class="form-select" name="vaccinelist_id" id="vaccinelist_id" required>
                                       <option value="" disabled {{(is_null(old('vaccinelist_id'))) ? 'selected' : ''}}>Choose</option>
+                                      <option value="All" {{(old('vaccinelist_id') == 'All') ? 'selected' : ''}}>Show All</option>
                                       @foreach($vaccine_list as $vl)
                                       <option value="{{$vl->id}}" {{(old('vaccinelist_id') == $vl->id) ? 'selected' : ''}}>{{$vl->vaccine_name}}</option>
                                       @endforeach
-                                      <option value="All" {{(old('vaccinelist_id') == 'All') ? 'selected' : ''}}>All</option>
                                   </select>
                                 </div>
                             </div>

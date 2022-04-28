@@ -28,6 +28,8 @@ Auth::routes(['verify' => true]);
 Route::group(['middleware' => ['isPatient']], function() {
     Route::get('/patient/home', [PatientController::class, 'patient_home'])->name('patient_home');
     Route::get('/patient/find_schedule', [PatientController::class, 'findschedule_index'])->name('findschedule_index');
+
+    Route::post('/patient/home/sched_cancel', [PatientController::class, 'currentsched_cancel'])->name('currentsched_cancel');
 });
 
 Route::group(['middleware' => ['isPatient', 'ifNextDoseReady']], function() {

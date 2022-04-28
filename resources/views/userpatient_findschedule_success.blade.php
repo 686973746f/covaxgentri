@@ -13,6 +13,11 @@
                     <hr>
                     <p><strong>Account ID:</strong> {{auth()->guard('patient')->user()->id}}</p>
                     <p><strong>Full Name:</strong> {{auth()->guard('patient')->user()->getName()}}</p>
+                    <p><strong>Schedule #:</strong> {{auth()->guard('patient')->user()->getCurrentSchedData()->id}}</p>
+                    <p><strong>Type:</strong> {{auth()->guard('patient')->user()->getCurrentSchedData()->sched_type}}</p>
+                    <p><strong>Vaccination Center:</strong> {{auth()->guard('patient')->user()->getCurrentSchedData()->vaccinationcenter->name}} - {{auth()->guard('patient')->user()->getCurrentSchedData()->vaccinationcenter->getAddress()}}</p>
+                    <p><strong>Date:</strong> {{date('m/d/Y - l', strtotime(auth()->guard('patient')->user()->getCurrentSchedData()->for_date))}}</p>
+                    <p><strong>Vaccine:</strong> {{auth()->guard('patient')->user()->getCurrentSchedData()->vaccinelist->vaccine_name}}</p>
                     <p><i>(Maaari mo itong i-screenshot o i-print upang maging mas madali ang pag-proseso sa iyo ng mga Staff)</i></p>
                 </div>
             </div>

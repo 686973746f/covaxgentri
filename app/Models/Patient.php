@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use App\Models\VaccineList;
+use App\Models\VaccinationSchedule;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -324,5 +325,27 @@ class Patient extends Authenticatable
         else {
             return NULL;
         }
+    }
+
+    public function getCurrentSchedData() {
+        if(!is_null($this->firstdose_schedule_id) && is_null($this->firstdose_date)) {
+            $get_id = $this->firstdose_schedule_id;
+        }
+        else if(!is_null($this->seconddose_schedule_id) && is_null($this->seconddose_date)) {
+            $get_id = $this->seconddose_schedule_id;
+        }
+        else if(!is_null($this->booster_schedule_id) && is_null($this->booster_date)) {
+            $get_id = $this->booster_schedule_id;
+        }
+        else if(!is_null($this->boostertwo_schedule_id) && is_null($this->boosterboostertwo_date)) {
+            $get_id = $this->boosterboostertwo_schedule_id;
+        }
+        else {
+            return NULL;
+        }
+
+        $data = VaccinationSchedule::findOrFail($get_id);
+
+        return $data;
     }
 }

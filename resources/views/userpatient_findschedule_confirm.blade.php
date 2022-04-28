@@ -11,10 +11,10 @@
                     <div class="card-body">
                         <p>Kapag pinindot ang <span class="text-success"><strong>[Ipagpatuloy]</strong></span> na button, ikaw ay sigurado nang makakapunta sa schedule na napili mo.</p>
                         <hr>
-                        <p>Lugar ng Pagbabakunahan: </p>
-                        <p>Lokasyon ng napiling Bakunahan: </p>
-                        <p>Araw ng Schedule: </p>
-                        <p>Bakunang Napili: </p>
+                        <p>Lugar ng Pagbabakunahan: <u>{{ucwords(strtolower($data->vaccinationcenter->name))}}</u></p>
+                        <p>Lokasyon ng napiling Bakunahan: <u>{{ucwords(strtolower($data->vaccinationcenter->vaccinationsite_location.', '.$data->vaccinationcenter->getAddress()))}}</u></p>
+                        <p>Araw ng Schedule: <u>{{date('m/d/Y', strtotime($data->for_date))}}</u></p>
+                        <p>Bakunang Napili: <u>{{$data->vaccinelist->vaccine_name}}</u></p>
                     </div>
                     <div class="card-footer text-end">
                         <a href="{{url()->previous()}}" class="btn btn-secondary">Bumalik</a>
