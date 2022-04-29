@@ -26,6 +26,12 @@ return new class extends Migration
             $table->text('qr_id')->nullable();
             $table->text('unique_person_id')->nullable();
 
+            $table->string('editprofile_status')->default('ok');
+            $table->text('editprofile_patient_remarks')->nullable();
+            $table->timestamp('editprofile_date_processed')->nullable();
+            $table->foreignId('editprofile_approved_by')->nullable()->constrained('users')->onDelete('cascade');
+            $table->text('editprofile_admin_remarks')->nullable();
+
             $table->string('username');
             $table->string('password');
 

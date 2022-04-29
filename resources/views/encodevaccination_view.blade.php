@@ -1,12 +1,76 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container" style="font-family: Arial, Helvetica, sans-serif">
     <div class="card">
-        <div class="card-header">View Vaccination Details</div>
+        <div class="card-header"><strong>View Patient Vaccination Details</strong></div>
         <div class="card-body">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#acceptmodal">Accept</button>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#defermodal">Defer</button>
+            <table class="table table-bordered">
+                <thead class="bg-light text-info">
+                    <tr>
+                        <th colspan="2">Patient Information</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="text-end"><strong>Full Name</strong></td>
+                        <td>{{$data->getName()}}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-end"><strong>Age/Sex</strong></td>
+                        <td >{{$data->getAge()}}/{{$data->sg()}}</td>
+                    </tr>
+                    @if($data->sg() == 'F')
+                    <tr>
+                        <td class="text-end"><strong>Is Pregnant</strong></td>
+                        <td>{{($data->if_female_pregnant == 1) ? 'Y' : 'N'}}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-end"><strong>Is Lactating</strong></td>
+                        <td>{{($data->if_female_lactating == 1) ? 'Y' : 'N'}}</td>
+                    </tr>
+                    @endif
+                    <tr>
+                        <td class="text-end"><strong>Birthdate</strong></td>
+                        <td>{{date('m/d/Y', strtotime($data->bdate))}}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-end"><strong>Civil Status / Nationality</strong></td>
+                        <td>{{$data->cs}} / {{$data->nationality}}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-end"><strong>Philhealth No.</strong></td>
+                        <td>{{(!is_null($data->philhealth)) ? $data->philhealth : 'N/A'}}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-end"><strong>Contact No.</strong></td>
+                        <td>{{$data->contactno}}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-end"><strong>Email Address</strong></td>
+                        <td>{{(!is_null($data->email)) ? $data->email : 'N/A'}}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-end"><strong>Address</strong></td>
+                        <td>{{$data->getAddress()}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table table-bordered">
+                <thead class="bg-light text-info">
+                    <tr>
+                        <th colspan="2">Vaccination Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer">
+            <div class="d-grid gap-2">
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#acceptmodal">Accept</button>
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#defermodal">Defer</button>
+            </div>
         </div>
     </div>
 </div>

@@ -13,7 +13,7 @@
                         <hr>
                         <p>Lugar ng Pagbabakunahan: <u>{{ucwords(strtolower($data->vaccinationcenter->name))}}</u></p>
                         <p>Lokasyon ng napiling Bakunahan: <u>{{ucwords(strtolower($data->vaccinationcenter->vaccinationsite_location.', '.$data->vaccinationcenter->getAddress()))}}</u></p>
-                        <p>Araw ng Schedule: <u>{{date('m/d/Y', strtotime($data->for_date))}}</u></p>
+                        <p>Araw ng Schedule: <u>{{date('m/d/Y - l', strtotime($data->for_date))}}</u></p>
                         <p>Bakunang Napili: <u>{{$data->vaccinelist->vaccine_name}}</u></p>
                     </div>
                     <div class="card-footer text-end">

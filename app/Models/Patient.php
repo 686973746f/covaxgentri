@@ -144,7 +144,11 @@ class Patient extends Authenticatable
     }
 
     public function getAddress() {
-        return $this->address_houseno.', '.$this->address_street.', BRGY. '.$this->address_brgy_text.', '.$this->address_citymun_text.', '.$this->address_province_text;
+        return $this->address_houseno.', '.$this->address_street.', BRGY. '.$this->address_brgy_text.', '.$this->address_muncity_text.', '.$this->address_province_text;
+    }
+
+    public function sg() {
+        return substr($this->sex,0,1);
     }
 
     public function getAge() {

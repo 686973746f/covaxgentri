@@ -49,19 +49,26 @@ class PatientController extends Controller
             ->get();
         }
 
-        $vcenter = VaccinationCenter::findOrFail(request()->input('pref_vcenter'));
-        if(request()->input('pref_vaccine') == 'Any') {
-            $for_vaccine = 'Any Vaccine';
+        if($sched_list->count() != 0) {
+            $vcenter = VaccinationCenter::findOrFail(request()->input('pref_vcenter'));
+            if(request()->input('pref_vaccine') == 'Any') {
+                $for_vaccine = 'Any Vaccine';
+            }
+            else {
+                $for_vaccine = VaccineList::where('id', request()->input('pref_vaccine'))->value('vaccine_name');
+            }
+
+            return view('userpatient_findschedule_index', [
+                'sched_list' => $sched_list,
+                'vcenter' => $vcenter,
+                'for_vaccine' => $for_vaccine,
+            ]);
         }
         else {
-            $for_vaccine = VaccineList::where('id', request()->input('pref_vaccine'))->value('vaccine_name');
+            return redirect()->route('patient_home')
+            ->with('msg', 'Walang schedule na nakita base sa hinahanap mo.')
+            ->with('msgtype', 'warning');
         }
-
-        return view('userpatient_findschedule_index', [
-            'sched_list' => $sched_list,
-            'vcenter' => $vcenter,
-            'for_vaccine' => $for_vaccine,
-        ]);
     }
 
     public function findschedule_verify($id) {
@@ -209,10 +216,12 @@ class PatientController extends Controller
 
         $vschedule = VaccinationSchedule::findOrFail($getsched_id);
 
-        $vschedule->current_slots = $vschedule->current_slots - 1;
+        if(strtotime(date('Y-m-d')) > strtotime(auth()->guard('patient')->user()->getCurrentSchedData()->for_date)) {
+            $vschedule->current_slots = $vschedule->current_slots - 1;
 
-        $vschedule->save();
-
+            $vschedule->save();
+        }
+        
         $patient->save();
 
         return redirect()->route('patient_home')

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\VaccineList;
 use Illuminate\Http\Request;
 use App\Models\VaccinationCenter;
+use App\Models\VaccinationSchedule;
 
 class VaccinationScheduleController extends Controller
 {
@@ -27,7 +28,7 @@ class VaccinationScheduleController extends Controller
         ->where('sched_type', $request->sched_type)
         ->where('sched_timestart', $request->sched_timestart)
         ->where('vaccination_center_id', $request->vaccination_center_id)
-        ->where('vaccinelist_id', $request->$request->vaccinelist_id)
+        ->where('vaccinelist_id', $request->vaccinelist_id)
         ->first();
         
         if(!$check) {

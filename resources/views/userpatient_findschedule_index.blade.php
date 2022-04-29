@@ -9,7 +9,7 @@
 </style>
 <div class="container" style="font-family: Arial, Helvetica, sans-serif">
     <div class="card">
-        <div class="card-header"><strong>Schedule Lookup</strong></div>
+        <div class="card-header"><strong>Schedule Lookup (Number of Schedules Found: {{$sched_list->count()}})</strong></div>
         <div class="card-body">
             @if(session('msg'))
             <div class="alert alert-{{session('msgtype')}}" role="alert">
