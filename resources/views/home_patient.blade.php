@@ -37,47 +37,34 @@
                     </form>
                 </div>
             </div>
-        </div>
-    </div>
-    @else
-    <div class="modal fade" id="schedinit" tabindex="-1" role="dialog" aria-labelledby="schedinit">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title text-warning"><strong>Mayroon ka pang Pending Schedule</strong></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body text-center">
-                    <p>Hindi ka na maaaring makapag-request ng panibagong schedule dahil mayroon ka nang schedule na kailangang puntahan.</p>
-                    <p>Pagdating mo sa Vaccination Site, ipakita lamang ang iyong Personal QR Code sa mga Staff bilang verification ng iyong schedule.</p>
-                    {!! QrCode::size(150)->generate(auth()->guard('patient')->user()->qr_id) !!}
-                    <hr>
-                    <p><strong>Account ID:</strong> {{auth()->guard('patient')->user()->id}}</p>
-                    <p><strong>Full Name:</strong> {{auth()->guard('patient')->user()->getName()}}</p>
-                    <p><strong>Schedule #:</strong> {{auth()->guard('patient')->user()->getCurrentSchedData()->id}}</p>
-                    <p><strong>Type:</strong> {{auth()->guard('patient')->user()->getCurrentSchedData()->sched_type}}</p>
-                    <p><strong>Vaccination Center:</strong> {{auth()->guard('patient')->user()->getCurrentSchedData()->vaccinationcenter->name}} - {{auth()->guard('patient')->user()->getCurrentSchedData()->vaccinationcenter->getAddress()}}</p>
-                    <p><strong>Date:</strong> {{date('m/d/Y - l', strtotime(auth()->guard('patient')->user()->getCurrentSchedData()->for_date))}}</p>
-                    <p><strong>Vaccine:</strong> {{auth()->guard('patient')->user()->getCurrentSchedData()->vaccinelist->vaccine_name}}</p>
-                    <p><i>(Maaari mo itong i-screenshot o i-print upang maging mas madali ang pag-proseso sa iyo ng mga Staff)</i></p>
-                    <div class="accordion" id="accordionExample">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header text-center" id="headingOne">
-                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#otherOptionCollapse" aria-expanded="true" aria-controls="otherOptionCollapse">
-                                    Iba pang Opsyon
-                                </button>
-                            </h2>
-                            <div id="otherOptionCollapse" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                <div class="accordion-body">
-                                    <form action="{{route('currentsched_cancel')}}" method="POST">
-                                        @csrf
-                                        <div class="d-grid gap-2">
-                                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to Cancel your Schedule? Click OK to Confirm.')">Cancel your Schedule</button>
-                                        </div>
-                                    </form>
-                                </div>
+            <div class="modal-body text-center">
+                <p>Hindi ka na maaaring makapag-request ng panibagong schedule dahil mayroon ka nang schedule na kailangang puntahan.</p>
+                <p>Pagdating mo sa Vaccination Site, ipakita lamang ang iyong Personal QR Code sa mga Staff bilang verification ng iyong schedule.</p>
+                {!! QrCode::size(150)->generate(auth()->guard('patient')->user()->qr_id) !!}
+                <hr>
+                <p><strong>Account ID:</strong> {{auth()->guard('patient')->user()->id}}</p>
+                <p><strong>Full Name:</strong> {{auth()->guard('patient')->user()->getName()}}</p>
+                <p><strong>Schedule #:</strong> {{auth()->guard('patient')->user()->getCurrentSchedData()->id}}</p>
+                <p><strong>Type:</strong> {{auth()->guard('patient')->user()->getCurrentSchedData()->sched_type}}</p>
+                <p><strong>Vaccination Center:</strong> {{auth()->guard('patient')->user()->getCurrentSchedData()->vaccinationcenter->name}} - {{auth()->guard('patient')->user()->getCurrentSchedData()->vaccinationcenter->getAddress()}}</p>
+                <p><strong>Date:</strong> {{date('m/d/Y - l', strtotime(auth()->guard('patient')->user()->getCurrentSchedData()->for_date))}}</p>
+                <p><strong>Vaccine:</strong> {{auth()->guard('patient')->user()->getCurrentSchedData()->vaccinelist->vaccine_name}}</p>
+                <p><i>(Maaari mo itong i-screenshot o i-print upang maging mas madali ang pag-proseso sa iyo ng mga Staff)</i></p>
+                <div class="accordion" id="accordionExample">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header text-center" id="headingOne">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#otherOptionCollapse" aria-expanded="true" aria-controls="otherOptionCollapse">
+                                Iba pang Opsyon
+                            </button>
+                        </h2>
+                        <div id="otherOptionCollapse" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <form action="{{route('currentsched_cancel')}}" method="POST">
+                                    @csrf
+                                    <div class="d-grid gap-2">
+                                        <button type="submit" class="btn btn-danger" onclick="return confirm('Ikaw ay tatanggalin sa napiling schedule, Pindutin ang OK upang kumpirmahin ang iyong aksyon.')">I-Cancel ang iyong Schedule</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
