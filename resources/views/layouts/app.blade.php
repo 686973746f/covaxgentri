@@ -45,7 +45,7 @@
                         @if(Auth::check() || Auth::guard('patient')->check())
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                {{(isset(Auth::user()->name)) ? Auth::user()->name : Auth::guard('patient')->user()->username}}
+                                <i class="fa-solid fa-user me-2"></i>{{(isset(Auth::user()->name)) ? Auth::user()->name : Auth::guard('patient')->user()->username}}
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">

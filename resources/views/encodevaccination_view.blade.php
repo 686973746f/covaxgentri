@@ -67,6 +67,14 @@
                         <td class="text-end"><strong>Priority Group</strong></td>
                         <td>{{$data->priority_group}}</td>
                     </tr>
+                    <tr>
+                        <td class="text-end"><strong>Is PWD?</strong></td>
+                        <td>{{($data->is_pwd == 1) ? 'YES' : 'NO'}}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-end"><strong>Is Indigenous People?</strong></td>
+                        <td>{{($data->is_indigenous == 1) ? 'YES' : 'NO'}}</td>
+                    </tr>
                     @if($data->getCurrentSchedData()->sched_type == '1ST DOSE')
                     <tr>
                         <td class="text-end"><strong>Currently Scheduled for</strong></td>

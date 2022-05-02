@@ -55,6 +55,9 @@ Route::group(['middleware' => ['isAdmin', 'isEncoder']], function() {
     Route::get('/encode_vaccination', [HomeController::class, 'encodevaccination_index'])->name('encodevaccination_index');
     Route::get('/encode_vaccination/view/{patient_id}/{get_date}', [HomeController::class, 'encodevaccination_viewpatient'])->name('encodevaccination_viewpatient');
     Route::post('/encode_vaccination/view/{patient_id}/{vaccinationschedule_id}', [HomeController::class, 'encodevaccination_actions'])->name('encodevaccination_actions');
+
+    Route::get('/walkin_create', [AdminController::class, 'walkin_create'])->name('walkin_create');
+    Route::post('/walkin_create', [AdminController::class, 'walkin_store'])->name('walkin_store');
 });
 
 Route::group(['middleware' => ['isAdmin']], function() {

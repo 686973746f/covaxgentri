@@ -62,4 +62,24 @@ class AdminController extends Controller
             ->with('msgtype', 'success');
         }
     }
+
+    public function walkin_create() {
+
+    }
+
+    public function walkin_store(Request $request) {
+
+    }
+
+    public function patient_viewprofile($id) {
+
+    }
+
+    public function patient_editprofile($id) {
+
+    }
+    
+    public function patient_updateprofile($id) {
+
+    }
 }

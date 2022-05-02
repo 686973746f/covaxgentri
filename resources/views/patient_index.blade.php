@@ -5,8 +5,8 @@
     <div class="card">
         <div class="card-header bg-success text-white">
             <div class="d-flex justify-content-between">
-                <div><strong>List of Pending Patients</strong></div>
-                <div><a href="" class="btn btn-primary">Add Walk-in Patient</a></div>
+                <div><strong><i class="fa-solid fa-person me-2"></i>List of Pending Patients</strong></div>
+                <div><a href="{{route('walkin_create')}}" class="btn btn-primary"><i class="fa-solid fa-person-circle-plus me-2"></i>Add Walk-in Patient</a></div>
             </div>
         </div>
         <div class="card-body">
