@@ -15,5 +15,13 @@ import 'datatables.net-buttons/js/dataTables.buttons.min';
 import 'datatables.net-buttons/js/buttons.flash.min';
 import 'datatables.net-buttons/js/buttons.html5.min';
 import 'datatables.net-buttons/js/buttons.print.min';
+import 'holderjs';
+import 'select2';
+import { PDFDocument, rgb, StandardFonts } from 'pdf-lib';
+import download from 'downloadjs';
 
 window.JSZip = jsZip;
+window.PDFDocument = PDFDocument;
+window.StandardFonts = StandardFonts;
+window.rgb = rgb;
+window.download = download;

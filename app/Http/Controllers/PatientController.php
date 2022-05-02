@@ -228,4 +228,11 @@ class PatientController extends Controller
         ->with('msg', 'Your schedule has been successfully cancelled. You may pick another new schedule.')
         ->with('msgtype', 'success');
     }
+
+    public function profile_index() {
+        $data = Patient::findOrFail(auth()->guard('patient')->user()->id);
+        return view('userpatient_profile', [
+            'data' => $data,
+        ]);
+    }
 }

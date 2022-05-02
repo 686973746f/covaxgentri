@@ -352,4 +352,49 @@ class Patient extends Authenticatable
 
         return $data;
     }
+
+    public function getNextBakunaDate() {
+        if($this->getNextBakuna() == 'FINISHED') {
+            return NULL;
+        }
+        else if($this->getNextBakuna() == 'BOOSTER2') {
+            $vdata = VaccineList::findOrFail($this->booster_vaccine_id);
+
+            return Carbon::parse($this->booster_date)->addDays(90)->format('m/d/Y');
+        }
+        else if($this->getNextBakuna() == 'BOOSTER') {
+            if ($this->is_singledose == 1) {
+                $vdata = VaccineList::findOrFail($this->firstdose_vaccine_id);
+
+                return Carbon::parse($this->firstdose_date)->addDays($vdata->booster_nextdosedays)->format('m/d/Y');
+            }
+            else {
+                $vdata = VaccineList::findOrFail($this->seconddose_vaccine_id);
+
+                return Carbon::parse($this->seconddose_date)->addDays($vdata->booster_nextdosedays)->format('m/d/Y');
+            }
+            return NULL;
+        }
+        else if($this->getNextBakuna() == '2ND DOSE') {
+            $vdata = VaccineList::findOrFail($this->firstdose_vaccine_id);
+
+            return Carbon::parse($this->firstdose_date)->addDays($vdata->seconddose_nextdosedays)->format('m/d/Y');
+        }
+    }
+
+    public function getFirstDoseData() {
+        return VaccinationSchedule::findOrFail($this->firstdose_schedule_id);
+    }
+
+    public function getSecondDoseData() {
+        return VaccinationSchedule::findOrFail($this->seconddose_schedule_id);
+    }
+
+    public function getBoosterData() {
+        return VaccinationSchedule::findOrFail($this->booster_schedule_id);
+    }
+
+    public function getBoosterTwoData() {
+        return VaccinationSchedule::findOrFail($this->boostertwo_schedule_id);
+    }
 }

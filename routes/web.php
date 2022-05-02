@@ -30,6 +30,8 @@ Route::group(['middleware' => ['isPatient']], function() {
     Route::get('/patient/find_schedule', [PatientController::class, 'findschedule_index'])->name('findschedule_index');
 
     Route::post('/patient/home/sched_cancel', [PatientController::class, 'currentsched_cancel'])->name('currentsched_cancel');
+
+    Route::get('/patient/profile', [PatientController::class, 'profile_index'])->name('profile_index');
 });
 
 Route::group(['middleware' => ['isPatient', 'ifNextDoseReady']], function() {

@@ -65,15 +65,107 @@
                 <tbody>
                     <tr>
                         <td class="text-end"><strong>Priority Group</strong></td>
-                        <td></td>
+                        <td>{{$data->priority_group}}</td>
                     </tr>
+                    @if($data->getCurrentSchedData()->sched_type == '1ST DOSE')
+                    <tr>
+                        <td class="text-end"><strong>Currently Scheduled for</strong></td>
+                        <td>1ST DOSE</td>
+                    </tr>
+                    @elseif($data->getCurrentSchedData()->sched_type == '2ND DOSE')
+                    <tr>
+                        <td class="text-end"><strong>Currently Scheduled for</strong></td>
+                        <td>2ND DOSE</td>
+                    </tr>
+                    @elseif($data->getCurrentSchedData()->sched_type == 'BOOSTER')
+                    <tr>
+                        <td class="text-end"><strong>Currently Scheduled for</strong></td>
+                        <td>BOOSTER</td>
+                    </tr>
+                    @elseif($data->getCurrentSchedData()->sched_type == 'BOOSTER2')
+                    <tr>
+                        <td class="text-end"><strong>Currently Scheduled for</strong></td>
+                        <td>BOOSTER2</td>
+                    </tr>
+                    @endif
+                    <tr>
+                        <td class="text-end"><strong>Date of Vaccination</strong></td>
+                        <td>{{date('m/d/Y - l', strtotime($data->getCurrentSchedData()->for_date))}}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-end"><strong>Name of Vaccine</strong></td>
+                        <td>{{$data->getCurrentSchedData()->vaccinelist->vaccine_name}}</td>
+                    </tr>
+                    @if($data->getCurrentSchedData()->sched_type != '1ST DOSE')
+                    <!-- EXTRA TABLE FOR SEPARATOR -->
+                    <tr>
+                        <td class="text-end">&nbsp;</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    @endif
+                    @if($data->getCurrentSchedData()->sched_type == '2ND DOSE')
+                    <tr>
+                        <td class="text-end"><strong>First Dose Date</strong></td>
+                        <td>{{date('m/d/Y - l', strtotime($data->firstdose_date))}}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-end"><strong>First Dose Vaccine Name</strong></td>
+                        <td>{{$data->getFirstDoseData()->vaccinelist->vaccine_name}}</td>
+                    </tr>
+                    @elseif($data->getCurrentSchedData()->sched_type == 'BOOSTER')
+                    <tr>
+                        <td class="text-end"><strong>First Dose Date</strong></td>
+                        <td>{{date('m/d/Y - l', strtotime($data->firstdose_date))}}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-end"><strong>First Dose Vaccine Name</strong></td>
+                        <td>{{$data->getFirstDoseData()->vaccinelist->vaccine_name}}</td>
+                    </tr>
+                        @if($data->is_singledose != 1)
+                        <tr>
+                            <td class="text-end"><strong>Second Dose Date</strong></td>
+                            <td>{{date('m/d/Y - l', strtotime($data->firstdose_date))}}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-end"><strong>Second Dose Vaccine Name</strong></td>
+                            <td>{{$data->getSecondDoseData()->vaccinelist->vaccine_name}}</td>
+                        </tr>
+                        @endif
+                    @elseif($data->getCurrentSchedData()->sched_type == 'BOOSTER2')
+                    <tr>
+                        <td class="text-end"><strong>First Dose Date</strong></td>
+                        <td>{{date('m/d/Y - l', strtotime($data->firstdose_date))}}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-end"><strong>First Dose Vaccine Name</strong></td>
+                        <td>{{$data->getFirstDoseData()->vaccinelist->vaccine_name}}</td>
+                    </tr>
+                        @if($data->is_singledose != 1)
+                        <tr>
+                            <td class="text-end"><strong>Second Dose Date</strong></td>
+                            <td>{{date('m/d/Y - l', strtotime($data->firstdose_date))}}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-end"><strong>Second Dose Vaccine Name</strong></td>
+                            <td>{{$data->getSecondDoseData()->vaccinelist->vaccine_name}}</td>
+                        </tr>
+                        @endif
+                    <tr>
+                        <td class="text-end"><strong>Booster Date</strong></td>
+                        <td>{{$data->getBoosterData()->vaccinelist->vaccine_name}}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-end"><strong>Booster Vaccine Name</strong></td>
+                        <td>{{$data->getBoosterData()->vaccinelist->vaccine_name}}</td>
+                    </tr>
+                    @endif
                 </tbody>
             </table>
         </div>
         <div class="card-footer">
             <div class="d-grid gap-2">
-                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#acceptmodal">Accept</button>
-                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#defermodal">Defer</button>
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#acceptmodal"><i class="fa fa-check-circle me-2" aria-hidden="true"></i>Accept</button>
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#defermodal"><i class="fa fa-times-circle me-2" aria-hidden="true"></i>Defer</button>
             </div>
         </div>
     </div>
@@ -86,9 +178,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Accept Vaccination</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">
@@ -117,7 +207,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="vaccinator_name" class="form-label"><span class="text-danger font-weight-bold">*</span>Vaccinator</label>
-                        <select class="form-control" name="vaccinator_name" id="vaccinator_name" required>
+                        <select class="form-select" name="vaccinator_name" id="vaccinator_name" required>
                             <option value="" disabled {{is_null(old('vaccinator_name')) ? 'selected' : ''}}>Choose...</option>
                             @foreach($vaccinator_list as $v)
                             <option value="{{$v->getName()}}" {{(old('vaccinator_name')) ? 'selected' : ''}}>{{$v->getName()}}</option>
@@ -139,9 +229,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Defer Patient</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
@@ -156,4 +244,11 @@
         </div>
     </div>
 </form>
+
+<script>
+    $('#vaccinator_name').select2({
+        dropdownParent: $("#acceptmodal"),
+        theme: 'bootstrap',
+    });
+</script>
 @endsection
