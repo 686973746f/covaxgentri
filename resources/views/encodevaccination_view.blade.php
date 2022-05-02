@@ -23,11 +23,11 @@
                     @if($data->sg() == 'F')
                     <tr>
                         <td class="text-end"><strong>Is Pregnant</strong></td>
-                        <td>{{($data->if_female_pregnant == 1) ? 'Y' : 'N'}}</td>
+                        <td>{{($data->if_female_pregnant == 1) ? 'YES' : 'NO'}}</td>
                     </tr>
                     <tr>
                         <td class="text-end"><strong>Is Lactating</strong></td>
-                        <td>{{($data->if_female_lactating == 1) ? 'Y' : 'N'}}</td>
+                        <td>{{($data->if_female_lactating == 1) ? 'YES' : 'NO'}}</td>
                     </tr>
                     @endif
                     <tr>
@@ -63,6 +63,10 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <tr>
+                        <td class="text-end"><strong>Priority Group</strong></td>
+                        <td></td>
+                    </tr>
                 </tbody>
             </table>
         </div>
