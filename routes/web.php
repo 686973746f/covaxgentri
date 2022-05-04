@@ -46,9 +46,11 @@ Route::group(['middleware' => ['guest']], function() {
     Route::post('/vaccination/register', [PatientRegistrationController::class, 'register_store'])->name('vaccination_register_store');
 });
 
+//Admin and Encoder
 Route::group(['middleware' => ['isAdmin', 'isEncoder']], function() {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/patient_list', [AdminController::class, 'pending_list'])->name('patient_view_index');
+    Route::get('/patient_records', [AdminController::class, 'existing_list'])->name('patient_existing_index');
     Route::get('/patient_list/view/{id}', [AdminController::class, 'patient_view'])->name('patient_view');
     Route::post('/patient_list/view/{id}', [AdminController::class, 'patient_action'])->name('patient_action');
 

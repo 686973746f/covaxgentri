@@ -11,7 +11,17 @@
             </div>
             @endif
             <div class="d-grid gap-2">
-                <a href="{{route('patient_view_index')}}" class="btn btn-lg btn-primary">Patient Registration</a>
+                <a class="btn btn-lg btn-primary" data-bs-toggle="collapse" href="#pcol" role="button">Patient Records</a>
+                <div class="collapse" id="pcol">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-grid gap-2">
+                                <a href="{{route('patient_view_index')}}" class="btn btn-primary">View Pending Patients</a>
+                                <a href="{{route('patient_existing_index')}}" class="btn btn-primary">View Existing Records</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <a class="btn btn-lg btn-primary" data-bs-toggle="collapse" href="#ecol" role="button">Encode Vaccination</a>
                 <div class="collapse" id="ecol">
                     <form action="{{route('encodevaccination_index')}}" method="GET">

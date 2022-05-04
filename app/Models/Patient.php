@@ -143,6 +143,10 @@ class Patient extends Authenticatable
         return $this->lname.", ".$this->fname.' '.$this->suffix." ".$this->mname;
     }
 
+    public function getNameFormal() {
+        return $this->fname." ".$this->mname.' '.$this->lname." ".$this->suffix;
+    }
+
     public function getAddress() {
         return $this->address_houseno.', '.$this->address_street.', BRGY. '.$this->address_brgy_text.', '.$this->address_muncity_text.', '.$this->address_province_text;
     }

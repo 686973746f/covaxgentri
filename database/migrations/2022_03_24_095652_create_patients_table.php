@@ -151,6 +151,9 @@ return new class extends Migration
 
             $table->text('ifpedia_requirements')->nullable();
 
+            $table->string('outcome')->default('Alive');
+            $table->date('outcome_date')->nullable();
+
             $table->text('remarks')->nullable();
 
             $table->ipAddress('ipadd');

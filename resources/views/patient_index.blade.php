@@ -16,7 +16,7 @@
             </div>
             @endif
             <div class="table-responsive">
-                <table class="table table-bordered table-striped align-middle">
+                <table class="table table-bordered table-striped" id="table1">
                     <thead class="table-light text-center">
                         <tr>
                             <th>#</th>
@@ -31,7 +31,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($list as $item)
+                        @forelse($list as $item)
                         <tr>
                             <td class="text-center">{{$loop->iteration}}</td>
                             <td class="text-center">{{date('m/d/Y H:i:s', strtotime($item->created_at))}}</td>
@@ -43,7 +43,11 @@
                             <td class="text-center">{{$item->contactno}}</td>
                             <td class="text-center">{{!is_null($item->email) ? $item->email : 'N/A'}}</td>
                         </tr>
-                        @endforeach
+                        @empty
+                        <tr>
+                            <td colspan="9" class="text-center">No data available in table.</td>
+                        </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>

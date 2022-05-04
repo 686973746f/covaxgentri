@@ -212,6 +212,7 @@
                     <div class="mb-3">
                         <label for="adverse_events" class="form-label">Adverse Events <small><i>(If Applicable)</i></small></label>
                         <input type="text" class="form-control" name="adverse_events" id="adverse_events" value="{{old('adverse_events')}}">
+                        <small class="text-muted">Note: You can Create COVID AEFI Form after accepting the vaccination data of patient.</small>
                     </div>
                     <div class="mb-3">
                         <label for="vaccinator_name" class="form-label"><span class="text-danger font-weight-bold">*</span>Vaccinator</label>

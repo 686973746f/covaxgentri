@@ -18,6 +18,16 @@ class AdminController extends Controller
         ]);
     }
 
+    public function existing_list() {
+        $list = Patient::where('is_approved', 1)
+        ->orderBy('lname', 'ASC')
+        ->paginate(10);
+
+        return view('patient_completed_index', [
+            'list' => $list,
+        ]);
+    }
+
     public function patient_view($id) {
         $data = Patient::findOrFail($id);
 
@@ -53,13 +63,16 @@ class AdminController extends Controller
             ->with('msg', 'Patient '.$patient->getName().' (ID #'.$patient->id.') has been successfully approved.')
             ->with('msgtype', 'success');
         }
-        else {
+        else if($request->action == 'reject') {
             $patient->action_remarks = $request->action_remarks;
             $patient->save();
 
             return redirect()->route('patient_view_index')
             ->with('msg', 'Patient '.$patient->getName().' (ID #'.$patient->id.') has been successfully rejected.')
             ->with('msgtype', 'success');
+        }
+        else if($request->action == 'update') {
+        
         }
     }
 
