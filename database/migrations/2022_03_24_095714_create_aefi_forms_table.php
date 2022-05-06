@@ -163,6 +163,149 @@ return new class extends Migration
             $table->text('p9_item3b_remarks')->nullable();
             $table->tinyInteger('p9_item4_yn')->nullable();
             $table->text('p9_item4_remarks')->nullable();
+            $table->tinyInteger('p9_item5_yn')->nullable();
+            $table->text('p9_item5_remarks')->nullable();
+            $table->tinyInteger('p9_item6_yn')->nullable();
+            $table->date('p9_item6_remarks')->nullable();
+            $table->tinyInteger('p9_item7_yn')->nullable();
+            $table->text('p9_item7_remarks')->nullable();
+            $table->tinyInteger('p9_item7_yn')->nullable();
+            $table->text('p9_item7_remarks')->nullable();
+            $table->tinyInteger('p9_item8_yn')->nullable();
+            $table->text('p9_item8_remarks')->nullable();
+
+            $table->tinyInteger('p9_item9_yn')->nullable();
+            $table->text('p9_item9_array1')->nullable();
+            $table->text('p9_item9_array2')->nullable();
+            $table->text('p9_item9_array3')->nullable();
+
+            $table->text('p10_item1')->nullable();
+            $table->text('p10_item2')->nullable();
+            $table->tinyInteger('p10_item3_yn')->nullable();
+            $table->text('p10_item3_remarks')->nullable();
+            $table->text('p10_item4')->nullable();
+            $table->tinyInteger('p10_item5_yn')->nullable();
+            $table->text('p10_item5_remarks')->nullable();
+            $table->text('p10_item6')->nullable();
+            $table->text('p10_item7')->nullable();
+
+            $table->text('p13_lname')->nullable();
+            $table->text('p13_fname')->nullable();
+            $table->text('p13_mname')->nullable();
+            $table->text('p13_designation')->nullable();
+            $table->text('p13_contactno')->nullable();
+            $table->date('p13_investigation_date')->nullable();
+
+            $table->text('p14_lname')->nullable();
+            $table->text('p14_fname')->nullable();
+            $table->text('p14_mname')->nullable();
+            $table->text('p14_designation')->nullable();
+            $table->text('p14_office')->nullable();
+            
+            $table->tinyInteger('autodisablesyringed_used_yn')->nullable();
+            $table->text('autodisablesyringed_used_remarks')->nullable();
+            $table->text('autodisablesyringed_used_ifno_type')->nullable();
+            $table->text('autodisablesyringed_used_findings')->nullable();
+
+            $table->text('reconstitution_method')->nullable();
+            $table->text('reconstitution_method_others')->nullable();
+            $table->tinyInteger('reconstitution_item1_yn')->nullable();
+            $table->text('reconstitution_item1_remarks')->nullable();
+            $table->tinyInteger('reconstitution_item2_yn')->nullable();
+            $table->text('reconstitution_item2_remarks')->nullable();
+            $table->tinyInteger('reconstitution_item3_yn')->nullable();
+            $table->text('reconstitution_item3_remarks')->nullable();
+            $table->tinyInteger('reconstitution_item4_yn')->nullable();
+            $table->text('reconstitution_item4_remarks')->nullable();
+            $table->tinyInteger('reconstitution_item5_yn')->nullable();
+            $table->text('reconstitution_item5_remarks')->nullable();
+            $table->text('reconstitution_findings')->nullable();
+
+            $table->text('itechnique_method')->nullable();
+            $table->tinyInteger('itechnique_item1_yn')->nullable();
+            $table->text('itechnique_item1_remarks')->nullable();
+            $table->text('itechnique_item2_time')->nullable();
+            $table->text('itechnique_item2_remarks')->nullable();
+            $table->tinyInteger('itechnique_item3_yn')->nullable();
+            $table->text('itechnique_item3_remarks')->nullable();
+            $table->tinyInteger('itechnique_item4_yn')->nullable();
+            $table->text('itechnique_item4_remarks')->nullable();
+            $table->text('itechnique_item5')->nullable();
+            $table->text('itechnique_item5_remarks')->nullable();
+            $table->text('itechnique_findings')->nullable();
+
+            $table->text('p15_method')->nullable();
+            $table->text('p15_method_others')->nullable();
+            $table->text('p15_item1')->nullable();
+            $table->text('p15_item1_others')->nullable();
+            $table->text('p15_item2')->nullable();
+
+            $table->tinyInteger('p15_item3_yn')->nullable();
+            $table->text('p15_item3_remarks')->nullable();
+            $table->tinyInteger('p15_item4_yn')->nullable();
+            $table->text('p15_item4_remarks')->nullable();
+            $table->tinyInteger('p15_item5_yn')->nullable();
+            $table->text('p15_item5_remarks')->nullable();
+            $table->tinyInteger('p15_item6_yn')->nullable();
+            $table->text('p15_item6_selection')->nullable();
+            $table->text('p15_item6_selection_others')->nullable();
+            $table->text('p15_item6_remarks')->nullable();
+            $table->tinyInteger('p15_item7_yn')->nullable();
+            $table->text('p15_item7_selection')->nullable();
+            $table->text('p15_item7_selection_others')->nullable();
+            $table->text('p15_item6_remarks')->nullable();
+            $table->text('p15_findings')->nullable();
+
+            $table->text('p15_transpo_method')->nullable();
+            $table->text('p15_transpo_item1')->nullable();
+            $table->text('p15_transpo_item1_others')->nullable();
+            $table->tinyInteger('p15_transpo_item2_yn')->nullable();
+            $table->text('p15_transpo_item2_remarks')->nullable();
+            $table->tinyInteger('p15_transpo_item3_yn')->nullable();
+            $table->text('p15_transpo_item3_remarks')->nullable();
+            $table->tinyInteger('p15_transpo_item4_yn')->nullable();
+            $table->text('p15_transpo_item4_remarks')->nullable();
+            $table->text('p15_transpo_findings')->nullable();
+
+            $table->text('p16_lname')->nullable();
+            $table->text('p16_fname')->nullable();
+            $table->text('p16_mname')->nullable();
+            $table->text('p16_designation')->nullable();
+            $table->text('p16_office')->nullable();
+
+            $table->text('p16_vaccinegiven_array')->nullable();
+            $table->text('p16_totaldoses_array')->nullable();
+
+            $table->text('p16_when1')->nullable();
+            $table->text('p16_when2')->nullable();
+
+            $table->tinyInteger('p16_item1_yn')->nullable();
+            $table->text('p16_item1_remarks')->nullable();
+            $table->tinyInteger('p16_item2_yn')->nullable();
+            $table->text('p16_item2_remarks')->nullable();
+            $table->tinyInteger('p16_item3_yn')->nullable();
+            $table->text('p16_item3_remarks')->nullable();
+            $table->tinyInteger('p16_item4_yn')->nullable();
+            $table->text('p16_item4_remarks')->nullable();
+            $table->tinyInteger('p16_item5_yn')->nullable();
+            $table->text('p16_item5_remarks')->nullable();
+            $table->tinyInteger('p16_item6_yn')->nullable();
+            $table->text('p16_item6_remarks')->nullable();
+            $table->tinyInteger('p16_item7_yn')->nullable();
+            $table->text('p16_item7_remarks')->nullable();
+            $table->tinyInteger('p16_item8_yn')->nullable();
+            $table->text('p16_item8_remarks')->nullable();
+            $table->tinyInteger('p16_item9_yn')->nullable();
+            $table->text('p16_item9_remarks')->nullable();
+            $table->tinyInteger('p16_item10_yn')->nullable();
+            $table->text('p16_item10_remarks')->nullable();
+            $table->tinyInteger('p16_item11_yn')->nullable();
+            $table->text('p16_item11_remarks')->nullable();
+            $table->tinyInteger('p16_item11_datanotgatheredinlvoc')->nullable();
+            $table->tinyInteger('p16_item12_yn')->nullable();
+            $table->text('p16_item12_numofclusteredcases')->nullable();
+            $table->tinyInteger('p16_item12_cluster_yn')->nullable();
+            $table->text('p16_item12_cluster_ifno_numofvials')->nullable();
         });
     }
 
