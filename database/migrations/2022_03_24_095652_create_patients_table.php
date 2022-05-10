@@ -19,6 +19,7 @@ return new class extends Migration
             $table->softDeletes();
             $table->foreignId('created_by')->nullable()->constrained('users')->onDelete('cascade');
             $table->foreignId('updated_by')->nullable()->constrained('users')->onDelete('cascade');
+            $table->string('registration_type')->default('registration');
 
             $table->tinyInteger('is_approved');
             $table->timestamp('date_processed')->nullable();

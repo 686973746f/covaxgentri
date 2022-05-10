@@ -21,6 +21,7 @@ class PatientRegistrationController extends Controller
         $sexf = substr($request->sex, 0, 1);
 
         Patient::create([
+            'registration_type' => 'registration',
             'is_approved' => 0,
             'priority_group' => $request->priority_group,
             'is_pwd' => $request->is_pwd,
@@ -58,5 +59,7 @@ class PatientRegistrationController extends Controller
 
             'ipadd' => request()->ip(),
         ]);
+
+        return view('register_complete');
     }
 }
