@@ -141,6 +141,7 @@ return new class extends Migration
             $table->text('boostertwo_vaccinator_name')->nullable();
 
             $table->text('comorbid_list')->nullable();
+            $table->text('comorbid_others')->nullable();
             $table->text('allergy_list')->nullable();
 
             $table->text('requirement_id_filepath')->nullable();
@@ -149,6 +150,7 @@ return new class extends Migration
             $table->string('ifpedia_guardian_lname')->nullable();
             $table->string('ifpedia_guardian_fname')->nullable();
             $table->string('ifpedia_guardian_mname')->nullable();
+            $table->string('ifpedia_guardian_suffix')->nullable();
 
             $table->text('ifpedia_requirements')->nullable();
 

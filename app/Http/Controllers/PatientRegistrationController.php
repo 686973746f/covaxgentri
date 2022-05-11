@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Patient;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -16,9 +17,25 @@ class PatientRegistrationController extends Controller
         $request->validate([
             'username' => 'unique:patients,username',
             'password' => 'required|confirmed',
+            'ifpedia_requirements' => ($request->priority_group == 'ROPP') ? 'required|mimes:jpg,png,jpeg,pdf|max:10240' : 'nullable',
+            'requirement_id_filepath' => 'required|mimes:jpg,png,jpeg,pdf|max:10240',
+            'requirement_selfie' => 'required|mimes:jpg,png,jpeg|max:10240',
         ]);
 
+        $checker1 = Patient::ifDuplicateFound();
+
         $sexf = substr($request->sex, 0, 1);
+
+        if($request->priority_group == 'ROPP') {
+            $pediafile = time().Str::random(20).'.'.$request->ifpedia_requirements->getClientOriginalExtension();
+            $pediaupload = $request->ifpedia_requirements->move(public_path('registration'), $pediafile);
+        }
+
+        $requirement_file = time().Str::random(20).'.'.$request->requirement_id_filepath->getClientOriginalExtension();
+        $pediaupload = $request->requirement_id_filepath->move(public_path('registration'), $requirement_file);
+
+        $selfie_file = time().Str::random(20).'.'.$request->requirement_selfie->getClientOriginalExtension();
+        $selfieupload = $request->requirement_selfie->move(public_path('registration'), $selfie_file);
 
         Patient::create([
             'registration_type' => 'registration',
@@ -41,6 +58,13 @@ class PatientRegistrationController extends Controller
             'email' => $request->email,
             'philhealth' => $request->philhealth,
 
+            'ifpedia_guardian_lname' => ($request->priority_group == 'ROPP') ? $request->ifpedia_guardian_lname : NULL,
+            'ifpedia_guardian_fname' => ($request->priority_group == 'ROPP') ? $request->ifpedia_guardian_fname : NULL,
+            'ifpedia_guardian_mname' => ($request->priority_group == 'ROPP' && $request->filled('ifpedia_guardian_mname')) ? $request->ifpedia_guardian_mname : NULL,
+            'ifpedia_guardian_suffix' => ($request->priority_group == 'ROPP' && $request->filled('ifpedia_guardian_suffix')) ? $request->ifpedia_guardian_suffix : NULL,
+
+            'ifpedia_requirements' => ($request->priority_group == 'ROPP') ? $pediafile : NULL,
+
             'address_region_text' => $request->address_region_text,
             'address_province_text' => $request->address_province_text,
             'address_muncity_text' => $request->address_muncity_text,
@@ -58,6 +82,13 @@ class PatientRegistrationController extends Controller
             'password' => Hash::make($request->password),
 
             'ipadd' => request()->ip(),
+
+            'requirement_id_filepath' => $requirement_file,
+            'requirement_selfie' => $selfie_file,
+
+            'comorbid_list' => implode(',', $request->comorbid_list),
+            'comorbid_others' => (in_array('Others', $request->comorbid_list)) ? $request->comorbid_others : NULL,
+            'allergy_list' => $request->allergy_list,
         ]);
 
         return view('register_complete');

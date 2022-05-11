@@ -169,15 +169,15 @@ return new class extends Migration
             $table->date('p9_item6_remarks')->nullable();
             $table->tinyInteger('p9_item7_yn')->nullable();
             $table->text('p9_item7_remarks')->nullable();
-            $table->tinyInteger('p9_item7_yn')->nullable();
-            $table->text('p9_item7_remarks')->nullable();
             $table->tinyInteger('p9_item8_yn')->nullable();
             $table->text('p9_item8_remarks')->nullable();
-
             $table->tinyInteger('p9_item9_yn')->nullable();
-            $table->text('p9_item9_array1')->nullable();
-            $table->text('p9_item9_array2')->nullable();
-            $table->text('p9_item9_array3')->nullable();
+            $table->text('p9_item9_remarks')->nullable();
+
+            $table->tinyInteger('p9_item10_yn')->nullable();
+            $table->text('p9_item10_array1')->nullable();
+            $table->text('p9_item10_array2')->nullable();
+            $table->text('p9_item10_array3')->nullable();
 
             $table->text('p10_item1')->nullable();
             $table->text('p10_item2')->nullable();
@@ -253,7 +253,7 @@ return new class extends Migration
             $table->tinyInteger('p15_item7_yn')->nullable();
             $table->text('p15_item7_selection')->nullable();
             $table->text('p15_item7_selection_others')->nullable();
-            $table->text('p15_item6_remarks')->nullable();
+            $table->text('p15_item7_remarks')->nullable();
             $table->text('p15_findings')->nullable();
 
             $table->text('p15_transpo_method')->nullable();

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <form action="{{route('vaccination_register_store')}}" method="POST" autocapitalize="characters" autocomplete="off">
+    <form action="{{route('vaccination_register_store')}}"  method="POST" autocapitalize="characters" autocomplete="off" enctype="multipart/form-data">
         @csrf
         <div class="container" style="font-family: Arial, Helvetica, sans-serif;">
             <div class="card border-success">
@@ -44,7 +44,7 @@
                                         <select class="form-select" name="is_pwd" id="is_pwd">
                                             <option value="0">No</option>
                                             <option value="1">Yes</option>
-                                      </select>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -53,7 +53,7 @@
                                         <select class="form-select" name="is_indigenous" id="is_indigenous">
                                             <option value="0">No</option>
                                             <option value="1">Yes</option>
-                                      </select>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -170,6 +170,44 @@
                                 </div>
                             </div>
                         </div>
+                        <div id="guardian_div" class="d-none">
+                            <div class="card mb-3">
+                                <div class="card-header"><strong>2.1 Guardian Details</strong></div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="mb-3">
+                                                <label for="ifpedia_guardian_lname" class="form-label"><span class="text-danger font-weight-bold">*</span>Guardian Last Name</label>
+                                                <input type="text" class="form-control" name="ifpedia_guardian_lname" id="ifpedia_guardian_lname" value="{{old('ifpedia_guardian_lname')}}" maxlength="50">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="mb-3">
+                                                <label for="ifpedia_guardian_fname" class="form-label"><span class="text-danger font-weight-bold">*</span>Guardian First Name</label>
+                                                <input type="text" class="form-control" name="ifpedia_guardian_fname" id="ifpedia_guardian_fname" value="{{old('ifpedia_guardian_fname')}}" maxlength="50">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="mb-3">
+                                                <label for="ifpedia_guardian_mname" class="form-label">Guardian Middle Name <i><small>(If Applicable)</small></i></label>
+                                                <input type="text" class="form-control" name="ifpedia_guardian_mname" id="ifpedia_guardian_mname" value="{{old('ifpedia_guardian_mname')}}" maxlength="50">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="mb-3">
+                                                <label for="ifpedia_guardian_suffix" class="form-label">Guardian Suffix <i><small>(If Applicable)</small></i></label>
+                                                <input type="text" class="form-control" name="ifpedia_guardian_suffix" id="ifpedia_guardian_suffix" value="{{old('ifpedia_guardian_suffix')}}" maxlength="3" placeholder="e.g JR, SR, III, IV">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div>
+                                        <label for="ifpedia_requirements" class="form-label"><span class="text-danger font-weight-bold">*</span>Upload Valid ID of Guardian</label>
+                                        <input class="form-control" type="file" id="ifpedia_requirements" name="ifpedia_requirements">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="card mb-3">
                             <div class="card-header"><strong>III. Current Address</strong></div>
                             <div class="card-body">
@@ -235,7 +273,36 @@
                             </div>
                         </div>
                         <div class="card mb-3">
-                            <div class="card-header"><strong>IV. Vaccination Account</strong></div>
+                            <div class="card-header"><strong>IV. Medical Information</strong></div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label for="comorbid_list" class="form-label">Do you have Comorbidities? <small><i>(Select all that apply)</i></small></label>
+                                    <select class="form-select" name="comorbid_list[]" id="comorbid_list" multiple>
+                                        <option value="Hypertension">Hypertension</option>
+                                        <option value="Diabetes">Diabetes</option>
+                                        <option value="Heart Disease">Heart Disease</option>
+                                        <option value="Lung Disease">Lung Disease</option>
+                                        <option value="Gastrointestinal">Gastrointestinal</option>
+                                        <option value="Genito-urinary">Genito-urinary</option>
+                                        <option value="Neurological Disease">Neurological Disease</option>
+                                        <option value="Cancer">Cancer</option>
+                                        <option value="Others">Others, specify</option>
+                                    </select>
+                                </div>
+                                <div id="como_others" class="d-none">
+                                    <div class="mb-3">
+                                        <label for="comorbid_others" class="form-label">Other Comorbidities, please specify</label>
+                                        <input type="text" class="form-control" name="comorbid_others" id="comorbid_others">
+                                    </div>
+                                </div>
+                                <div class="">
+                                  <label for="allergy_list" class="form-label">Allergies <small><i>(If Applicable)</i></small></label>
+                                  <input type="text" class="form-control" name="allergy_list" id="allergy_list">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card mb-3">
+                            <div class="card-header"><strong>V. Vaccination Account</strong></div>
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-4">
@@ -257,10 +324,25 @@
                                         </div>
                                     </div>
                                 </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="requirement_id_filepath" class="form-label"><span class="text-danger font-weight-bold">*</span>Upload Valid ID of Patient</label>
+                                            <input class="form-control" type="file" id="requirement_id_filepath" name="requirement_id_filepath" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="requirement_selfie" class="form-label"><span class="text-danger font-weight-bold">*</span>Upload Selfie of Patient</label>
+                                            <input class="form-control" type="file" id="requirement_selfie" name="requirement_selfie" required>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>            
+                        </div>        
                         <div class="card">
-                            <div class="card-header"><strong>V. Data Privacy Statement of General Trias</strong></div>
+                            <div class="card-header"><strong>Data Privacy Statement of General Trias</strong></div>
                             <div class="card-body">
                                 <p class="text-center">By choosing "I Agree" and clicking the "Submit" button below, I hereby acknowledge and certify that I have carefully read and understood the Terms and Conditions of the Data Privacy Policy/Notice of the City Government of General Trias. By providing personal information to City Government of General Trias, I am confirming that the data is true and correct. I understand that City Government of General Trias reserves the right to revise any decision made on the basis of the information I provided should the information be found to be untrue or incorrect. I likewise agree that any issue that may arise in connection with the processing of my personal information will be settled amicably with City Government of General Trias before resorting to appropriate arbitration or court proceedings within the Philippine jurisdiction. Finally, I am providing my voluntary consent and authorization to City Government of General Trias and its authorized representatives to lawfully process my data/information.</p>
                                 <div class="form-check text-center">
@@ -280,6 +362,33 @@
     </form>
 
     <script>
+        $('#priority_group').change(function (e) { 
+            e.preventDefault();
+            if($(this).val() == 'ROPP') {
+                $('#guardian_div').removeClass('d-none');
+                $('#ifpedia_guardian_fname').prop('required', true);
+                $('#ifpedia_guardian_lname').prop('required', true);
+                $('#ifpedia_requirements').prop('required', true);
+            }
+            else {
+                $('#guardian_div').addClass('d-none');
+                $('#ifpedia_guardian_fname').prop('required', false);
+                $('#ifpedia_guardian_lname').prop('required', false);
+                $('#ifpedia_requirements').prop('required', false);
+            }
+        });
+        
+        $("#comorbid_list").change(function () {
+            if ($("#comorbid_list option[value=Others]:selected").length > 0) {
+                $('#como_others').removeClass('d-none');
+                $('#comorbid_others').prop('required', true);
+            }
+            else {
+                $('#como_others').addClass('d-none');
+                $('#comorbid_others').prop('required', false);
+            }
+        });
+
         //Region Select Initialize
         $.getJSON("{{asset('json/refregion.json')}}", function(data) {
 			var sorted = data.sort(function(a, b) {

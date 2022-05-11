@@ -3,7 +3,9 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use App\Models\Patient;
 use App\Models\VaccineList;
+use Illuminate\Support\Facades\DB;
 use App\Models\VaccinationSchedule;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -126,6 +128,7 @@ class Patient extends Authenticatable
         'boostertwo_vaccinator_name',
 
         'comorbid_list',
+        'comorbid_others',
         'allergy_list',
         'requirement_id_filepath',
         'requirement_selfie',
@@ -133,6 +136,7 @@ class Patient extends Authenticatable
         'ifpedia_guardian_lname',
         'ifpedia_guardian_fname',
         'ifpedia_guardian_mname',
+        'ifpedia_guardian_suffix',
 
         'ifpedia_requirements',
         'remarks',
@@ -400,5 +404,80 @@ class Patient extends Authenticatable
 
     public function getBoosterTwoData() {
         return VaccinationSchedule::findOrFail($this->boostertwo_schedule_id);
+    }
+
+    public static function ifDuplicateFound($lname, $fname, $mname, $bdate) {
+        if(!is_null($mname)) {
+            $check = Patient::where(DB::raw("REPLACE(REPLACE(REPLACE(lname,'.',''),'-',''),' ','')"), mb_strtoupper(str_replace([' ','-'], '', $lname)))
+            ->where(DB::raw("REPLACE(REPLACE(REPLACE(fname,'.',''),'-',''),' ','')"), mb_strtoupper(str_replace([' ','-'], '', $fname)))
+            ->where(DB::raw("REPLACE(REPLACE(REPLACE(mname,'.',''),'-',''),' ','')"), mb_strtoupper(str_replace([' ','-'], '', $mname)))
+            ->first();
+
+            if($check) {
+                /*
+                $checkwbdate = Records::where(DB::raw("REPLACE(REPLACE(REPLACE(lname,'.',''),'-',''),' ','')"), mb_strtoupper(str_replace([' ','-'], '', $lname)))
+                ->where(DB::raw("REPLACE(REPLACE(REPLACE(fname,'.',''),'-',''),' ','')"), mb_strtoupper(str_replace([' ','-'], '', $fname)))
+                ->where(DB::raw("REPLACE(REPLACE(REPLACE(mname,'.',''),'-',''),' ','')"), mb_strtoupper(str_replace([' ','-'], '', $mname)))
+                ->whereDate('bdate', $bdate)
+                ->first();
+
+                if($checkwbdate) {
+                    return $checkwbdate;
+                }
+                else {
+                    return $check;
+                }
+                */
+                
+                return $check;
+            }
+            else {
+                $check1 = Patient::where(DB::raw("REPLACE(REPLACE(REPLACE(lname,'.',''),'-',''),' ','')"), mb_strtoupper(str_replace([' ','-'], '', $lname)))
+                ->where(DB::raw("REPLACE(REPLACE(REPLACE(fname,'.',''),'-',''),' ','')"), mb_strtoupper(str_replace([' ','-'], '', $fname)))
+                ->whereDate('bdate', $bdate)
+                ->first();
+
+                if($check1) {
+                    return $check1;
+                }
+                else {
+                    return NULL;
+                }
+            }
+        }
+        else {
+            $check = Patient::where(DB::raw("REPLACE(REPLACE(REPLACE(lname,'.',''),'-',''),' ','')"), mb_strtoupper(str_replace([' ','-'], '', $lname)))
+            ->where(DB::raw("REPLACE(REPLACE(REPLACE(fname,'.',''),'-',''),' ','')"), mb_strtoupper(str_replace([' ','-'], '', $fname)))
+            ->whereNull('mname')
+            ->first();
+            
+            if($check) {
+                $checkwbdate = Patient::where(DB::raw("REPLACE(REPLACE(REPLACE(lname,'.',''),'-',''),' ','')"), mb_strtoupper(str_replace([' ','-'], '', $lname)))
+                ->where(DB::raw("REPLACE(REPLACE(REPLACE(fname,'.',''),'-',''),' ','')"), mb_strtoupper(str_replace([' ','-'], '', $fname)))
+                ->whereNull('mname')
+                ->whereDate('bdate', $bdate)
+                ->first();
+
+                if($checkwbdate) {
+                    return $checkwbdate;
+                }
+                else {
+                    return $check;
+                }
+            }
+            else {
+                $check1 = Patient::where(DB::raw("REPLACE(REPLACE(REPLACE(lname,'.',''),'-',''),' ','')"), mb_strtoupper(str_replace([' ','-'], '', $lname)))
+                ->where(DB::raw("REPLACE(REPLACE(REPLACE(fname,'.',''),'-',''),' ','')"), mb_strtoupper(str_replace([' ','-'], '', $fname)))
+                ->whereDate('bdate', $bdate)
+                ->first();
+
+                if($check1) {
+                    return $check1;
+                }
+                else {
+                    return NULL;
+                }
+            }
+        }
     }
 }
