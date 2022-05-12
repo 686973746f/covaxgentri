@@ -77,7 +77,7 @@ class AdminController extends Controller
     }
 
     public function walkin_create() {
-
+        return view('walkin_create');
     }
 
     public function walkin_store(Request $request) {

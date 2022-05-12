@@ -96,7 +96,7 @@ class PatientRegistrationController extends Controller
         }
         else {
             return redirect()->back()
-            ->with('msg', 'Name already exists on the server.')
+            ->with('msg', 'Your record already ')
             ->with('msgtype', 'warning');
         }
     }

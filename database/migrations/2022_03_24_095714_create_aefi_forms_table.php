@@ -21,6 +21,8 @@ return new class extends Migration
             $table->foreignId('updated_by')->nullable()->constrained('users')->onDelete('cascade');
             $table->foreignId('patient_id')->nullable()->constrained()->onDelete('cascade');
 
+            $table->text('vigiflow_id')->nullable();
+
             $table->text('p1_dru_name');
             $table->text('p1_dru_region');
             $table->text('p1_dru_province');

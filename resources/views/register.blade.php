@@ -26,7 +26,7 @@
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label for="priority_group" class="form-label">Priority Group</label>
-                                        <select class="form-select" name="priority_group" id="priority_group">
+                                        <select class="form-select" name="priority_group" id="priority_group" required>
                                             <option value="" disabled {{is_null(old('priority_group')) ? 'selected' : ''}}>Choose...</option>
                                             <option value="A1">A1 (Healthcare Workers)</option>
                                             <option value="A2">A2 (Senior Citizens, 60 Years Old Pataas)</option>
@@ -41,7 +41,8 @@
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label for="is_pwd" class="form-label">Are you a Person With Disability?</label>
-                                        <select class="form-select" name="is_pwd" id="is_pwd">
+                                        <select class="form-select" name="is_pwd" id="is_pwd" required>
+                                            <option value="" disabled {{is_null(old('is_pwd')) ? 'selected' : ''}}>Choose...</option>
                                             <option value="0">No</option>
                                             <option value="1">Yes</option>
                                         </select>
@@ -50,7 +51,8 @@
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label for="is_indigenous" class="form-label">Are you an Indigent?</label>
-                                        <select class="form-select" name="is_indigenous" id="is_indigenous">
+                                        <select class="form-select" name="is_indigenous" id="is_indigenous" required>
+                                            <option value="" disabled {{is_null(old('is_indigenous')) ? 'selected' : ''}}>Choose...</option>
                                             <option value="0">No</option>
                                             <option value="1">Yes</option>
                                         </select>
