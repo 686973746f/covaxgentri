@@ -23,7 +23,7 @@
     <script src="{{asset('js/fullcalendar/lib/main.js')}}"></script>
 </head>
 <body>
-    <div id="app">
+    <div id="app" style="font-family: Arial, Helvetica, sans-serif">
         <nav class="navbar navbar-expand-md navbar-light bg-success text-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand text-white" href="{{ url('/') }}">

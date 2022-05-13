@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AefiController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PatientController;
@@ -60,6 +61,11 @@ Route::group(['middleware' => ['isAdmin', 'isEncoder']], function() {
 
     Route::get('/walkin_create', [AdminController::class, 'walkin_create'])->name('walkin_create');
     Route::post('/walkin_create', [AdminController::class, 'walkin_store'])->name('walkin_store');
+
+    Route::get('/aefi/{patient_id}/create', [AefiController::class, 'create'])->name('aefi_create');
+    Route::post('/aefi/{patient_id}/create', [AefiController::class, 'store'])->name('aefi_store');
+    Route::get('/aefi/{patient_id}/edit', [AefiController::class, 'edit'])->name('aefi_edit');
+    Route::post('/aefi/{patient_id}/edit', [AefiController::class, 'edit'])->name('update');
 });
 
 Route::group(['middleware' => ['isAdmin']], function() {

@@ -8,7 +8,7 @@
             <div class="card-header bg-success text-white"><strong>View Patient Details</strong></div>
             <div class="card-body">
                 <div class="card mb-3">
-                    <div class="card-header"><strong>Personal Information</strong></div>
+                    <div class="card-header"><strong><i class="fa-solid fa-circle-user me-2"></i>Personal Information</strong></div>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-3">
@@ -116,7 +116,7 @@
                     </div>
                 </div>
                 <div class="card mb-3">
-                    <div class="card-header"><strong>Current Address</strong></div>
+                    <div class="card-header"><strong><i class="fa-solid fa-house me-2"></i>Current Address</strong></div>
                     <div class="card-body">
                         <div id="address_text" class="d-none">
                             <div class="row">
@@ -179,8 +179,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="card">
-                    <div class="card-header"><strong>Vaccination Details</strong></div>
+                <div class="card mb-3">
+                    <div class="card-header"><strong><i class="fa-solid fa-shield-virus me-2"></i>Vaccination Details</strong></div>
                     <div class="card-body">
                         @if(!is_null($data->firstdose_schedule_id))
                         <table class="table table-bordered">
@@ -254,6 +254,21 @@
                         @else
                         <p class="text-center">No Schedule Found.</p>
                         @endif
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>Adverse Events Following Immunization (AEFI)</strong>
+                            </div>
+                            <div class="col-md-6 text-end">
+                                <a href="{{route('aefi_create', ['patient_id' => $data->id])}}" class="btn btn-success"><i class="fa-solid fa-plus me-2"></i>New AEFI CIF</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+
                     </div>
                 </div>
             </div>
