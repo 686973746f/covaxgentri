@@ -113,6 +113,18 @@
                                 </div>
                             </div>
                         </div>
+                        <table class="table table-bordered">
+                            <tbody class="text-center">
+                                <tr>
+                                    <td>Submitted ID</td>
+                                    <td><a href="{{storage_path('registration/'.$data->requirement_id_filepath)}}" class="btn btn-primary"><i class="fa-solid fa-id-card me-2"></i>View Submitted ID</a></td>
+                                </tr>
+                                <tr>
+                                    <td>Selfie</td>
+                                    <td><a href="{{storage_path('registration/'.$data->requirement_selfie)}}" class="btn btn-primary" target="_blank"><i class="fa-solid fa-image-portrait me-2"></i>View Patient Selfie</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
                 <div class="card mb-3">
@@ -186,23 +198,26 @@
                         <table class="table table-bordered">
                             <tbody>
                                 <tr>
-                                    <td>First Dose Date</td>
+                                    <td colspan="2" class="bg-light"><strong>FIRST DOSE</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>First (1st) Dose Date</td>
                                     <td class="text-center">{{date('m/d/Y - l', strtotime($data->getFirstDoseData()->for_date))}}</td>
                                 </tr>
                                 <tr>
-                                    <td>First Dose Vaccination Center</td>
+                                    <td>First (1st) Dose Vaccination Center</td>
                                     <td class="text-center">{{$data->getFirstDoseData()->vaccinationcenter->name}}</td>
                                 </tr>
                                 <tr>
-                                    <td>First Dose Vaccine Name</td>
+                                    <td>First (1st) Dose Vaccine Name</td>
                                     <td class="text-center">{{$data->getFirstDoseData()->vaccinelist->vaccine_name}}</td>
                                 </tr>
                                 <tr>
-                                    <td>First Dose Status</td>
+                                    <td>First (1st) Dose Status</td>
                                     <td class="text-center">{{($data->firstdose_is_attended == 1) ? 'Finished' : 'Pending'}}</td>
                                 </tr>
                                 <tr>
-                                    <td>Schedule ID / Date Scheduled</td>
+                                    <td>First (1st) Dose Schedule ID / Date Scheduled</td>
                                     <td class="text-center">#{{$data->firstdose_schedule_id}} / {{date('m-d-Y h:i A - l', strtotime($data->firstdose_schedule_date_by_user))}}</td>
                                 </tr>
                                 @if($data->firstdose_is_attended == 1)
@@ -221,33 +236,120 @@
                                 @endif
                                 @if(!is_null($data->seconddose_schedule_id))
                                 <tr>
-                                    <td></td>
-                                    <td></td>
+                                    <td colspan="2" class="bg-light"><strong>SECOND (2ND) DOSE</strong></td>
                                 </tr>
                                 <tr>
-                                    <td></td>
-                                    <td></td>
+                                    <td>Second (2nd) Dose Date</td>
+                                    <td class="text-center">{{date('m/d/Y - l', strtotime($data->getSecondDoseData()->for_date))}}</td>
                                 </tr>
+                                <tr>
+                                    <td>Second (2nd) Dose Vaccination Center</td>
+                                    <td class="text-center">{{$data->getSecondDoseData()->vaccinationcenter->name}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Second (2nd) Dose Vaccine Name</td>
+                                    <td class="text-center">{{$data->getSecondDoseData()->vaccinelist->vaccine_name}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Second (2nd) Dose Status</td>
+                                    <td class="text-center">{{($data->seconddose_is_attended == 1) ? 'Finished' : 'Pending'}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Second (2nd) Dose Schedule ID / Date Scheduled</td>
+                                    <td class="text-center">#{{$data->seconddose_schedule_id}} / {{date('m-d-Y h:i A - l', strtotime($data->seconddose_schedule_date_by_user))}}</td>
+                                </tr>
+                                    @if($data->seconddose_is_attended == 1)
+                                    <tr>
+                                        <td>Vaccinator</td>
+                                        <td class="text-center">{{$data->seconddose_vaccinator_name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Batch / Lot Number</td>
+                                        <td class="text-center">{{$data->seconddose_batchno}} / {{$data->seconddose_lotno}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Injection Site</td>
+                                        <td class="text-center">{{$data->seconddose_site_injection}}</td>
+                                    </tr>
+                                    @endif
                                 @endif
                                 @if(!is_null($data->booster_schedule_id))
                                 <tr>
-                                    <td></td>
-                                    <td></td>
+                                    <td colspan="2" class="bg-light"><strong>BOOSTER DOSE</strong></td>
                                 </tr>
                                 <tr>
-                                    <td></td>
-                                    <td></td>
+                                    <td>Booster Dose Date</td>
+                                    <td class="text-center">{{date('m/d/Y - l', strtotime($data->getBoosterData()->for_date))}}</td>
                                 </tr>
+                                <tr>
+                                    <td>Booster Dose Vaccination Center</td>
+                                    <td class="text-center">{{$data->getBoosterData()->vaccinationcenter->name}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Booster Dose Vaccine Name</td>
+                                    <td class="text-center">{{$data->getBoosterData()->vaccinelist->vaccine_name}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Booster Dose Status</td>
+                                    <td class="text-center">{{($data->booster_is_attended == 1) ? 'Finished' : 'Pending'}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Booster Dose Schedule ID / Date Scheduled</td>
+                                    <td class="text-center">#{{$data->booster_schedule_id}} / {{date('m-d-Y h:i A - l', strtotime($data->booster_schedule_date_by_user))}}</td>
+                                </tr>
+                                    @if($data->booster_is_attended == 1)
+                                    <tr>
+                                        <td>Vaccinator</td>
+                                        <td class="text-center">{{$data->booster_vaccinator_name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Batch / Lot Number</td>
+                                        <td class="text-center">{{$data->booster_batchno}} / {{$data->booster_lotno}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Injection Site</td>
+                                        <td class="text-center">{{$data->booster_site_injection}}</td>
+                                    </tr>
+                                    @endif
                                 @endif
                                 @if(!is_null($data->boostertwo_schedule_id))
                                 <tr>
-                                    <td></td>
-                                    <td></td>
+                                    <td colspan="2" class="bg-light"><strong>SECOND BOOSTER DOSE</strong></td>
                                 </tr>
                                 <tr>
-                                    <td></td>
-                                    <td></td>
+                                    <td>Second Booster Dose Date</td>
+                                    <td class="text-center">{{date('m/d/Y - l', strtotime($data->getBoosterTwoData()->for_date))}}</td>
                                 </tr>
+                                <tr>
+                                    <td>Second Booster Dose Vaccination Center</td>
+                                    <td class="text-center">{{$data->getBoosterTwoData()->vaccinationcenter->name}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Second Booster Dose Vaccine Name</td>
+                                    <td class="text-center">{{$data->getBoosterTwoData()->vaccinelist->vaccine_name}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Second Booster Dose Status</td>
+                                    <td class="text-center">{{($data->boostertwo_is_attended == 1) ? 'Finished' : 'Pending'}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Second Booster Dose Schedule ID / Date Scheduled</td>
+                                    <td class="text-center">#{{$data->boostertwo_schedule_id}} / {{date('m-d-Y h:i A - l', strtotime($data->boostertwo_schedule_date_by_user))}}</td>
+                                </tr>
+                                    @if($data->boostertwo_is_attended == 1)
+                                    <tr>
+                                        <td>Vaccinator</td>
+                                        <td class="text-center">{{$data->boostertwo_vaccinator_name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Batch / Lot Number</td>
+                                        <td class="text-center">{{$data->boostertwo_batchno}} / {{$data->boostertwo_lotno}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Injection Site</td>
+                                        <td class="text-center">{{$data->boostertwo_site_injection}}</td>
+                                    </tr>
+                                    @endif
                                 @endif
                             </tbody>
                         </table>
