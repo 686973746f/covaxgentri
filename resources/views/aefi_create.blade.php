@@ -7,6 +7,14 @@
         <div class="card">
             <div class="card-header"><strong>Create NEW AEFI Case Investigation Form for {{ucwords(strtolower($data->getName()))}} (#{{$data->id}})</strong></div>
             <div class="card-body">
+                <div class="alert alert-info" role="alert">
+                    <p>For all AEFIs, regardless of seriousness, Item I. to IV. must be filled up. For identified serious AEFI cases, succeeding pages are mandatory. Immediately notify the Local Epidemiology Surveillance Unit (ESU). Please fill out all blanks and put a check mark on the appropriate box. Never leave an item blank (write N/A). Item with <strong>* (asterisk)</strong> are mandatory fields.</p>
+                </div>
+                <div class="alert alert-info" role="alert">
+                    <p><strong>NOTE:</strong> According to Republic Act No. 11332 Revised IRR Rule VI Sec. 6, "The aforementioned details are crucial and indispensable for the formulation of appropriate policies and disease respponse activities. Hence, health professionals conducting the interview at point of first contact shall obtain such details from a suspect case, properly informing the data subject that the information sought to be obtained is being processed in accordance with Republic Act No. 10173, or the "Data Privacy Act of 2012," and that deliberately providing false or misleading personal information on the part of the person, or the next of kin in case of person's incapacity, may constitute as non-cooperation punishable under the Act or this IRR."</p>
+                    <p>Information provided here is for surveillance and investigation use only in the context of detection of safety signals, addressing vaccine hesitancy, and potential claims from PHIC VICP.</p>
+                    <p>Information submitted here may not be used for medico-legal purposes, or performance of medical or clinical audit to the management of the health care providers.</p>
+                </div>
                 <div class="card mb-3">
                     <div class="card-header"><strong>I. REPORTER'S INFORMATION</strong></div>
                     <div class="card-body">
@@ -413,7 +421,7 @@
                                     <label class="form-label"><strong class="text-danger">*</strong>Serious Case</label>
                                     <select class="form-select" name="p4_seriouscase_yn" id="p4_seriouscase_yn" required>
                                         <option value="" disabled {{(is_null(old('p4_seriouscase_yn')) ? 'selected' : '')}}>Choose...</option>
-                                        <option value="No" {{(old('p4_seriouscase_yn') == 'No')}}>No</option>
+                                        <option value="No" id="p4_seriouscase_yn_c1" {{(old('p4_seriouscase_yn') == 'No')}}>No</option>
                                         <option value="Yes" {{(old('p4_seriouscase_yn') == 'Yes')}}>Yes</option>
                                     </select>
                                 </div>
@@ -422,11 +430,11 @@
                                         <select class="form-select" id="p4_seriouscase_ifyes_type">
                                             <option value="" disabled {{(is_null(old('p4_seriouscase_ifyes_type')) ? 'selected' : '')}}>Choose...</option>
                                             <option value="Death" {{(old('p4_seriouscase_ifyes_type') == 'Death') ? 'selected' : ''}}>Death</option>
-                                            <option value="Life-threatening" {{(old('p4_seriouscase_ifyes_type') == 'Life-threatening') ? 'selected' : ''}}>Life-threatening</option>
-                                            <option value="Disability" {{(old('p4_seriouscase_ifyes_type') == 'Disability') ? 'selected' : ''}}>Disability</option>
-                                            <option value="Hospitalization" {{(old('p4_seriouscase_ifyes_type') == 'Hospitalization') ? 'selected' : ''}}>Hospitalization</option>
-                                            <option value="Congenital Anomaly" {{(old('p4_seriouscase_ifyes_type') == 'Congenital Anomaly') ? 'selected' : ''}}>Congenital Anomaly</option>
-                                            <option value="Other important medical event" {{(old('p4_seriouscase_ifyes_type') == 'Other important medical event') ? 'selected' : ''}}>Other important medical event</option>
+                                            <option value="Life-threatening" id="p4_seriouscase_ifyes_type_c1" {{(old('p4_seriouscase_ifyes_type') == 'Life-threatening') ? 'selected' : ''}}>Life-threatening</option>
+                                            <option value="Disability" id="p4_seriouscase_ifyes_type_c2" {{(old('p4_seriouscase_ifyes_type') == 'Disability') ? 'selected' : ''}}>Disability</option>
+                                            <option value="Hospitalization" id="p4_seriouscase_ifyes_type_c3" {{(old('p4_seriouscase_ifyes_type') == 'Hospitalization') ? 'selected' : ''}}>Hospitalization</option>
+                                            <option value="Congenital Anomaly" id="p4_seriouscase_ifyes_type_c4" {{(old('p4_seriouscase_ifyes_type') == 'Congenital Anomaly') ? 'selected' : ''}}>Congenital Anomaly</option>
+                                            <option value="Other important medical event" id="p4_seriouscase_ifyes_type_c5" {{(old('p4_seriouscase_ifyes_type') == 'Other important medical event') ? 'selected' : ''}}>Other important medical event</option>
                                         </select>
                                         <label for="p4_seriouscase_ifyes_type"><strong class="text-danger">*</strong>If Serious Case, Specify Type</label>
                                     </div>
@@ -439,6 +447,101 @@
                         </div>
                     </div>
                 </div>
+                <div class="alert alert-info" role="alert">
+                    <p><strong>Instructions:</strong> Items V. to XIII. of this Case Investigation Form shall be filled out by the attending physician. The Disease Surveillance Officer or any healthcare professional who attended to the patient shall fill out the form should the attending physician be unavailable.</p>
+                    <p><strong>Note:</strong> The operational definition of serious AEFI cases is found in Appendix 2. Please be guided accordingly.</p>
+                </div>
+                <div class="card mb-3">
+                    <div class="card-header"><strong>V. EXAMINATION DETAILS</strong></div>
+                    <div class="card-body">
+                        
+                    </div>
+                </div>
+                <div class="card mb-3">
+                    <div class="card-header"><strong>VI. MODE OF EXAMINATION</strong></div>
+                    <div class="card-body">
+                        <div class="form-floating mb-3">
+                            <select class="form-select" id="p6_modeofexam_list">
+                                <option value="" disabled {{(is_null(old('p6_modeofexam_list')) ? 'selected' : '')}}>Choose...</option>
+                                <option value="Interview" {{(old('p6_modeofexam_list') == 'Interview') ? 'selected' : ''}}>Interview</option>
+                                <option value="Medical Record/s" {{(old('p6_modeofexam_list') == 'Medical Record/s') ? 'selected' : ''}}>Medical Record/s</option>
+                                <option value="Physical Examination" {{(old('p6_modeofexam_list') == 'Physical Examination') ? 'selected' : ''}}>Physical Examination</option>
+                                <option value="Laboratory Result" {{(old('p6_modeofexam_list') == 'Laboratory Result') ? 'selected' : ''}}>Laboratory Result</option>
+                                <option value="Other/s, specify" {{(old('p6_modeofexam_list') == 'Other/s, specify') ? 'selected' : ''}}>Other/s, specify</option>
+                            </select>
+                            <label for="p6_modeofexam_list"><strong class="text-danger">*</strong>Select Mode of Examination</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mb-3">
+                    <div class="card-header"><strong>VII. CLINICAL DETAILS</strong> - Attach copies of ALL available documents including case sheet/s, health screening form, copy of vaccination card, discharge summary, case notes, lab and autopsy reports, prescriptions, and others. Separate sheet/s may be attached to complete the information.</div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="p7_item1" class="form-label">1. What is your complete diagnosis or problem list?</label>
+                            <textarea class="form-control" id="p7_item1" rows="3"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="p7_item1" class="form-label">. What is your complete diagnosis or problem list?</label>
+                            <textarea class="form-control" id="p7_item1" rows="3"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mb-3">
+                    <div class="card-header"><strong>VIII. COURSE IN THE HOSPITALIZATION</strong> - You may opt to attach a medical abstract outlining the chronological course of hospitalization in SOAP format.</div>
+                    <div class="card-body">
+                        
+                    </div>
+                </div>
+                <div class="card mb-3">
+                    <div class="card-header"><strong>IX. RELEVANT PATIENT INFORMATION PRIOR TO IMMUNIZATION</strong></div>
+                    <div class="card-body">
+                        
+                    </div>
+                </div>
+                <div class="card mb-3">
+                    <div class="card-header"><strong>X. FOR THE HEALTH CARE PROVIDER</strong></div>
+                    <div class="card-body">
+                        
+                    </div>
+                </div>
+                <div class="card mb-3">
+                    <div class="card-header"><strong>XI. CONSENT FROM THE PATIENT OR NEXT OF KIN</strong></div>
+                    <div class="card-body">
+                        
+                    </div>
+                </div>
+                <div class="card mb-3">
+                    <div class="card-header"><strong>XII. CONSENT FROM THE HEALTH CARE PROVIDER</strong></div>
+                    <div class="card-body">
+                        
+                    </div>
+                </div>
+                <div class="card mb-3">
+                    <div class="card-header"><strong>XIII. INVESTIGATION DETAILS</strong> - Please indicate whether the investigator is from the Hospital or Local ESU.</div>
+                    <div class="card-body">
+                        
+                    </div>
+                </div>
+                <div class="card mb-3">
+                    <div class="card-header"><strong>XIV. IMMUNIZATION PRACTICES</strong></div>
+                    <div class="card-body">
+                        
+                    </div>
+                </div>
+                <div class="card mb-3">
+                    <div class="card-header"><strong>XV. COLD CHAIN AND TRANSPORT</strong></div>
+                    <div class="card-body">
+                        
+                    </div>
+                </div>
+                <div class="card mb-3">
+                    <div class="card-header"><strong>XVI. VACCINE DETAILS</strong> (Indicate vaccines provided at the site linked to AEFI on the corresponding day)</div>
+                    <div class="card-body">
+                        
+                    </div>
+                </div>
+                <p>Privacy Statement</p>
+                <p>Public health authorities, to which at the national level is the Department of Health, collects personal information and other necessary data relating to adverse events following immunization (AEFls) as stated in the Revised IRR of Republic Act No. 11332 or the "Mandatory Reporting of Notifiable Diseases and Health Events of Public Health Concern Act." The information collected in this report is used to assist in the surveillance and PCEt market monitoring of the safety of the COVID-19 vaccines. All reports of AEFls are assessed and encoded into the respective information system. The information may come from som eone other than the patient to whom the personal information relates. This is in consideration of cases where the patient may be unable to report the case or where the inform ation is from the next of kin/guardian or an entity other than the former mentioned.</p>
             </div>
             <div class="card-footer text-end">
                 <button type="submit" class="btn btn-success"><i class="fa-solid fa-floppy-disk me-2"></i>Save</button>
@@ -447,19 +550,6 @@
     </div>
 </form>
 <script>
-    $(document).ready(function () {
-        $(function(){
-            var requiredCheckboxes = $('.sxList :checkbox[required]');
-            requiredCheckboxes.change(function(){
-                if(requiredCheckboxes.is(':checked')) {
-                    requiredCheckboxes.removeAttr('required');
-                } else {
-                    requiredCheckboxes.attr('required', 'required');
-                }
-            }).trigger('change');
-        });
-    });
-
     $('#p4_outcome').change(function (e) { 
         e.preventDefault();
         if($(this).val() == 'Alive') {
@@ -469,6 +559,15 @@
             $('#ifDead').addClass('d-none');
             $('#p4_outcome_died_type').prop('required', false);
             $('#p4_outcome_died_date').prop('required', false);
+
+            $('#p4_seriouscase_yn').val('').trigger('change');
+            $('#p4_seriouscase_ifyes_type').val('').trigger('change');
+
+            $('#p4_seriouscase_ifyes_type_c1').removeClass('d-none');
+            $('#p4_seriouscase_ifyes_type_c2').removeClass('d-none');
+            $('#p4_seriouscase_ifyes_type_c3').removeClass('d-none');
+            $('#p4_seriouscase_ifyes_type_c4').removeClass('d-none');
+            $('#p4_seriouscase_ifyes_type_c5').removeClass('d-none');
         }
         else if($(this).val() == 'Died') {
             $('#ifAlive').addClass('d-none');
@@ -477,6 +576,15 @@
             $('#ifDead').removeClass('d-none');
             $('#p4_outcome_died_type').prop('required', true);
             $('#p4_outcome_died_date').prop('required', true);
+
+            $('#p4_seriouscase_yn').val('Yes').trigger('change');
+            $('#p4_seriouscase_ifyes_type').val('Death').trigger('change');
+
+            $('#p4_seriouscase_ifyes_type_c1').addClass('d-none');
+            $('#p4_seriouscase_ifyes_type_c2').addClass('d-none');
+            $('#p4_seriouscase_ifyes_type_c3').addClass('d-none');
+            $('#p4_seriouscase_ifyes_type_c4').addClass('d-none');
+            $('#p4_seriouscase_ifyes_type_c5').addClass('d-none');
         }
     }).trigger('change');
 
@@ -537,7 +645,13 @@
 
     $('#p4_seriouscase_ifyes_type').change(function (e) { 
         e.preventDefault();
-        if($(this).val() == 'Other important medical event') {
+        if($(this).val() == 'Death') {
+            $('#p4_outcome').val('Died').trigger('change');
+
+            $('#otherIMR').addClass('d-none');
+            $('#p4_seriouscase_ifyes_other_specify').prop('required', false);
+        }
+        else if($(this).val() == 'Other important medical event') {
             $('#otherIMR').removeClass('d-none');
             $('#p4_seriouscase_ifyes_other_specify').prop('required', true);
         }
