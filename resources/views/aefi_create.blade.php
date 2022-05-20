@@ -471,6 +471,45 @@
                             </select>
                             <label for="p6_modeofexam_list"><strong class="text-danger">*</strong>Select Mode of Examination</label>
                         </div>
+                        <div id="p7ifdied" class="d-none">
+                            <div class="card">
+                                <div class="card-header"><strong>If the patient DIED</strong></div>
+                                <div class="card-body">
+                                    <div class="mb-3">
+                                        <label class="form-label"><strong class="text-danger">*</strong>1. Was autopsy recommended or suggested to the family or next of kin?</label>
+                                        <select class="form-select" name="p6_ifdied_autopsyrecommended" id="p6_ifdied_autopsyrecommended">
+                                            <option value="" disabled {{(is_null(old('p6_ifdied_autopsyrecommended')) ? 'selected' : '')}}>Choose...</option>
+                                            <option value="No" {{(old('p6_ifdied_autopsyrecommended') == 'No')}}>No</option>
+                                            <option value="Yes" {{(old('p6_ifdied_autopsyrecommended') == 'Yes')}}>Yes</option>
+                                        </select>
+                                    </div>
+                                    <div id="p6_ifautopsy_yes" class="d-none">
+                                        <div class="mb-3">
+                                            <label class="form-label"><strong class="text-danger">*</strong>1. If <u>autopsy was recommended but not done</u>, please check all the reason/s why it was not done</label>
+                                            <select class="form-select" name="p6_ifdied_autopsynotdone_list" id="p6_ifdied_autopsynotdone_list">
+                                                <option value="" disabled {{(is_null(old('p6_ifdied_autopsynotdone_list')) ? 'selected' : '')}}>Choose...</option>
+                                                <option value="Local unavailability of pathologist/NBI/PNP" {{(old('p6_ifdied_autopsynotdone_list') == 'Local unavailability of pathologist/NBI/PNP')}}>Local unavailability of pathologist/NBI/PNP</option>
+                                                <option value="Financial challenge" {{(old('p6_ifdied_autopsynotdone_list') == 'Financial challenge')}}>Financial challenge</option>
+                                                <option value="No consent" {{(old('p6_ifdied_autopsynotdone_list') == 'No consent')}}>No consent</option>
+                                                <option value="Other reason/s" {{(old('p6_ifdied_autopsynotdone_list') == 'Other reason/s')}}>Other reason/s</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3 d-none" id="p6_ifdied_autopsynotdone_othersdiv">
+                                            <label for="p6_ifdied_autopsynotdone_other_specify" class="form-label"><strong class="text-danger">*</strong>Specify Other Reason/s</label>
+                                            <input type="text" class="form-control" name="p6_ifdied_autopsynotdone_other_specify" id="p6_ifdied_autopsynotdone_other_specify" value="{{old('p6_ifdied_autopsynotdone_other_specify')}}">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="p6_ifdied_verbalautopsy_name" class="form-label"><strong class="text-danger">*</strong>3.A If <u>verbal autopsy</u> was done; Source's Name</label>
+                                            <input type="text" class="form-control" name="p6_ifdied_verbalautopsy_name" id="p6_ifdied_verbalautopsy_name" value="{{old('p6_ifdied_verbalautopsy_name')}}">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="p6_ifdied_verbalautopsy_relationship" class="form-label"><strong class="text-danger">*</strong>3.A If <u>verbal autopsy</u> was done; Source's Relationship</label>
+                                            <input type="text" class="form-control" name="p6_ifdied_verbalautopsy_relationship" id="p6_ifdied_verbalautopsy_relationship" value="{{old('p6_ifdied_verbalautopsy_relationship')}}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="card mb-3">
@@ -560,14 +599,17 @@
             $('#p4_outcome_died_type').prop('required', false);
             $('#p4_outcome_died_date').prop('required', false);
 
-            $('#p4_seriouscase_yn').val('').trigger('change');
-            $('#p4_seriouscase_ifyes_type').val('').trigger('change');
+            $('#p4_seriouscase_yn').val('').change();
+            $('#p4_seriouscase_ifyes_type').val('').change();
 
             $('#p4_seriouscase_ifyes_type_c1').removeClass('d-none');
             $('#p4_seriouscase_ifyes_type_c2').removeClass('d-none');
             $('#p4_seriouscase_ifyes_type_c3').removeClass('d-none');
             $('#p4_seriouscase_ifyes_type_c4').removeClass('d-none');
             $('#p4_seriouscase_ifyes_type_c5').removeClass('d-none');
+
+            $('#p7ifdied').addClass('d-none');
+            $('#p6_ifdied_autopsyrecommended').prop('required', false);
         }
         else if($(this).val() == 'Died') {
             $('#ifAlive').addClass('d-none');
@@ -577,14 +619,17 @@
             $('#p4_outcome_died_type').prop('required', true);
             $('#p4_outcome_died_date').prop('required', true);
 
-            $('#p4_seriouscase_yn').val('Yes').trigger('change');
-            $('#p4_seriouscase_ifyes_type').val('Death').trigger('change');
+            $('#p4_seriouscase_yn').val('Yes').change();
+            $('#p4_seriouscase_ifyes_type').val('Death').change();
 
             $('#p4_seriouscase_ifyes_type_c1').addClass('d-none');
             $('#p4_seriouscase_ifyes_type_c2').addClass('d-none');
             $('#p4_seriouscase_ifyes_type_c3').addClass('d-none');
             $('#p4_seriouscase_ifyes_type_c4').addClass('d-none');
             $('#p4_seriouscase_ifyes_type_c5').addClass('d-none');
+
+            $('#p7ifdied').removeClass('d-none');
+            $('#p6_ifdied_autopsyrecommended').prop('required', true);
         }
     }).trigger('change');
 
@@ -646,7 +691,9 @@
     $('#p4_seriouscase_ifyes_type').change(function (e) { 
         e.preventDefault();
         if($(this).val() == 'Death') {
-            $('#p4_outcome').val('Died').trigger('change');
+            if($('#p4_outcome').val() != 'Died') {
+                $('#p4_outcome').val('Died').change();
+            }
 
             $('#otherIMR').addClass('d-none');
             $('#p4_seriouscase_ifyes_other_specify').prop('required', false);
@@ -658,6 +705,13 @@
         else {
             $('#otherIMR').addClass('d-none');
             $('#p4_seriouscase_ifyes_other_specify').prop('required', false);
+        }
+    });
+
+    $('#p6_ifdied_autopsynotdone_list').change(function (e) { 
+        e.preventDefault();
+        if($(this).val() == 'p6_ifdied_autopsynotdone_list') {
+            
         }
     });
 </script>
