@@ -133,6 +133,8 @@ return new class extends Migration
             $table->text('p7_physicalexam_notsupport')->nullable();
 
             $table->text('p7_item3')->nullable();
+            $table->smallInteger('p7_item4_yn')->nullable();
+            $table->text('p7_item4_citation')->nullable();
 
             $table->dateTime('p8_course_datetime1')->nullable();
             $table->text('p8_course_subjective_findings1')->nullable();

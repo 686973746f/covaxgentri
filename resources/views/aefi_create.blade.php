@@ -114,98 +114,98 @@
                                 <tr>
                                     <td>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="p4_chestpain_yn" name="aefisx[]">
+                                            <input class="form-check-input" type="checkbox" value="1" id="p4_chestpain_yn" name="p4_chestpain_yn">
                                             <label class="form-check-label" for="p4_chestpain_yn">
                                                 Chest Pain
                                             </label>
                                         </div>
                                     </td>
-                                    <td><input type="date" class="form-control" id="aefichoicedate1" name="aefichoicedate1" value="aefichoicedate1" max="{{date('Y-m-d')}}"></td>
-                                    <td><input type="time" class="form-control" id="aefichoicetime1" value=""></td>
+                                    <td><input type="date" class="form-control" id="p4_chestpain_date" name="p4_chestpain_date" value="{{old('p4_chestpain_date')}}" max="{{date('Y-m-d')}}"></td>
+                                    <td><input type="time" class="form-control" id="p4_chestpain_time" value="{{old('p4_chestpain_time')}}"></td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="aefichoice1" name="aefisx[]">
-                                            <label class="form-check-label" for="aefichoice1">
+                                            <input class="form-check-input" type="checkbox" value="1" id="p4_chills_yn" name="p4_chills_yn">
+                                            <label class="form-check-label" for="p4_chills_yn">
                                                 Chills
                                             </label>
                                         </div>
                                     </td>
-                                    <td><input type="date" class="form-control" id="aefichoicedate1" max="{{date('Y-m-d')}}"></td>
-                                    <td><input type="time" class="form-control" id="aefichoicetime1"></td>
+                                    <td><input type="date" class="form-control" id="p4_chills_date" name="p4_chills_date"  value="{{old('p4_chills_date')}}" max="{{date('Y-m-d')}}"></td>
+                                    <td><input type="time" class="form-control" id="p4_chills_time"  name="p4_chills_time" value="{{old('p4_chills_time')}}"></td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="aefichoice1" name="aefisx[]">
-                                            <label class="form-check-label" for="aefichoice1">
+                                            <input class="form-check-input" type="checkbox" value="1" id="p4_colds_yn" name="p4_colds_yn">
+                                            <label class="form-check-label" for="p4_colds_yn">
                                                 Colds
                                             </label>
                                         </div>
                                     </td>
-                                    <td><input type="date" class="form-control" id="aefichoicedate1" max="{{date('Y-m-d')}}"></td>
-                                    <td><input type="time" class="form-control" id="aefichoicetime1"></td>
+                                    <td><input type="date" class="form-control" id="p4_colds_date" name="p4_colds_date"  value="{{old('p4_colds_date')}}" max="{{date('Y-m-d')}}"></td>
+                                    <td><input type="time" class="form-control" id="p4_colds_time" name="p4_colds_time"  value="{{old('p4_colds_time')}}"></td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="aefichoice1" name="aefisx[]">
-                                            <label class="form-check-label" for="aefichoice1">
+                                            <input class="form-check-input" type="checkbox" value="1" id="p4_dizziness_yn" name="p4_dizziness_yn">
+                                            <label class="form-check-label" for="p4_dizziness_yn">
                                                 Dizziness
                                             </label>
                                         </div>
                                     </td>
-                                    <td><input type="date" class="form-control" id="aefichoicedate1" max="{{date('Y-m-d')}}"></td>
-                                    <td><input type="time" class="form-control" id="aefichoicetime1"></td>
+                                    <td><input type="date" class="form-control" id="p4_dizziness_date" name="p4_dizziness_date"  value="{{old('p4_dizziness_date')}}" max="{{date('Y-m-d')}}"></td>
+                                    <td><input type="time" class="form-control" id="p4_dizziness_time" name="p4_dizziness_time"  value="{{old('p4_dizziness_time')}}"></td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="aefichoice1" name="aefisx[]">
-                                            <label class="form-check-label" for="aefichoice1">
+                                            <input class="form-check-input" type="checkbox" value="1" id="p4_feelingunwell_yn" name="p4_feelingunwell_yn">
+                                            <label class="form-check-label" for="p4_feelingunwell_yn">
                                                 Feeling Unwell (malaise)
                                             </label>
                                         </div>
                                     </td>
-                                    <td><input type="date" class="form-control" id="aefichoicedate1" max="{{date('Y-m-d')}}"></td>
-                                    <td><input type="time" class="form-control" id="aefichoicetime1"></td>
+                                    <td><input type="date" class="form-control" id="p4_feelingunwell_date" name="p4_feelingunwell_date" value="p4_feelingunwell_date" max="{{date('Y-m-d')}}"></td>
+                                    <td><input type="time" class="form-control" id="p4_feelingunwell_time" name="p4_feelingunwell_time"  value="{{old('p4_feelingunwell_time')}}"></td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="aefichoice1" name="aefisx[]">
-                                            <label class="form-check-label" for="aefichoice1">
+                                            <input class="form-check-input" type="checkbox" value="1" id="p4_fever_yn" name="p4_fever_yn">
+                                            <label class="form-check-label" for="p4_fever_yn">
                                                 Fever ≥ 38C
                                             </label>
                                         </div>
                                     </td>
-                                    <td><input type="date" class="form-control" id="aefichoicedate1" max="{{date('Y-m-d')}}"></td>
-                                    <td><input type="time" class="form-control" id="aefichoicetime1"></td>
+                                    <td><input type="date" class="form-control" id="p4_fever_date" name="p4_fever_date" value="p4_fever_date" max="{{date('Y-m-d')}}"></td>
+                                    <td><input type="time" class="form-control" id="p4_fever_time" name="p4_fever_time"  value="{{old('p4_fever_time')}}"></td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="aefichoice1" name="aefisx[]">
-                                            <label class="form-check-label" for="aefichoice1">
+                                            <input class="form-check-input" type="checkbox" value="1" id="p4_headache_yn" name="p4_headache_yn">
+                                            <label class="form-check-label" for="p4_headache_yn">
                                                 Headache
                                             </label>
                                         </div>
                                     </td>
-                                    <td><input type="date" class="form-control" id="aefichoicedate1" max="{{date('Y-m-d')}}"></td>
-                                    <td><input type="time" class="form-control" id="aefichoicetime1"></td>
+                                    <td><input type="date" class="form-control" id="p4_headache_date" name="p4_headache_date" value="p4_headache_date" max="{{date('Y-m-d')}}"></td>
+                                    <td><input type="time" class="form-control" id="p4_headache_time" name="p4_headache_time"  value="{{old('p4_headache_time')}}"></td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="aefichoice1" name="aefisx[]">
-                                            <label class="form-check-label" for="aefichoice1">
+                                            <input class="form-check-input" type="checkbox" value="1" id="p4_itching_yn" name="p4_itching_yn">
+                                            <label class="form-check-label" for="p4_itching_yn">
                                                 Itching
                                             </label>
                                         </div>
                                     </td>
-                                    <td><input type="date" class="form-control" id="aefichoicedate1" max="{{date('Y-m-d')}}"></td>
-                                    <td><input type="time" class="form-control" id="aefichoicetime1"></td>
+                                    <td><input type="date" class="form-control" id="p4_itching_date" name="p4_itching_date" value="p4_itching_date" max="{{date('Y-m-d')}}"></td>
+                                    <td><input type="time" class="form-control" id="p4_itching_time" name="p4_itching_time"  value="{{old('p4_itching_time')}}"></td>
                                 </tr>
                                 <tr>
                                     <td>
@@ -216,8 +216,8 @@
                                             </label>
                                         </div>
                                     </td>
-                                    <td><input type="date" class="form-control" id="aefichoicedate1" max="{{date('Y-m-d')}}"></td>
-                                    <td><input type="time" class="form-control" id="aefichoicetime1"></td>
+                                    <td><input type="date" class="form-control" id="aefichoicedate1" name="p4_feelingunwell_date" value="p4_feelingunwell_date"max="{{date('Y-m-d')}}"></td>
+                                    <td><input type="time" class="form-control" id="aefichoicetime1" name="p4_feelingunwell_time"  value="{{old('p4_feelingunwell_time')}}"></td>
                                 </tr>
                                 <tr>
                                     <td>
@@ -228,8 +228,8 @@
                                             </label>
                                         </div>
                                     </td>
-                                    <td><input type="date" class="form-control" id="aefichoicedate1" max="{{date('Y-m-d')}}"></td>
-                                    <td><input type="time" class="form-control" id="aefichoicetime1"></td>
+                                    <td><input type="date" class="form-control" id="aefichoicedate1" name="p4_feelingunwell_date" value="p4_feelingunwell_date" max="{{date('Y-m-d')}}"></td>
+                                    <td><input type="time" class="form-control" id="aefichoicetime1" name="p4_feelingunwell_time"  value="{{old('p4_feelingunwell_time')}}"></td>
                                 </tr>
                                 <tr>
                                     <td>
@@ -240,8 +240,8 @@
                                             </label>
                                         </div>
                                     </td>
-                                    <td><input type="date" class="form-control" id="aefichoicedate1" max="{{date('Y-m-d')}}"></td>
-                                    <td><input type="time" class="form-control" id="aefichoicetime1"></td>
+                                    <td><input type="date" class="form-control" id="aefichoicedate1" name="p4_feelingunwell_date" value="p4_feelingunwell_date" max="{{date('Y-m-d')}}"></td>
+                                    <td><input type="time" class="form-control" id="aefichoicetime1" name="p4_feelingunwell_time"  value="{{old('p4_feelingunwell_time')}}"></td>
                                 </tr>
                                 <tr>
                                     <td>
@@ -252,8 +252,8 @@
                                             </label>
                                         </div>
                                     </td>
-                                    <td><input type="date" class="form-control" id="aefichoicedate1" max="{{date('Y-m-d')}}"></td>
-                                    <td><input type="time" class="form-control" id="aefichoicetime1"></td>
+                                    <td><input type="date" class="form-control" id="aefichoicedate1" name="p4_feelingunwell_date" value="p4_feelingunwell_date" max="{{date('Y-m-d')}}"></td>
+                                    <td><input type="time" class="form-control" id="aefichoicetime1" name="p4_feelingunwell_time"  value="{{old('p4_feelingunwell_time')}}"></td>
                                 </tr>
                                 <tr>
                                     <td>
@@ -264,8 +264,8 @@
                                             </label>
                                         </div>
                                     </td>
-                                    <td><input type="date" class="form-control" id="aefichoicedate1" max="{{date('Y-m-d')}}"></td>
-                                    <td><input type="time" class="form-control" id="aefichoicetime1"></td>
+                                    <td><input type="date" class="form-control" id="aefichoicedate1" name="p4_feelingunwell_date" value="p4_feelingunwell_date" max="{{date('Y-m-d')}}"></td>
+                                    <td><input type="time" class="form-control" id="aefichoicetime1" name="p4_feelingunwell_time"  value="{{old('p4_feelingunwell_time')}}"></td>
                                 </tr>
                                 <tr>
                                     <td>
@@ -276,8 +276,8 @@
                                             </label>
                                         </div>
                                     </td>
-                                    <td><input type="date" class="form-control" id="aefichoicedate1" max="{{date('Y-m-d')}}"></td>
-                                    <td><input type="time" class="form-control" id="aefichoicetime1"></td>
+                                    <td><input type="date" class="form-control" id="aefichoicedate1" name="p4_feelingunwell_date" value="p4_feelingunwell_date" max="{{date('Y-m-d')}}"></td>
+                                    <td><input type="time" class="form-control" id="aefichoicetime1" name="p4_feelingunwell_time"  value="{{old('p4_feelingunwell_time')}}"></td>
                                 </tr>
                                 <tr>
                                     <td>
@@ -288,8 +288,8 @@
                                             </label>
                                         </div>
                                     </td>
-                                    <td><input type="date" class="form-control" id="aefichoicedate1" max="{{date('Y-m-d')}}"></td>
-                                    <td><input type="time" class="form-control" id="aefichoicetime1"></td>
+                                    <td><input type="date" class="form-control" id="aefichoicedate1" name="p4_feelingunwell_date" value="p4_feelingunwell_date" max="{{date('Y-m-d')}}"></td>
+                                    <td><input type="time" class="form-control" id="aefichoicetime1" name="p4_feelingunwell_time"  value="{{old('p4_feelingunwell_time')}}"></td>
                                 </tr>
                                 <tr>
                                     <td>
@@ -300,8 +300,8 @@
                                             </label>
                                         </div>
                                     </td>
-                                    <td><input type="date" class="form-control" id="aefichoicedate1" max="{{date('Y-m-d')}}"></td>
-                                    <td><input type="time" class="form-control" id="aefichoicetime1"></td>
+                                    <td><input type="date" class="form-control" id="aefichoicedate1" name="p4_feelingunwell_date" value="p4_feelingunwell_date" max="{{date('Y-m-d')}}"></td>
+                                    <td><input type="time" class="form-control" id="aefichoicetime1" name="p4_feelingunwell_time"  value="{{old('p4_feelingunwell_time')}}"></td>
                                 </tr>
                                 <tr>
                                     <td>
@@ -312,8 +312,8 @@
                                             </label>
                                         </div>
                                     </td>
-                                    <td><input type="date" class="form-control" id="aefichoicedate1" max="{{date('Y-m-d')}}"></td>
-                                    <td><input type="time" class="form-control" id="aefichoicetime1"></td>
+                                    <td><input type="date" class="form-control" id="aefichoicedate1" name="p4_feelingunwell_date" value="p4_feelingunwell_date" max="{{date('Y-m-d')}}"></td>
+                                    <td><input type="time" class="form-control" id="aefichoicetime1" name="p4_feelingunwell_time"  value="{{old('p4_feelingunwell_time')}}"></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -517,11 +517,51 @@
                     <div class="card-body">
                         <div class="mb-3">
                             <label for="p7_item1" class="form-label">1. What is your complete diagnosis or problem list?</label>
-                            <textarea class="form-control" id="p7_item1" rows="3"></textarea>
+                            <textarea class="form-control" id="p7_item1" rows="3">{{old('p7_item1')}}</textarea>
                         </div>
                         <div class="mb-3">
-                            <label for="p7_item1" class="form-label">. What is your complete diagnosis or problem list?</label>
-                            <textarea class="form-control" id="p7_item1" rows="3"></textarea>
+                            <label for="p7_item2" class="form-label">2. Please narrate the chronology of the events, including the date and time</label>
+                            <textarea class="form-control" id="p7_item2" rows="3">{{old('p7_item2')}}</textarea>
+                            <small class="text-muted">You may also use a separate sheet or attach another document listing the complete diagnosis. Refer to the Brighton Collaboration, Clinical Practice Guidelines, or International Classification of Diseases for the diagnosis.</small>
+                        </div>
+                        <table class="table table-bordered">
+                            <thead class="bg-light">
+                                <tr>
+                                    <th>History and PE</th>
+                                    <th>What are the findings that support the diagnosis?*</th>
+                                    <th>What are the findings that DO NOT support the diagnosis?*</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Review of Systems</td>
+                                    <td><textarea class="form-control" id="p7_sxreview_support" rows="3">{{old('p7_sxreview_support')}}</textarea></td>
+                                    <td><textarea class="form-control" id="p7_sxreview_notsupport" rows="3">{{old('p7_sxreview_notsupport')}}</textarea></td>
+                                </tr>
+                                <tr>
+                                    <td>Past Medical History and OB-GYN History</td>
+                                    <td><textarea class="form-control" id="p7_medobhistory_support" rows="3">{{old('p7_medobhistory_support')}}</textarea></td>
+                                    <td><textarea class="form-control" id="p7_medobhistory_notsupport" rows="3">{{old('p7_medobhistory_notsupport')}}</textarea></td>
+                                </tr>
+                                <tr>
+                                    <td>Family Medical History</td>
+                                    <td><textarea class="form-control" id="p7_familyhistory_support" rows="3">{{old('p7_familyhistory_support')}}</textarea></td>
+                                    <td><textarea class="form-control" id="p7_familyhistory_notsupport" rows="3">{{old('p7_familyhistory_notsupport')}}</textarea></td>
+                                </tr>
+                                <tr>
+                                    <td>Personal Social History</td>
+                                    <td><textarea class="form-control" id="p7_personalhistory_support" rows="3">{{old('p7_personalhistory_support')}}</textarea></td>
+                                    <td><textarea class="form-control" id="p7_personalhistory_notsupport" rows="3">{{old('p7_personalhistory_notsupport')}}</textarea></td>
+                                </tr>
+                                <tr>
+                                    <td>Physical Examination on first interaction</td>
+                                    <td><textarea class="form-control" id="p7_physicalexam_support" rows="3">{{old('p7_physicalexam_support')}}</textarea></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="mb-3">
+                            <label for="p7_item3" class="form-label">3. Based on your expertise, among the diagnoses mentioned in #1, which diagnosis do you think contributed the most or triggered the series of events towards hospitalization, disability, or death?</label>
+                            <textarea class="form-control" id="p7_item3" rows="3">{{old('p7_item3')}}</textarea>
                         </div>
                     </div>
                 </div>
