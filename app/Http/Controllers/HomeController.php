@@ -105,11 +105,14 @@ class HomeController extends Controller
         if($data->firstdose_original_date == $get_date) {
             $get_vaccinationschedule_id = $data->firstdose_schedule_id;
         }
-        else if($data->seconddose_schedule_id == $get_date) {
+        else if($data->seconddose_original_date == $get_date) {
             $get_vaccinationschedule_id = $data->seconddose_schedule_id;
         }
-        else if($data->booster_schedule_id == $get_date) {
+        else if($data->booster_original_date == $get_date) {
             $get_vaccinationschedule_id = $data->booster_schedule_id;
+        }
+        else if($data->boostertwo_original_date == $get_date) {
+            $get_vaccinationschedule_id = $data->boostertwo_schedule_id;
         }
 
         $vschedule = VaccinationSchedule::findOrFail($get_vaccinationschedule_id);
@@ -236,5 +239,44 @@ class HomeController extends Controller
 
     public function vaccinationRegister() {
         return view('register');
+    }
+
+    public function patientscan_index() {
+        return view('vaccination_scan');
+    }
+    
+    public function patientscan_process(Request $request) {
+        $request->validate([
+            'qr_id' => 'required',
+        ]);
+
+        $search = $request->qr_id;
+
+        $query = Patient::where('qr_id', $search)->first();
+
+        if($query) {
+            if(!is_null($query->getCurrentSchedData())) {
+                return redirect()->route('encodevaccination_viewpatient', [
+                    'patient_id' => $query->id,
+                    'get_date' => $query->getCurrentSchedData()->for_date,
+                ])
+                ->with('msg', 'Patient Record found. Has pending vaccination schedule.')
+                ->with('msgtype', 'success')
+                ->with('from_qr', true);
+            }
+            else {
+                return redirect()->route('patient_view', [
+                    'id' => $query->id,
+                ])
+                ->with('msg', 'Patient Record found. Has no pending vaccination schedule yet.')
+                ->with('msgtype', 'success')
+                ->with('from_qr', true);
+            }
+        }
+        else {
+            return back()
+            ->with('msg', 'Patient associated with the QR Code cannot be found.')
+            ->with('msgtype', 'warning');
+        }
     }
 }

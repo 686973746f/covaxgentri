@@ -66,6 +66,9 @@ Route::group(['middleware' => ['isAdmin', 'isEncoder']], function() {
     Route::post('/aefi/{patient_id}/create', [AefiController::class, 'store'])->name('aefi_store');
     Route::get('/aefi/{patient_id}/edit', [AefiController::class, 'edit'])->name('aefi_edit');
     Route::post('/aefi/{patient_id}/edit', [AefiController::class, 'edit'])->name('update');
+
+    Route::get('/patient_scan', [HomeController::class, 'patientscan_index'])->name('patientscan_index');
+    Route::post('/patient_scan', [HomeController::class, 'patientscan_process'])->name('patientscan_process');
 });
 
 Route::group(['middleware' => ['isAdmin']], function() {

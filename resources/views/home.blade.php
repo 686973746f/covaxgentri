@@ -27,6 +27,10 @@
                     <form action="{{route('encodevaccination_index')}}" method="GET">
                         <div class="card">
                             <div class="card-body">
+                                <div class="d-grid gap-2">
+                                    <a href="{{route('patientscan_index')}}" class="btn btn-primary"><i class="fa-solid fa-qrcode me-2"></i>Search Patient by QR Code</a>
+                                </div>
+                                <hr>
                                 <div class="row mb-3">
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -59,7 +63,7 @@
                             </div>
                             <div class="card-footer">
                                 <div class="d-grid gap-2">
-                                    <button type="submit" class="btn btn-primary">Go</button>
+                                    <button type="submit" class="btn btn-success"><i class="fa-solid fa-arrow-right me-2"></i>Go</button>
                                 </div>
                             </div>
                         </div>

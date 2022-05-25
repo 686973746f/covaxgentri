@@ -5,6 +5,11 @@
     <div class="card">
         <div class="card-header"><strong>View Patient Vaccination Details</strong></div>
         <div class="card-body">
+            @if(session('msg'))
+            <div class="alert alert-{{session('msgtype')}} text-center" role="alert">
+                {{session('msg')}} @if(session('from_qr'))<a href="{{route('patientscan_index')}}">Do another Search</a>@endif
+            </div>
+            @endif
             <table class="table table-bordered">
                 <thead class="bg-light text-info">
                     <tr>
@@ -13,8 +18,8 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td class="text-end"><strong>Full Name</strong></td>
-                        <td>{{$data->getName()}}</td>
+                        <td class="text-end"><strong>Full Name / Record ID</strong></td>
+                        <td><a href="{{route('patient_view', ['id' => $data->id])}}">{{$data->getName()}} (#{{$data->id}})</a></td>
                     </tr>
                     <tr>
                         <td class="text-end"><strong>Age/Sex</strong></td>
@@ -75,107 +80,104 @@
                         <td class="text-end"><strong>Is Indigenous People?</strong></td>
                         <td>{{($data->is_indigenous == 1) ? 'YES' : 'NO'}}</td>
                     </tr>
-                    @if($data->getCurrentSchedData()->sched_type == '1ST DOSE')
-                    <tr>
-                        <td class="text-end"><strong>Currently Scheduled for</strong></td>
-                        <td>1ST DOSE</td>
-                    </tr>
-                    @elseif($data->getCurrentSchedData()->sched_type == '2ND DOSE')
-                    <tr>
-                        <td class="text-end"><strong>Currently Scheduled for</strong></td>
-                        <td>2ND DOSE</td>
-                    </tr>
-                    @elseif($data->getCurrentSchedData()->sched_type == 'BOOSTER')
-                    <tr>
-                        <td class="text-end"><strong>Currently Scheduled for</strong></td>
-                        <td>BOOSTER</td>
-                    </tr>
-                    @elseif($data->getCurrentSchedData()->sched_type == 'BOOSTER2')
-                    <tr>
-                        <td class="text-end"><strong>Currently Scheduled for</strong></td>
-                        <td>BOOSTER2</td>
-                    </tr>
-                    @endif
-                    <tr>
-                        <td class="text-end"><strong>Date of Vaccination</strong></td>
-                        <td>{{date('m/d/Y - l', strtotime($data->getCurrentSchedData()->for_date))}}</td>
-                    </tr>
-                    <tr>
-                        <td class="text-end"><strong>Name of Vaccine</strong></td>
-                        <td>{{$data->getCurrentSchedData()->vaccinelist->vaccine_name}}</td>
-                    </tr>
-                    @if($data->getCurrentSchedData()->sched_type != '1ST DOSE')
-                    <!-- EXTRA TABLE FOR SEPARATOR -->
-                    <tr>
-                        <td class="text-end">&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    @endif
-                    @if($data->getCurrentSchedData()->sched_type == '2ND DOSE')
-                    <tr>
-                        <td class="text-end"><strong>First Dose Date</strong></td>
-                        <td>{{date('m/d/Y - l', strtotime($data->firstdose_date))}}</td>
-                    </tr>
-                    <tr>
-                        <td class="text-end"><strong>First Dose Vaccine Name</strong></td>
-                        <td>{{$data->getFirstDoseData()->vaccinelist->vaccine_name}}</td>
-                    </tr>
-                    @elseif($data->getCurrentSchedData()->sched_type == 'BOOSTER')
-                    <tr>
-                        <td class="text-end"><strong>First Dose Date</strong></td>
-                        <td>{{date('m/d/Y - l', strtotime($data->firstdose_date))}}</td>
-                    </tr>
-                    <tr>
-                        <td class="text-end"><strong>First Dose Vaccine Name</strong></td>
-                        <td>{{$data->getFirstDoseData()->vaccinelist->vaccine_name}}</td>
-                    </tr>
-                        @if($data->is_singledose != 1)
+                    @if(!is_null($data->getCurrentSchedData()))
+                        <tr class="bg-warning">
+                            <td class="text-end"><strong>Currently Scheduled for</strong></td>
+                            @if($data->getCurrentSchedData()->sched_type == '1ST DOSE')
+                            <td><strong>1ST DOSE</strong></td>
+                            @elseif($data->getCurrentSchedData()->sched_type == '2ND DOSE')
+                            <td><strong>2ND DOSE</strong></td>
+                            @elseif($data->getCurrentSchedData()->sched_type == 'BOOSTER')
+                            <td><strong>BOOSTER</strong></td>
+                            @elseif($data->getCurrentSchedData()->sched_type == 'BOOSTER2')
+                            <td><strong>BOOSTER2</strong></td>
+                            @endif
+                        </tr>
+                        <tr class="bg-warning">
+                            <td class="text-end"><strong>Date of Vaccination</strong></td>
+                            <td><strong>{{date('m/d/Y - l', strtotime($data->getCurrentSchedData()->for_date))}}</strong></td>
+                        </tr>
+                        <tr class="bg-warning">
+                            <td class="text-end"><strong>Name of Vaccine</strong></td>
+                            <td><strong>{{$data->getCurrentSchedData()->vaccinelist->vaccine_name}}</strong></td>
+                        </tr>
+                        @if($data->getCurrentSchedData()->sched_type != '1ST DOSE')
+                        <!-- EXTRA TABLE FOR SEPARATOR -->
                         <tr>
-                            <td class="text-end"><strong>Second Dose Date</strong></td>
+                            <td class="text-end">&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        @endif
+                        @if($data->getCurrentSchedData()->sched_type == '2ND DOSE')
+                        <tr>
+                            <td class="text-end"><strong>First Dose Date</strong></td>
                             <td>{{date('m/d/Y - l', strtotime($data->firstdose_date))}}</td>
                         </tr>
                         <tr>
-                            <td class="text-end"><strong>Second Dose Vaccine Name</strong></td>
-                            <td>{{$data->getSecondDoseData()->vaccinelist->vaccine_name}}</td>
+                            <td class="text-end"><strong>First Dose Vaccine Name</strong></td>
+                            <td>{{$data->getFirstDoseData()->vaccinelist->vaccine_name}}</td>
                         </tr>
-                        @endif
-                    @elseif($data->getCurrentSchedData()->sched_type == 'BOOSTER2')
-                    <tr>
-                        <td class="text-end"><strong>First Dose Date</strong></td>
-                        <td>{{date('m/d/Y - l', strtotime($data->firstdose_date))}}</td>
-                    </tr>
-                    <tr>
-                        <td class="text-end"><strong>First Dose Vaccine Name</strong></td>
-                        <td>{{$data->getFirstDoseData()->vaccinelist->vaccine_name}}</td>
-                    </tr>
-                        @if($data->is_singledose != 1)
+                        @elseif($data->getCurrentSchedData()->sched_type == 'BOOSTER')
                         <tr>
-                            <td class="text-end"><strong>Second Dose Date</strong></td>
+                            <td class="text-end"><strong>First Dose Date</strong></td>
                             <td>{{date('m/d/Y - l', strtotime($data->firstdose_date))}}</td>
                         </tr>
                         <tr>
-                            <td class="text-end"><strong>Second Dose Vaccine Name</strong></td>
-                            <td>{{$data->getSecondDoseData()->vaccinelist->vaccine_name}}</td>
+                            <td class="text-end"><strong>First Dose Vaccine Name</strong></td>
+                            <td>{{$data->getFirstDoseData()->vaccinelist->vaccine_name}}</td>
+                        </tr>
+                            @if($data->is_singledose != 1)
+                            <tr>
+                                <td class="text-end"><strong>Second Dose Date</strong></td>
+                                <td>{{date('m/d/Y - l', strtotime($data->firstdose_date))}}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-end"><strong>Second Dose Vaccine Name</strong></td>
+                                <td>{{$data->getSecondDoseData()->vaccinelist->vaccine_name}}</td>
+                            </tr>
+                            @endif
+                        @elseif($data->getCurrentSchedData()->sched_type == 'BOOSTER2')
+                        <tr>
+                            <td class="text-end"><strong>First Dose Date</strong></td>
+                            <td>{{date('m/d/Y - l', strtotime($data->firstdose_date))}}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-end"><strong>First Dose Vaccine Name</strong></td>
+                            <td>{{$data->getFirstDoseData()->vaccinelist->vaccine_name}}</td>
+                        </tr>
+                            @if($data->is_singledose != 1)
+                            <tr>
+                                <td class="text-end"><strong>Second Dose Date</strong></td>
+                                <td>{{date('m/d/Y - l', strtotime($data->firstdose_date))}}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-end"><strong>Second Dose Vaccine Name</strong></td>
+                                <td>{{$data->getSecondDoseData()->vaccinelist->vaccine_name}}</td>
+                            </tr>
+                            @endif
+                        <tr>
+                            <td class="text-end"><strong>Booster Date</strong></td>
+                            <td>{{$data->getBoosterData()->vaccinelist->vaccine_name}}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-end"><strong>Booster Vaccine Name</strong></td>
+                            <td>{{$data->getBoosterData()->vaccinelist->vaccine_name}}</td>
                         </tr>
                         @endif
-                    <tr>
-                        <td class="text-end"><strong>Booster Date</strong></td>
-                        <td>{{$data->getBoosterData()->vaccinelist->vaccine_name}}</td>
-                    </tr>
-                    <tr>
-                        <td class="text-end"><strong>Booster Vaccine Name</strong></td>
-                        <td>{{$data->getBoosterData()->vaccinelist->vaccine_name}}</td>
-                    </tr>
+                    @else
+                        
                     @endif
                 </tbody>
             </table>
         </div>
+        @if(!is_null($data->getCurrentSchedData()))
         <div class="card-footer">
             <div class="d-grid gap-2">
                 <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#acceptmodal"><i class="fa fa-check-circle me-2" aria-hidden="true"></i>Accept</button>
                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#defermodal"><i class="fa fa-times-circle me-2" aria-hidden="true"></i>Defer</button>
             </div>
         </div>
+        @endif
     </div>
 </div>
 

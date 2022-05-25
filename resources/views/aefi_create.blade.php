@@ -516,11 +516,11 @@
                     <div class="card-header"><strong>VII. CLINICAL DETAILS</strong> - Attach copies of ALL available documents including case sheet/s, health screening form, copy of vaccination card, discharge summary, case notes, lab and autopsy reports, prescriptions, and others. Separate sheet/s may be attached to complete the information.</div>
                     <div class="card-body">
                         <div class="mb-3">
-                            <label for="p7_item1" class="form-label">1. What is your complete diagnosis or problem list?</label>
+                            <label for="p7_item1" class="form-label"><strong class="text-danger">*</strong>1. What is your complete diagnosis or problem list?</label>
                             <textarea class="form-control" id="p7_item1" rows="3">{{old('p7_item1')}}</textarea>
                         </div>
                         <div class="mb-3">
-                            <label for="p7_item2" class="form-label">2. Please narrate the chronology of the events, including the date and time</label>
+                            <label for="p7_item2" class="form-label"><strong class="text-danger">*</strong>2. Please narrate the chronology of the events, including the date and time</label>
                             <textarea class="form-control" id="p7_item2" rows="3">{{old('p7_item2')}}</textarea>
                             <small class="text-muted">You may also use a separate sheet or attach another document listing the complete diagnosis. Refer to the Brighton Collaboration, Clinical Practice Guidelines, or International Classification of Diseases for the diagnosis.</small>
                         </div>
@@ -554,8 +554,12 @@
                                     <td><textarea class="form-control" id="p7_personalhistory_notsupport" rows="3">{{old('p7_personalhistory_notsupport')}}</textarea></td>
                                 </tr>
                                 <tr>
-                                    <td>Physical Examination on first interaction</td>
+                                    <td>
+                                        <label for="">Physical Examination on first interaction</label>
+                                        <label for=""><small>The patient's height (in cm) and weight (in kg) may be placed here.</small></label>
+                                    </td>
                                     <td><textarea class="form-control" id="p7_physicalexam_support" rows="3">{{old('p7_physicalexam_support')}}</textarea></td>
+                                    <td><textarea class="form-control" id="p7_physicalexam_notsupport" rows="3">{{old('p7_physicalexam_notsupport')}}</textarea></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -563,12 +567,46 @@
                             <label for="p7_item3" class="form-label">3. Based on your expertise, among the diagnoses mentioned in #1, which diagnosis do you think contributed the most or triggered the series of events towards hospitalization, disability, or death?</label>
                             <textarea class="form-control" id="p7_item3" rows="3">{{old('p7_item3')}}</textarea>
                         </div>
+                        <div class="mb-3">
+                            <label for="p7_item3" class="form-label">4. Is this selected diagnosis, now termed as the "event being assessed", strongly supported by objective findings in the history and PE to fit a case definition, from any criteria whether in the Brighton classification, local guideline, or international guideline?*</label>
+                            <select class="form-select" name="p7_item4_yn" id="p7_item4_yn" required>
+                                <option value="" disabled {{(is_null(old('p7_item4_yn')) ? 'selected' : '')}}>Choose...</option>
+                                <option value="Yes" {{(old('p7_item4_yn') == 'Yes')}}>Yes</option>
+                                <option value="No" {{(old('p7_item4_yn') == 'No')}}>No</option>
+                            </select>
+                        </div>
+                        <div id="p7_item4_citation_div" class="d-none">
+                            <label for="p7_item4_citation" class="form-label" id="p7_item4_citation_label"></label>
+                            <textarea class="form-control" id="p7_item4_citation" rows="3">{{old('p7_item4_citation')}}</textarea>
+                            <small class="text-muted">You may use a separate sheet or attach another document.</small>
+                        </div>
+                        <hr>
+                        <p><strong>NOTE:</strong> Be specific as to which symptoms occurred prior to vaccination or are recurring since before vaccination, while manifested after Findings from specialist consultation or referrals may also be included. For laboratory findings, include the date, time and normal range of values. For histopathologic, laboratory, radiologic, electrophysiological studies, you may attach them as reference. Any dermatologic findings or imaging may be attached.</p>
                     </div>
                 </div>
                 <div class="card mb-3">
                     <div class="card-header"><strong>VIII. COURSE IN THE HOSPITALIZATION</strong> - You may opt to attach a medical abstract outlining the chronological course of hospitalization in SOAP format.</div>
                     <div class="card-body">
-                        
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr class="text-center bg-light">
+                                    <th>Date/Time</th>
+                                    <th>Subjective Findings</th>
+                                    <th>Objective Findings</th>
+                                    <th>Assessment</th>
+                                    <th>Plan/Management Done</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><input type="text" class="form-control" name="p8_course_datetime1" id="p8_course_datetime1"></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
                 <div class="card mb-3">
@@ -754,5 +792,20 @@
             
         }
     });
+
+    $('#p7_item4_yn').change(function (e) { 
+        e.preventDefault();
+        if($(this).val() == 'Yes') {
+            $('#p7_item4_citation_div').removeClass('d-none');
+            $('#p7_item4_citation_label').html('Cite the case definition, if you are aware of it');
+        }
+        else if($(this).val() == 'No') {
+            $('#p7_item4_citation_div').removeClass('d-none');
+            $('#p7_item4_citation_label').html('If NOT STRONGLY SUPPORTED AND DEDUCED OR SIMPLY TERMED AS "PROBABLE" OR "TO CONSIDER", which of the events in the chronology of events leading to hospitalization or death is strongly supported by history and PE to fit a case definition?');
+        }
+        else {
+            $('#p7_item4_citation_div').addClass('d-none');
+        }
+    }).trigger('change');
 </script>
 @endsection

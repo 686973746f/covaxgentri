@@ -10,6 +10,23 @@
                 <div class="card mb-3">
                     <div class="card-header"><strong><i class="fa-solid fa-circle-user me-2"></i>Personal Information</strong></div>
                     <div class="card-body">
+                        @if(session('msg'))
+                        <div class="alert alert-{{session('msgtype')}} text-center" role="alert">
+                            {{session('msg')}} @if(session('from_qr'))<a href="{{route('patientscan_index')}}">Do another Search</a>@endif
+                        </div>
+                        @endif
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr>
+                                    <td>Record ID</td>
+                                    <td class="text-center">#{{$data->id}}</td>
+                                </tr>
+                                <tr>
+                                    <td style="vertical-align: middle;">QR Code</td>
+                                    <td class="text-center">{!! QrCode::size(75)->generate($data->qr_id) !!}</td>
+                                </tr>
+                            </tbody>
+                        </table>
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="mb-3">

@@ -350,7 +350,29 @@ class Patient extends Authenticatable
             $get_id = $this->booster_schedule_id;
         }
         else if(!is_null($this->boostertwo_schedule_id) && is_null($this->boosterboostertwo_date)) {
-            $get_id = $this->boosterboostertwo_schedule_id;
+            $get_id = $this->boostertwo_schedule_id;
+        }
+        else {
+            return NULL;
+        }
+
+        $data = VaccinationSchedule::findOrFail($get_id);
+
+        return $data;
+    }
+
+    public function getPendingSchedData() {
+        if(!is_null($this->boostertwo_schedule_id)) {
+            $get_id = $this->boostertwo_schedule_id;
+        }
+        else if(!is_null($this->booster_schedule_id)) {
+            $get_id = $this->booster_schedule_id;
+        }
+        else if(!is_null($this->seconddose_schedule_id)) {
+            $get_id = $this->seconddose_schedule_id;
+        }
+        else if(!is_null($this->firstdose_schedule_id)) {
+            $get_id = $this->firstdose_schedule_id;
         }
         else {
             return NULL;
