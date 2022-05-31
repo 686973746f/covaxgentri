@@ -95,4 +95,13 @@ class AdminController extends Controller
     public function patient_updateprofile($id) {
 
     }
+
+    public function patient_clearvaccinationrecords($id) {
+        //For testing purposes onyly
+        $data = Patient::findOrFail($id);
+
+        $data-
+
+        $data->save();
+    }
 }
