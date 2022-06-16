@@ -358,4 +358,192 @@
         </div>
     </div>
 </form>
+
+<script>
+    $('#priority_group').change(function (e) { 
+        e.preventDefault();
+        if($(this).val() == 'ROPP') {
+            $('#guardian_div').removeClass('d-none');
+            $('#ifpedia_guardian_fname').prop('required', true);
+            $('#ifpedia_guardian_lname').prop('required', true);
+            $('#ifpedia_requirements').prop('required', true);
+        }
+        else {
+            $('#guardian_div').addClass('d-none');
+            $('#ifpedia_guardian_fname').prop('required', false);
+            $('#ifpedia_guardian_lname').prop('required', false);
+            $('#ifpedia_requirements').prop('required', false);
+        }
+    });
+
+    $("#comorbid_list").change(function () {
+        if ($("#comorbid_list option[value=Others]:selected").length > 0) {
+            $('#como_others').removeClass('d-none');
+            $('#comorbid_others').prop('required', true);
+        }
+        else {
+            $('#como_others').addClass('d-none');
+            $('#comorbid_others').prop('required', false);
+        }
+    });
+
+    //Region Select Initialize
+    $.getJSON("{{asset('json/refregion.json')}}", function(data) {
+        var sorted = data.sort(function(a, b) {
+            if (a.regDesc > b.regDesc) {
+                return 1;
+            }
+            if (a.regDesc < b.regDesc) {
+                return -1;
+            }
+
+            return 0;
+        });
+
+        $.each(sorted, function(key, val) {
+            $('#address_region_code').append($('<option>', {
+                value: val.regCode,
+                text: val.regDesc,
+                selected: (val.regCode == '04') ? true : false, //default is Region IV-A
+            }));
+        });
+    });
+
+    $('#address_region_code').change(function (e) { 
+        e.preventDefault();
+        //Empty and Disable
+        $('#address_province_code').empty();
+        $("#address_province_code").append('<option value="" selected disabled>Choose...</option>');
+
+        $('#address_muncity_code').empty();
+        $("#address_muncity_code").append('<option value="" selected disabled>Choose...</option>');
+
+        //Re-disable Select
+        $('#address_muncity_code').prop('disabled', true);
+        $('#address_brgy_text').prop('disabled', true);
+
+        //Set Values for Hidden Box
+        $('#address_region_text').val($('#address_region_code option:selected').text());
+
+        $.getJSON("{{asset('json/refprovince.json')}}", function(data) {
+            var sorted = data.sort(function(a, b) {
+                if (a.provDesc > b.provDesc) {
+                return 1;
+                }
+                if (a.provDesc < b.provDesc) {
+                return -1;
+                }
+                return 0;
+            });
+
+            $.each(sorted, function(key, val) {
+                if($('#address_region_code').val() == val.regCode) {
+                    $('#address_province_code').append($('<option>', {
+                        value: val.provCode,
+                        text: val.provDesc,
+                        selected: (val.provCode == '0421') ? true : false, //default for Cavite
+                    }));
+                }
+            });
+        });
+    }).trigger('change');
+
+    $('#address_province_code').change(function (e) {
+        e.preventDefault();
+        //Empty and Disable
+        $('#address_muncity_code').empty();
+        $("#address_muncity_code").append('<option value="" selected disabled>Choose...</option>');
+
+        //Re-disable Select
+        $('#address_muncity_code').prop('disabled', false);
+        $('#address_brgy_text').prop('disabled', true);
+
+        //Set Values for Hidden Box
+        $('#address_province_text').val($('#address_province_code option:selected').text());
+
+        $.getJSON("{{asset('json/refcitymun.json')}}", function(data) {
+            var sorted = data.sort(function(a, b) {
+                if (a.citymunDesc > b.citymunDesc) {
+                    return 1;
+                }
+                if (a.citymunDesc < b.citymunDesc) {
+                    return -1;
+                }
+                return 0;
+            });
+            $.each(sorted, function(key, val) {
+                if($('#address_province_code').val() == val.provCode) {
+                    $('#address_muncity_code').append($('<option>', {
+                        value: val.citymunCode,
+                        text: val.citymunDesc,
+                        selected: (val.citymunCode == '042108') ? true : false, //default for General Trias
+                    })); 
+                }
+            });
+        });
+    }).trigger('change');
+
+    $('#address_muncity_code').change(function (e) {
+        e.preventDefault();
+        //Empty and Disable
+        $('#address_brgy_text').empty();
+        $("#address_brgy_text").append('<option value="" selected disabled>Choose...</option>');
+
+        //Re-disable Select
+        $('#address_muncity_code').prop('disabled', false);
+        $('#address_brgy_text').prop('disabled', false);
+
+        //Set Values for Hidden Box
+        $('#address_muncity_text').val($('#address_muncity_code option:selected').text());
+
+        $.getJSON("{{asset('json/refbrgy.json')}}", function(data) {
+            var sorted = data.sort(function(a, b) {
+                if (a.brgyDesc > b.brgyDesc) {
+                return 1;
+                }
+                if (a.brgyDesc < b.brgyDesc) {
+                return -1;
+                }
+                return 0;
+            });
+            $.each(sorted, function(key, val) {
+                if($('#address_muncity_code').val() == val.citymunCode) {
+                    $('#address_brgy_text').append($('<option>', {
+                        value: val.brgyDesc.toUpperCase(),
+                        text: val.brgyDesc.toUpperCase(),
+                    }));
+                }
+            });
+        });
+    }).trigger('change');
+
+    $('#address_region_text').val('REGION IV-A (CALABARZON)');
+    $('#address_province_text').val('CAVITE');
+    $('#address_muncity_text').val('GENERAL TRIAS');
+
+    $('#priority_group').change(function (e) { 
+        if($(this).val() == null) {
+            $('#part1div').addClass('d-none');
+            $('#submitbtn').prop('disabled', true);
+        }
+        else {
+            $('#part1div').removeClass('d-none');
+            $('#submitbtn').prop('disabled', false);
+        }
+    }).trigger('change');
+
+    $('#sex').change(function (e) { 
+        e.preventDefault();
+        if($(this).val() == null || $(this).val() == 'MALE') {
+            $('#if_female').addClass('d-none');
+            $('#if_female_pregnant').prop('required', false);
+            $('#if_female_lactating').prop('required', false);
+        }
+        else if($(this).val() == 'FEMALE') {
+            $('#if_female').removeClass('d-none');
+            $('#if_female_pregnant').prop('required', true);
+            $('#if_female_lactating').prop('required', true);
+        }
+    }).trigger('change');
+</script>
 @endsection
